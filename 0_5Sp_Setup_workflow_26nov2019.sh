@@ -99,7 +99,6 @@ if $RUN_CLASSIFICATION ; then
 
 	# Going to try matching to 2 different databases. See which one has more hits.
 
-	## I tried doing gg and silva; silva had more hits so I'm going to use that here
     ## Download greengenes taxonomy 
     curl -O "https://s3-us-west-2.amazonaws.com/qiime2-data/2019.10/common/gg-13-8-99-515-806-nb-classifier.qza"
 
@@ -110,6 +109,7 @@ if $RUN_CLASSIFICATION ; then
      --o-classification ./0_QIITA_files/taxonomy_gg.qza
 
     # Download silva taxonomy 
+    ## Uncomment if you'd like to use SILVA instead-- I used gg in all subsequent analyses
 #     curl -O "https://s3-us-west-2.amazonaws.com/qiime2-data/2019.10/common/silva-132-99-515-806-nb-classifier.qza"
 
     # Add taxonomy to featureTable
@@ -117,7 +117,6 @@ if $RUN_CLASSIFICATION ; then
 #       --i-classifier silva-132-99-515-806-nb-classifier.qza \
 #       --i-reads ./0_fasta_files/filtered_repset.qza \
 #       --o-classification ./0_QIITA_files/taxonomy.qza
-    # STOPPED RUNNING HERE TEMP 27nov2019
     # remove database to save space
 #     rm silva-132-99-515-806-nb-classifier.qza
     rm gg-13-8-99-515-806-nb-classifier.qza
