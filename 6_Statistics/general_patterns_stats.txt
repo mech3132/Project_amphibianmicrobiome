@@ -1,0 +1,13 @@
+Microbial.Community.Trait	Metric	Test	Control_species	Control_time	Control_speciesxtime	Treatment_species	Treatment_time	Treatment_speciesxtime
+Alpha diversity	Observed otus	ANOVA	p<0.001, F(4,206)=9.539	p=0.644, F(1,206)=0.214	p=0.063, F(4,206)=2.267	p<0.001, F(4,289)=15.359	p=0.417, F(1,289)=0.662	p<0.001, F(4,289)=7.319
+Alpha diversity	Chao1	ANOVA	p<0.001, F(4,206)=8.939	p=0.488, F(1,206)=0.482	p=0.076, F(4,206)=2.148	p<0.001, F(4,289)=13.442	p=0.479, F(1,289)=0.502	p<0.001, F(4,289)=5.004
+Alpha diversity	Faith's PD	ANOVA	p<0.001, F(4,206)=9.185	p=0.514, F(1,206)=0.427	p=0.063, F(4,206)=2.268	p<0.001, F(4,289)=19.88	p=0.251, F(1,289)=1.324	p<0.001, F(4,289)=9.14
+Alpha diversity	Shannon	ANOVA	p=0.026, F(4,206)=2.817	p=0.678, F(1,206)=0.173	p=0.002, F(4,206)=4.416	p<0.001, F(4,289)=7.448	p=0.01, F(1,289)=6.71	p<0.001, F(4,289)=9.922
+Dispersion	Bray-curtis	ANOVA	p<0.001, F(4,206)=6.318	p<0.001, F(1,206)=27.294	p=0.072, F(4,206)=2.184	p=0.882, F(4,289)=0.294	p<0.001, F(1,289)=27.573	p=0.01, F(4,289)=3.378
+Dispersion	Unweighted Unifrac	ANOVA	p=0.601, F(4,206)=0.689	p=0.024, F(1,206)=5.138	p=0.012, F(4,206)=3.28	p=0.318, F(4,289)=1.185	p=0.022, F(1,289)=5.287	p=0.183, F(4,289)=1.568
+Dispersion	Weighted Unifrac	ANOVA	p<0.001, F(4,206)=5.296	p<0.001, F(1,206)=23.797	p=0.003, F(4,206)=4.245	p=0.552, F(4,289)=0.76	p=0.021, F(1,289)=5.385	p=0.678, F(4,289)=0.579
+Distance	Bray-curtis	LR Chisq	p=0.016, LR Chisq(4)=12.197	p=0.502, LR Chisq(1)=0.45	p=0.89, LR Chisq(4)=1.128	p=0.417, LR Chisq(4)=3.92	p=0.757, LR Chisq(1)=0.096	p=0.819, LR Chisq(4)=1.543
+Distance	Unweighted Unifrac	LR Chisq	p<0.001, LR Chisq(4)=21.02	p=0.288, LR Chisq(1)=1.129	p=0.408, LR Chisq(4)=3.988	p<0.001, LR Chisq(4)=20.257	p=0.56, LR Chisq(1)=0.339	p=0.181, LR Chisq(4)=6.257
+Distance	Weighted Unifrac	LR Chisq	p=0.064, LR Chisq(4)=8.875	p=0.13, LR Chisq(1)=2.295	p=0.824, LR Chisq(4)=1.513	p=0.165, LR Chisq(4)=6.5	p=0.582, LR Chisq(1)=0.302	p=0.752, LR Chisq(4)=1.912
+Inhibitory Richness	Count	LR Chisq	p<0.001, LR Chisq(4)=25.884	p=0.002, LR Chisq(1)=9.813	p<0.001, LR Chisq(4)=27.335	p<0.001, LR Chisq(4)=38.899	p=0.003, LR Chisq(1)=8.707	p<0.001, LR Chisq(4)=23.356
+Percent Inhibitory	Proportion	LR Chisq	p<0.001, LR Chisq(4)=77.452	p=0.162, LR Chisq(1)=1.957	p<0.001, LR Chisq(4)=40.898	p<0.001, LR Chisq(4)=79.648	p=0.575, LR Chisq(1)=0.314	p<0.001, LR Chisq(4)=73.554

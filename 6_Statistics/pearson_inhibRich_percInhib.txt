@@ -1,0 +1,12 @@
+
+	Pearson's product-moment correlation
+
+data:  all_p$p_inhibRich and all_p$p_percInhib
+t = 1.8011, df = 20, p-value = 0.08679
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.05701009  0.68698375
+sample estimates:
+      cor 
+0.3735776 
+

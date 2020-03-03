@@ -190,7 +190,7 @@ mantel.rtest(as.dist(unweighted_unifrac_filt)
     Alternative hypothesis: greater 
     
           Std.Obs   Expectation      Variance 
-     5.437193e+01 -6.612665e-04  8.859155e-05 
+     5.597486e+01 -1.804788e-04  8.343327e-05 
 
 
 
@@ -203,8 +203,8 @@ mantel.rtest(as.dist(unweighted_unifrac_filt)
     Simulated p-value: 0.01 
     Alternative hypothesis: greater 
     
-         Std.Obs  Expectation     Variance 
-    4.735978e+01 1.358403e-05 1.160387e-04 
+          Std.Obs   Expectation      Variance 
+     5.295019e+01 -1.474293e-03  9.337199e-05 
 
 
 
@@ -217,8 +217,8 @@ mantel.rtest(as.dist(unweighted_unifrac_filt)
     Simulated p-value: 0.01 
     Alternative hypothesis: greater 
     
-         Std.Obs  Expectation     Variance 
-    1.754650e+01 1.151417e-03 3.205836e-04 
+          Std.Obs   Expectation      Variance 
+    16.1153344411 -0.0017430484  0.0003870877 
 
 
 It looks like all the distance matrices are correlated to each other, which is good. Now, let's see if distance and dispersion are correlated
@@ -433,11 +433,11 @@ write.table(adonis_composition_wu_timexspeciesxpabd_treat
 <tbody>
 	<tr><th scope=row>species</th><td>  4</td><td> 625.584701</td><td>0.421950636</td><td>66.573237</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td>  92.486081</td><td>0.062380939</td><td>39.368596</td><td>0.001</td></tr>
-	<tr><th scope=row>PABD</th><td>  1</td><td>   8.299677</td><td>0.005598049</td><td> 3.532928</td><td>0.004</td></tr>
+	<tr><th scope=row>PABD</th><td>  1</td><td>   8.299677</td><td>0.005598049</td><td> 3.532928</td><td>0.002</td></tr>
 	<tr><th scope=row>species:time</th><td>  4</td><td>  61.721768</td><td>0.041630716</td><td> 6.568284</td><td>0.001</td></tr>
-	<tr><th scope=row>species:PABD</th><td>  3</td><td>   9.040943</td><td>0.006098026</td><td> 1.282821</td><td>0.157</td></tr>
+	<tr><th scope=row>species:PABD</th><td>  3</td><td>   9.040943</td><td>0.006098026</td><td> 1.282821</td><td>0.165</td></tr>
 	<tr><th scope=row>time:PABD</th><td>  1</td><td>  14.980506</td><td>0.010104202</td><td> 6.376759</td><td>0.001</td></tr>
-	<tr><th scope=row>species:time:PABD</th><td>  2</td><td>   8.003703</td><td>0.005398418</td><td> 1.703470</td><td>0.042</td></tr>
+	<tr><th scope=row>species:time:PABD</th><td>  2</td><td>   8.003703</td><td>0.005398418</td><td> 1.703470</td><td>0.045</td></tr>
 	<tr><th scope=row>Residual</th><td>282</td><td> 662.484252</td><td>0.446839014</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>298</td><td>1482.601631</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -458,11 +458,11 @@ write.table(adonis_composition_wu_timexspeciesxpabd_treat
 <tbody>
 	<tr><th scope=row>species</th><td>  4</td><td>155.288528</td><td>0.325394687</td><td>40.480792</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td> 24.032886</td><td>0.050358989</td><td>25.059681</td><td>0.001</td></tr>
-	<tr><th scope=row>PABD</th><td>  1</td><td>  1.132054</td><td>0.002372129</td><td> 1.180421</td><td>0.267</td></tr>
+	<tr><th scope=row>PABD</th><td>  1</td><td>  1.132054</td><td>0.002372129</td><td> 1.180421</td><td>0.238</td></tr>
 	<tr><th scope=row>species:time</th><td>  4</td><td> 18.319874</td><td>0.038387830</td><td> 4.775646</td><td>0.001</td></tr>
-	<tr><th scope=row>species:PABD</th><td>  3</td><td>  3.655380</td><td>0.007659557</td><td> 1.270518</td><td>0.154</td></tr>
-	<tr><th scope=row>time:PABD</th><td>  1</td><td>  2.411559</td><td>0.005053230</td><td> 2.514592</td><td>0.019</td></tr>
-	<tr><th scope=row>species:time:PABD</th><td>  2</td><td>  1.945682</td><td>0.004077020</td><td> 1.014405</td><td>0.396</td></tr>
+	<tr><th scope=row>species:PABD</th><td>  3</td><td>  3.655380</td><td>0.007659557</td><td> 1.270518</td><td>0.180</td></tr>
+	<tr><th scope=row>time:PABD</th><td>  1</td><td>  2.411559</td><td>0.005053230</td><td> 2.514592</td><td>0.016</td></tr>
+	<tr><th scope=row>species:time:PABD</th><td>  2</td><td>  1.945682</td><td>0.004077020</td><td> 1.014405</td><td>0.394</td></tr>
 	<tr><th scope=row>Residual</th><td>282</td><td>270.445333</td><td>0.566696558</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>298</td><td>477.231296</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -483,11 +483,11 @@ write.table(adonis_composition_wu_timexspeciesxpabd_treat
 <tbody>
 	<tr><th scope=row>species</th><td>  4</td><td>155.288528</td><td>0.325394687</td><td>40.480792</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td> 24.032886</td><td>0.050358989</td><td>25.059681</td><td>0.001</td></tr>
-	<tr><th scope=row>PABD</th><td>  1</td><td>  1.132054</td><td>0.002372129</td><td> 1.180421</td><td>0.289</td></tr>
+	<tr><th scope=row>PABD</th><td>  1</td><td>  1.132054</td><td>0.002372129</td><td> 1.180421</td><td>0.281</td></tr>
 	<tr><th scope=row>species:time</th><td>  4</td><td> 18.319874</td><td>0.038387830</td><td> 4.775646</td><td>0.001</td></tr>
-	<tr><th scope=row>species:PABD</th><td>  3</td><td>  3.655380</td><td>0.007659557</td><td> 1.270518</td><td>0.169</td></tr>
-	<tr><th scope=row>time:PABD</th><td>  1</td><td>  2.411559</td><td>0.005053230</td><td> 2.514592</td><td>0.023</td></tr>
-	<tr><th scope=row>species:time:PABD</th><td>  2</td><td>  1.945682</td><td>0.004077020</td><td> 1.014405</td><td>0.427</td></tr>
+	<tr><th scope=row>species:PABD</th><td>  3</td><td>  3.655380</td><td>0.007659557</td><td> 1.270518</td><td>0.153</td></tr>
+	<tr><th scope=row>time:PABD</th><td>  1</td><td>  2.411559</td><td>0.005053230</td><td> 2.514592</td><td>0.016</td></tr>
+	<tr><th scope=row>species:time:PABD</th><td>  2</td><td>  1.945682</td><td>0.004077020</td><td> 1.014405</td><td>0.433</td></tr>
 	<tr><th scope=row>Residual</th><td>282</td><td>270.445333</td><td>0.566696558</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>298</td><td>477.231296</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -557,7 +557,7 @@ write.table(adonis_composition_wu_timexspeciesxpabdxtreatment
 	<tr><th scope=row>species</th><td>  4</td><td> 468.946614</td><td>0.374846682</td><td>84.889900</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td>  57.078811</td><td>0.045625242</td><td>41.330202</td><td>0.001</td></tr>
 	<tr><th scope=row>prepost:Bd_exposure</th><td>  3</td><td>  25.265218</td><td>0.020195440</td><td> 6.098098</td><td>0.001</td></tr>
-	<tr><th scope=row>prepost:Bd_exposure:PABD</th><td>  1</td><td>   2.318127</td><td>0.001852966</td><td> 1.678533</td><td>0.108</td></tr>
+	<tr><th scope=row>prepost:Bd_exposure:PABD</th><td>  1</td><td>   2.318127</td><td>0.001852966</td><td> 1.678533</td><td>0.120</td></tr>
 	<tr><th scope=row>Residual</th><td>505</td><td> 697.427019</td><td>0.557479670</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>1251.035789</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -578,8 +578,8 @@ write.table(adonis_composition_wu_timexspeciesxpabdxtreatment
 <tbody>
 	<tr><th scope=row>species</th><td>  4</td><td> 653.3744</td><td>0.249681365</td><td>45.529466</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td> 115.7513</td><td>0.044233360</td><td>32.263862</td><td>0.001</td></tr>
-	<tr><th scope=row>prepost:Bd_exposure</th><td>  3</td><td>  23.0808</td><td>0.008820128</td><td> 2.144470</td><td>0.019</td></tr>
-	<tr><th scope=row>prepost:Bd_exposure:PABD</th><td>  1</td><td>  12.8652</td><td>0.004916326</td><td> 3.585974</td><td>0.007</td></tr>
+	<tr><th scope=row>prepost:Bd_exposure</th><td>  3</td><td>  23.0808</td><td>0.008820128</td><td> 2.144470</td><td>0.014</td></tr>
+	<tr><th scope=row>prepost:Bd_exposure:PABD</th><td>  1</td><td>  12.8652</td><td>0.004916326</td><td> 3.585974</td><td>0.011</td></tr>
 	<tr><th scope=row>Residual</th><td>505</td><td>1811.7612</td><td>0.692348820</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>2616.8330</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -648,7 +648,7 @@ write.table(adonis_composition_wu_timexspeciesxbdloadxtreatment
 	<tr><th scope=row>species</th><td>  4</td><td> 468.946614</td><td>0.374846682</td><td>84.988269</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td>  57.078811</td><td>0.045625242</td><td>41.378094</td><td>0.001</td></tr>
 	<tr><th scope=row>prepost:Bd_exposure</th><td>  3</td><td>  25.265218</td><td>0.020195440</td><td> 6.105164</td><td>0.001</td></tr>
-	<tr><th scope=row>prepost:Bd_exposure:Bd_load</th><td>  1</td><td>   3.125354</td><td>0.002498213</td><td> 2.265660</td><td>0.056</td></tr>
+	<tr><th scope=row>prepost:Bd_exposure:Bd_load</th><td>  1</td><td>   3.125354</td><td>0.002498213</td><td> 2.265660</td><td>0.037</td></tr>
 	<tr><th scope=row>Residual</th><td>505</td><td> 696.619792</td><td>0.556834423</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>1251.035789</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -669,7 +669,7 @@ write.table(adonis_composition_wu_timexspeciesxbdloadxtreatment
 <tbody>
 	<tr><th scope=row>species</th><td>  4</td><td> 653.37443</td><td>0.249681365</td><td>45.997061</td><td>0.001</td></tr>
 	<tr><th scope=row>time</th><td>  1</td><td> 115.75132</td><td>0.044233360</td><td>32.595217</td><td>0.001</td></tr>
-	<tr><th scope=row>prepost:Bd_exposure</th><td>  3</td><td>  23.08080</td><td>0.008820128</td><td> 2.166495</td><td>0.015</td></tr>
+	<tr><th scope=row>prepost:Bd_exposure</th><td>  3</td><td>  23.08080</td><td>0.008820128</td><td> 2.166495</td><td>0.016</td></tr>
 	<tr><th scope=row>prepost:Bd_exposure:Bd_load</th><td>  1</td><td>  31.28313</td><td>0.011954578</td><td> 8.809235</td><td>0.001</td></tr>
 	<tr><th scope=row>Residual</th><td>505</td><td>1793.34329</td><td>0.685310569</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>2616.83297</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
@@ -2062,18 +2062,18 @@ all_corr
 	<tr><th></th><th scope=col>p_observed_otus</th><th scope=col>p_chao1</th><th scope=col>p_faith_pd</th><th scope=col>p_shannon</th><th scope=col>p_disper_braycurtis</th><th scope=col>p_disper_unweighted_unifrac</th><th scope=col>p_disper_weighted_unifrac</th><th scope=col>p_dist_braycurtis</th><th scope=col>p_dist_unweighted_unifrac</th><th scope=col>p_dist_weighted_unifrac</th><th scope=col>p_percInhib</th><th scope=col>p_inhibRich</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>p_observed_otus</th><td> 1.00000000</td><td> 0.96689155</td><td> 0.949756363</td><td> 0.76945006</td><td>-0.1671852</td><td> 0.11511247</td><td>-0.161693631</td><td>-0.058242865</td><td>-0.193538124</td><td>-0.09483088</td><td>-0.47789397</td><td>-0.273071170</td></tr>
-	<tr><th scope=row>p_chao1</th><td> 0.96689155</td><td> 1.00000000</td><td> 0.917570906</td><td> 0.76007695</td><td>-0.2253583</td><td> 0.09886577</td><td>-0.203046354</td><td>-0.207373873</td><td>-0.261298590</td><td>-0.24000862</td><td>-0.43226885</td><td>-0.208260945</td></tr>
-	<tr><th scope=row>p_faith_pd</th><td> 0.94975636</td><td> 0.91757091</td><td> 1.000000000</td><td> 0.79646779</td><td>-0.1055691</td><td> 0.32767270</td><td> 0.009228819</td><td> 0.004214432</td><td>-0.163726087</td><td>-0.04013973</td><td>-0.59750023</td><td>-0.435197959</td></tr>
-	<tr><th scope=row>p_shannon</th><td> 0.76945006</td><td> 0.76007695</td><td> 0.796467789</td><td> 1.00000000</td><td>-0.1826957</td><td> 0.08963792</td><td>-0.028984738</td><td>-0.045400470</td><td>-0.243487350</td><td> 0.04211070</td><td>-0.73869705</td><td>-0.359080305</td></tr>
-	<tr><th scope=row>p_disper_braycurtis</th><td>-0.16718523</td><td>-0.22535832</td><td>-0.105569141</td><td>-0.18269566</td><td> 1.0000000</td><td> 0.19587003</td><td> 0.613016332</td><td> 0.337367365</td><td> 0.139376440</td><td> 0.42786722</td><td>-0.12607199</td><td>-0.170569650</td></tr>
-	<tr><th scope=row>p_disper_unweighted_unifrac</th><td> 0.11511247</td><td> 0.09886577</td><td> 0.327672703</td><td> 0.08963792</td><td> 0.1958700</td><td> 1.00000000</td><td> 0.492604201</td><td> 0.165953571</td><td> 0.126506881</td><td> 0.18270898</td><td>-0.23395655</td><td>-0.467753319</td></tr>
-	<tr><th scope=row>p_disper_weighted_unifrac</th><td>-0.16169363</td><td>-0.20304635</td><td> 0.009228819</td><td>-0.02898474</td><td> 0.6130163</td><td> 0.49260420</td><td> 1.000000000</td><td> 0.373024635</td><td> 0.048988155</td><td> 0.50872735</td><td>-0.47300983</td><td>-0.220679173</td></tr>
-	<tr><th scope=row>p_dist_braycurtis</th><td>-0.05824287</td><td>-0.20737387</td><td> 0.004214432</td><td>-0.04540047</td><td> 0.3373674</td><td> 0.16595357</td><td> 0.373024635</td><td> 1.000000000</td><td> 0.420689905</td><td> 0.91170045</td><td>-0.33563958</td><td>-0.287861950</td></tr>
-	<tr><th scope=row>p_dist_unweighted_unifrac</th><td>-0.19353812</td><td>-0.26129859</td><td>-0.163726087</td><td>-0.24348735</td><td> 0.1393764</td><td> 0.12650688</td><td> 0.048988155</td><td> 0.420689905</td><td> 1.000000000</td><td> 0.37809299</td><td>-0.03955176</td><td> 0.007931732</td></tr>
-	<tr><th scope=row>p_dist_weighted_unifrac</th><td>-0.09483088</td><td>-0.24000862</td><td>-0.040139730</td><td> 0.04211070</td><td> 0.4278672</td><td> 0.18270898</td><td> 0.508727354</td><td> 0.911700452</td><td> 0.378092986</td><td> 1.00000000</td><td>-0.47263387</td><td>-0.228154223</td></tr>
-	<tr><th scope=row>p_percInhib</th><td>-0.47789397</td><td>-0.43226885</td><td>-0.597500231</td><td>-0.73869705</td><td>-0.1260720</td><td>-0.23395655</td><td>-0.473009827</td><td>-0.335639585</td><td>-0.039551760</td><td>-0.47263387</td><td> 1.00000000</td><td> 0.353558115</td></tr>
-	<tr><th scope=row>p_inhibRich</th><td>-0.27307117</td><td>-0.20826094</td><td>-0.435197959</td><td>-0.35908031</td><td>-0.1705697</td><td>-0.46775332</td><td>-0.220679173</td><td>-0.287861950</td><td> 0.007931732</td><td>-0.22815422</td><td> 0.35355811</td><td> 1.000000000</td></tr>
+	<tr><th scope=row>p_observed_otus</th><td> 1.00000000</td><td> 0.95033746</td><td> 0.952217596</td><td> 0.78123746</td><td>-0.2113384</td><td> 0.11847720</td><td>-0.158955457</td><td>-0.058678754</td><td>-0.187981393</td><td>-0.08678214</td><td>-0.48678434</td><td>-0.306987133</td></tr>
+	<tr><th scope=row>p_chao1</th><td> 0.95033746</td><td> 1.00000000</td><td> 0.899653620</td><td> 0.73997215</td><td>-0.2583601</td><td> 0.09153983</td><td>-0.225973938</td><td>-0.239872651</td><td>-0.287278422</td><td>-0.27123564</td><td>-0.38292761</td><td>-0.227721139</td></tr>
+	<tr><th scope=row>p_faith_pd</th><td> 0.95221760</td><td> 0.89965362</td><td> 1.000000000</td><td> 0.79606788</td><td>-0.1529471</td><td> 0.33986799</td><td> 0.004786872</td><td>-0.001124079</td><td>-0.164189169</td><td>-0.04130114</td><td>-0.59001462</td><td>-0.464675905</td></tr>
+	<tr><th scope=row>p_shannon</th><td> 0.78123746</td><td> 0.73997215</td><td> 0.796067880</td><td> 1.00000000</td><td>-0.2156197</td><td> 0.10378850</td><td>-0.025060596</td><td>-0.053639784</td><td>-0.251876259</td><td> 0.04572428</td><td>-0.73913705</td><td>-0.374490078</td></tr>
+	<tr><th scope=row>p_disper_braycurtis</th><td>-0.21133838</td><td>-0.25836009</td><td>-0.152947101</td><td>-0.21561974</td><td> 1.0000000</td><td> 0.15999147</td><td> 0.597233841</td><td> 0.351737751</td><td> 0.168584149</td><td> 0.42980208</td><td>-0.08806490</td><td>-0.146287446</td></tr>
+	<tr><th scope=row>p_disper_unweighted_unifrac</th><td> 0.11847720</td><td> 0.09153983</td><td> 0.339867994</td><td> 0.10378850</td><td> 0.1599915</td><td> 1.00000000</td><td> 0.474997304</td><td> 0.176444667</td><td> 0.123092040</td><td> 0.16967254</td><td>-0.22951809</td><td>-0.514137464</td></tr>
+	<tr><th scope=row>p_disper_weighted_unifrac</th><td>-0.15895546</td><td>-0.22597394</td><td> 0.004786872</td><td>-0.02506060</td><td> 0.5972338</td><td> 0.47499730</td><td> 1.000000000</td><td> 0.362293517</td><td> 0.044658802</td><td> 0.50087371</td><td>-0.47058620</td><td>-0.228703775</td></tr>
+	<tr><th scope=row>p_dist_braycurtis</th><td>-0.05867875</td><td>-0.23987265</td><td>-0.001124079</td><td>-0.05363978</td><td> 0.3517378</td><td> 0.17644467</td><td> 0.362293517</td><td> 1.000000000</td><td> 0.421999982</td><td> 0.91120647</td><td>-0.32380551</td><td>-0.291490446</td></tr>
+	<tr><th scope=row>p_dist_unweighted_unifrac</th><td>-0.18798139</td><td>-0.28727842</td><td>-0.164189169</td><td>-0.25187626</td><td> 0.1685841</td><td> 0.12309204</td><td> 0.044658802</td><td> 0.421999982</td><td> 1.000000000</td><td> 0.37989945</td><td>-0.01902297</td><td>-0.000686144</td></tr>
+	<tr><th scope=row>p_dist_weighted_unifrac</th><td>-0.08678214</td><td>-0.27123564</td><td>-0.041301140</td><td> 0.04572428</td><td> 0.4298021</td><td> 0.16967254</td><td> 0.500873711</td><td> 0.911206468</td><td> 0.379899446</td><td> 1.00000000</td><td>-0.47654884</td><td>-0.233416517</td></tr>
+	<tr><th scope=row>p_percInhib</th><td>-0.48678434</td><td>-0.38292761</td><td>-0.590014618</td><td>-0.73913705</td><td>-0.0880649</td><td>-0.22951809</td><td>-0.470586196</td><td>-0.323805515</td><td>-0.019022969</td><td>-0.47654884</td><td> 1.00000000</td><td> 0.373577647</td></tr>
+	<tr><th scope=row>p_inhibRich</th><td>-0.30698713</td><td>-0.22772114</td><td>-0.464675905</td><td>-0.37449008</td><td>-0.1462874</td><td>-0.51413746</td><td>-0.228703775</td><td>-0.291490446</td><td>-0.000686144</td><td>-0.23341652</td><td> 0.37357765</td><td> 1.000000000</td></tr>
 </tbody>
 </table>
 
@@ -2131,19 +2131,19 @@ df_AIC_PABD[order(df_AIC_PABD$AIC),]
 	<tr><th></th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>12</th><td>p_inhibRich                </td><td>20.7725887321913</td></tr>
-	<tr><th scope=row>6</th><td>p_disper_unweighted_unifrac</td><td>23.1922752297946</td></tr>
-	<tr><th scope=row>7</th><td>p_disper_weighted_unifrac  </td><td>25.2121408519941</td></tr>
+	<tr><th scope=row>12</th><td>p_inhibRich                </td><td>20.7725887326599</td></tr>
+	<tr><th scope=row>6</th><td>p_disper_unweighted_unifrac</td><td>23.0633494028594</td></tr>
+	<tr><th scope=row>7</th><td>p_disper_weighted_unifrac  </td><td>25.2279267146353</td></tr>
 	<tr><th scope=row>13</th><td>species_only               </td><td>25.2763401026956</td></tr>
-	<tr><th scope=row>1</th><td>p_observed_otus            </td><td>28.9427197039732</td></tr>
-	<tr><th scope=row>2</th><td>p_chao1                    </td><td>29.9465029131517</td></tr>
-	<tr><th scope=row>11</th><td>p_percInhib                </td><td>30.4351253308626</td></tr>
-	<tr><th scope=row>3</th><td>p_faith_pd                 </td><td>30.5165610888028</td></tr>
-	<tr><th scope=row>8</th><td>p_dist_braycurtis          </td><td>31.6919107797257</td></tr>
-	<tr><th scope=row>9</th><td>p_dist_unweighted_unifrac  </td><td>31.7641783925177</td></tr>
-	<tr><th scope=row>5</th><td>p_disper_braycurtis        </td><td>32.0545915030338</td></tr>
-	<tr><th scope=row>4</th><td>p_shannon                  </td><td>32.6629630571585</td></tr>
-	<tr><th scope=row>10</th><td>p_dist_weighted_unifrac    </td><td>32.8241521293656</td></tr>
+	<tr><th scope=row>1</th><td>p_observed_otus            </td><td>28.9626965149762</td></tr>
+	<tr><th scope=row>2</th><td>p_chao1                    </td><td>30.0470726087987</td></tr>
+	<tr><th scope=row>11</th><td>p_percInhib                </td><td>30.447193712634 </td></tr>
+	<tr><th scope=row>3</th><td>p_faith_pd                 </td><td>30.5913939528794</td></tr>
+	<tr><th scope=row>9</th><td>p_dist_unweighted_unifrac  </td><td>31.6776422847902</td></tr>
+	<tr><th scope=row>8</th><td>p_dist_braycurtis          </td><td>31.7422241184308</td></tr>
+	<tr><th scope=row>5</th><td>p_disper_braycurtis        </td><td>32.016445170075 </td></tr>
+	<tr><th scope=row>4</th><td>p_shannon                  </td><td>32.6601829758308</td></tr>
+	<tr><th scope=row>10</th><td>p_dist_weighted_unifrac    </td><td>32.8969768783928</td></tr>
 </tbody>
 </table>
 
@@ -2167,8 +2167,8 @@ stepAIC(glm(PABD ~ species*p_inhibRich*p_disper_unweighted_unifrac, data=all_p, 
     “glm.fit: fitted probabilities numerically 0 or 1 occurred”
 
                                                       Df   Deviance AIC
-    - species:p_inhibRich:p_disper_unweighted_unifrac  2 4.6892e-10  28
-    <none>                                               4.2226e-10  32
+    - species:p_inhibRich:p_disper_unweighted_unifrac  2 5.5208e-10  28
+    <none>                                               5.0485e-10  32
 
 
     Warning message:
@@ -2187,13 +2187,14 @@ stepAIC(glm(PABD ~ species*p_inhibRich*p_disper_unweighted_unifrac, data=all_p, 
     “glm.fit: fitted probabilities numerically 0 or 1 occurred”Warning message:
     “glm.fit: algorithm did not converge”Warning message:
     “glm.fit: fitted probabilities numerically 0 or 1 occurred”Warning message:
+    “glm.fit: algorithm did not converge”Warning message:
     “glm.fit: fitted probabilities numerically 0 or 1 occurred”
 
                                               Df   Deviance AIC
-    - species:p_disper_unweighted_unifrac      3 1.2392e-09  22
-    - species:p_inhibRich                      3 2.7025e-09  22
-    - p_inhibRich:p_disper_unweighted_unifrac  1 4.8349e-10  26
-    <none>                                       4.6892e-10  28
+    - species:p_disper_unweighted_unifrac      3 1.4456e-09  22
+    - species:p_inhibRich                      3 3.4562e-09  22
+    - p_inhibRich:p_disper_unweighted_unifrac  1 6.2980e-10  26
+    <none>                                       5.5210e-10  28
 
 
     Warning message:
@@ -2214,9 +2215,9 @@ stepAIC(glm(PABD ~ species*p_inhibRich*p_disper_unweighted_unifrac, data=all_p, 
     “glm.fit: fitted probabilities numerically 0 or 1 occurred”
 
                                               Df   Deviance AIC
-    - species:p_inhibRich                      3 3.1854e-09  16
-    - p_inhibRich:p_disper_unweighted_unifrac  1 1.2491e-09  20
-    <none>                                       1.2392e-09  22
+    - species:p_inhibRich                      3 4.4220e-09  16
+    - p_inhibRich:p_disper_unweighted_unifrac  1 1.4614e-09  20
+    <none>                                       1.4456e-09  22
 
 
     Warning message:
@@ -2235,9 +2236,9 @@ stepAIC(glm(PABD ~ species*p_inhibRich*p_disper_unweighted_unifrac, data=all_p, 
     “glm.fit: fitted probabilities numerically 0 or 1 occurred”
 
                                               Df Deviance    AIC
-    - p_inhibRich:p_disper_unweighted_unifrac  1   0.0000 14.000
-    <none>                                         0.0000 16.000
-    - species                                  4   9.8194 17.819
+    - p_inhibRich:p_disper_unweighted_unifrac  1    0.000 14.000
+    <none>                                          0.000 16.000
+    - species                                  4   10.441 18.441
 
 
     Warning message:
@@ -2256,8 +2257,8 @@ stepAIC(glm(PABD ~ species*p_inhibRich*p_disper_unweighted_unifrac, data=all_p, 
                                   Df Deviance    AIC
     <none>                             0.0000 14.000
     - p_disper_unweighted_unifrac  1   2.7726 14.773
-    - species                      4  10.4370 16.437
-    - p_inhibRich                  1   7.2417 19.242
+    - species                      4  11.1794 17.179
+    - p_inhibRich                  1   7.0558 19.056
 
 
 
@@ -2267,17 +2268,17 @@ stepAIC(glm(PABD ~ species*p_inhibRich*p_disper_unweighted_unifrac, data=all_p, 
     
     Coefficients:
                     (Intercept)                  speciesRhma  
-                          993.1                        115.9  
+                        1190.33                       100.42  
                     speciesOsse                  speciesRaca  
-                         -100.1                       -269.0  
+                         -76.66                      -338.16  
                     speciesRapi                  p_inhibRich  
-                         -549.4                      -1129.7  
+                        -633.45                     -1414.00  
     p_disper_unweighted_unifrac  
-                         -546.6  
+                        -587.49  
     
     Degrees of Freedom: 21 Total (i.e. Null);  15 Residual
     Null Deviance:	    27.52 
-    Residual Deviance: 3.465e-09 	AIC: 14
+    Residual Deviance: 5.339e-09 	AIC: 14
 
 
 
@@ -2303,19 +2304,19 @@ df_AIC_Bdload[order(df_AIC_Bdload$AIC),]
 	<tr><th></th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>9</th><td>p_dist_unweighted_unifrac  </td><td>53.1220468093596</td></tr>
-	<tr><th scope=row>10</th><td>p_dist_weighted_unifrac    </td><td>53.7867371550161</td></tr>
-	<tr><th scope=row>11</th><td>p_percInhib                </td><td>58.4215634608012</td></tr>
-	<tr><th scope=row>5</th><td>p_disper_braycurtis        </td><td>63.146711743015 </td></tr>
-	<tr><th scope=row>4</th><td>p_shannon                  </td><td>63.7306107732275</td></tr>
-	<tr><th scope=row>8</th><td>p_dist_braycurtis          </td><td>64.4827722097003</td></tr>
+	<tr><th scope=row>9</th><td>p_dist_unweighted_unifrac  </td><td>53.6487070282629</td></tr>
+	<tr><th scope=row>10</th><td>p_dist_weighted_unifrac    </td><td>53.8919067374374</td></tr>
+	<tr><th scope=row>11</th><td>p_percInhib                </td><td>59.0818516492325</td></tr>
+	<tr><th scope=row>5</th><td>p_disper_braycurtis        </td><td>63.2582324178487</td></tr>
+	<tr><th scope=row>4</th><td>p_shannon                  </td><td>63.6412694968859</td></tr>
+	<tr><th scope=row>8</th><td>p_dist_braycurtis          </td><td>64.1568097625511</td></tr>
 	<tr><th scope=row>13</th><td>species_only               </td><td>64.9810606754233</td></tr>
-	<tr><th scope=row>7</th><td>p_disper_weighted_unifrac  </td><td>70.9822742267272</td></tr>
-	<tr><th scope=row>2</th><td>p_chao1                    </td><td>71.1085904449168</td></tr>
-	<tr><th scope=row>3</th><td>p_faith_pd                 </td><td>71.6466334569002</td></tr>
-	<tr><th scope=row>1</th><td>p_observed_otus            </td><td>72.0984369960468</td></tr>
-	<tr><th scope=row>12</th><td>p_inhibRich                </td><td>72.1823367677102</td></tr>
-	<tr><th scope=row>6</th><td>p_disper_unweighted_unifrac</td><td>72.6093816385408</td></tr>
+	<tr><th scope=row>7</th><td>p_disper_weighted_unifrac  </td><td>71.0757474211763</td></tr>
+	<tr><th scope=row>2</th><td>p_chao1                    </td><td>71.1685394703973</td></tr>
+	<tr><th scope=row>3</th><td>p_faith_pd                 </td><td>71.6597761030266</td></tr>
+	<tr><th scope=row>1</th><td>p_observed_otus            </td><td>72.1135646720176</td></tr>
+	<tr><th scope=row>12</th><td>p_inhibRich                </td><td>72.1371164233366</td></tr>
+	<tr><th scope=row>6</th><td>p_disper_unweighted_unifrac</td><td>72.5778257675726</td></tr>
 </tbody>
 </table>
 
@@ -2327,12 +2328,12 @@ stepAIC(lm(log(Bd_load+1) ~ species*p_dist_weighted_unifrac*p_percInhib, data=te
 
 ```
 
-    Start:  AIC=-58.36
+    Start:  AIC=-56.33
     log(Bd_load + 1) ~ species * p_dist_weighted_unifrac * p_percInhib
     
                                                   Df Sum of Sq      RSS     AIC
-    <none>                                                     0.054148 -58.361
-    - species:p_dist_weighted_unifrac:p_percInhib  1  0.042887 0.097035 -51.611
+    <none>                                                     0.062014 -56.327
+    - species:p_dist_weighted_unifrac:p_percInhib  1  0.041799 0.103813 -50.598
 
 
 
@@ -2343,37 +2344,37 @@ stepAIC(lm(log(Bd_load+1) ~ species*p_dist_weighted_unifrac*p_percInhib, data=te
     
     Coefficients:
                                         (Intercept)  
-                                             3.4530  
+                                             3.3755  
                                         speciesRhma  
-                                            -1.3869  
+                                            -1.3124  
                                         speciesOsse  
-                                             1.7375  
+                                             1.7257  
                                         speciesRaca  
-                                            -8.1309  
+                                            -8.4015  
                             p_dist_weighted_unifrac  
-                                            -1.3507  
+                                            -1.2558  
                                         p_percInhib  
-                                            -4.0284  
+                                            -3.9212  
                 speciesRhma:p_dist_weighted_unifrac  
-                                             0.6546  
+                                             0.5610  
                 speciesOsse:p_dist_weighted_unifrac  
-                                            -3.3027  
+                                            -3.2762  
                 speciesRaca:p_dist_weighted_unifrac  
-                                            12.9392  
+                                            13.6472  
                             speciesRhma:p_percInhib  
-                                             0.6771  
+                                             0.6877  
                             speciesOsse:p_percInhib  
                                                  NA  
                             speciesRaca:p_percInhib  
-                                            15.5415  
+                                            16.1585  
                 p_dist_weighted_unifrac:p_percInhib  
-                                             4.0822  
+                                             3.9284  
     speciesRhma:p_dist_weighted_unifrac:p_percInhib  
                                                  NA  
     speciesOsse:p_dist_weighted_unifrac:p_percInhib  
                                                  NA  
     speciesRaca:p_dist_weighted_unifrac:p_percInhib  
-                                           -27.6230  
+                                           -29.1381  
 
 
 
@@ -2413,6 +2414,259 @@ anova_PABD_percInhib <- Anova(glm(PABD ~ species*p_percInhib, data=all_p, family
 
 
 ```R
+# Print to see results
+anova_PABD_observed_otus
+anova_PABD_chao1
+anova_PABD_faith_pd
+anova_PABD_shannon
+
+anova_PABD_dist_braycurtis
+anova_PABD_dist_unweighted_unifrac
+anova_PABD_dist_weighted_unifrac
+
+anova_PABD_disper_braycurtis
+anova_PABD_disper_unweighted_unifrac
+anova_PABD_disper_weighted_unifrac
+
+anova_PABD_inhibRich
+anova_PABD_percInhib
+```
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>11.2419356</td><td>4</td><td>0.02397542</td></tr>
+	<tr><th scope=row>p_observed_otus</th><td> 0.5912571</td><td>1</td><td>0.44193343</td></tr>
+	<tr><th scope=row>species:p_observed_otus</th><td> 3.7223865</td><td>3</td><td>0.29304387</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>14.0436556</td><td>4</td><td>0.007157021</td></tr>
+	<tr><th scope=row>p_chao1</th><td> 2.3081463</td><td>1</td><td>0.128697451</td></tr>
+	<tr><th scope=row>species:p_chao1</th><td> 0.9211212</td><td>3</td><td>0.820328010</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>7.717594</td><td>4</td><td>0.1024884</td></tr>
+	<tr><th scope=row>p_faith_pd</th><td>0.435467</td><td>1</td><td>0.5093185</td></tr>
+	<tr><th scope=row>species:p_faith_pd</th><td>2.249479</td><td>3</td><td>0.5222684</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>10.9548056</td><td>4</td><td>0.02707666</td></tr>
+	<tr><th scope=row>p_shannon</th><td> 0.3317085</td><td>1</td><td>0.56465478</td></tr>
+	<tr><th scope=row>species:p_shannon</th><td> 0.2844486</td><td>3</td><td>0.96292624</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>12.17087901</td><td>4</td><td>0.01612479</td></tr>
+	<tr><th scope=row>p_dist_braycurtis</th><td> 0.03731758</td><td>1</td><td>0.84681990</td></tr>
+	<tr><th scope=row>species:p_dist_braycurtis</th><td> 1.49679841</td><td>3</td><td>0.68300945</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>12.7133313</td><td>4</td><td>0.01276486</td></tr>
+	<tr><th scope=row>p_dist_unweighted_unifrac</th><td> 0.4846713</td><td>1</td><td>0.48631399</td></tr>
+	<tr><th scope=row>species:p_dist_unweighted_unifrac</th><td> 1.1140265</td><td>3</td><td>0.77368915</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>12.02862961</td><td>4</td><td>0.01713963</td></tr>
+	<tr><th scope=row>p_dist_weighted_unifrac</th><td> 0.02408691</td><td>1</td><td>0.87666398</td></tr>
+	<tr><th scope=row>species:p_dist_weighted_unifrac</th><td> 0.35527631</td><td>3</td><td>0.94931819</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>1.176963e+01</td><td>4</td><td>0.01914916</td></tr>
+	<tr><th scope=row>p_disper_braycurtis</th><td>4.768644e-04</td><td>1</td><td>0.98257780</td></tr>
+	<tr><th scope=row>species:p_disper_braycurtis</th><td>1.259418e+00</td><td>3</td><td>0.73879146</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>5.404231</td><td>4</td><td>0.248276789</td></tr>
+	<tr><th scope=row>p_disper_unweighted_unifrac</th><td>8.220527</td><td>1</td><td>0.004141917</td></tr>
+	<tr><th scope=row>species:p_disper_unweighted_unifrac</th><td>1.992464</td><td>3</td><td>0.573972382</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>9.97467080</td><td>4</td><td>0.04085652</td></tr>
+	<tr><th scope=row>p_disper_weighted_unifrac</th><td>0.07603517</td><td>1</td><td>0.78274412</td></tr>
+	<tr><th scope=row>species:p_disper_weighted_unifrac</th><td>7.97237822</td><td>3</td><td>0.04658603</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td> 1.778476e+01</td><td>4</td><td>0.0013595300</td></tr>
+	<tr><th scope=row>p_inhibRich</th><td> 1.250375e+01</td><td>1</td><td>0.0004061357</td></tr>
+	<tr><th scope=row>species:p_inhibRich</th><td>-1.156750e-10</td><td>3</td><td>1.0000000000</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 3 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>LR Chisq</th><th scope=col>Df</th><th scope=col>Pr(&gt;Chisq)</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>12.8745058</td><td>4</td><td>0.01190554</td></tr>
+	<tr><th scope=row>p_percInhib</th><td> 2.4785351</td><td>1</td><td>0.11540970</td></tr>
+	<tr><th scope=row>species:p_percInhib</th><td> 0.3506113</td><td>3</td><td>0.95024497</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
+# Get sample size
+nrow(all_p)
+```
+
+
+<table>
+<caption>A data.frame: 22 × 29</caption>
+<thead>
+	<tr><th scope=col>indivID</th><th scope=col>species</th><th scope=col>indiv</th><th scope=col>exp_inhibRich</th><th scope=col>p_inhibRich</th><th scope=col>exp_percInhib</th><th scope=col>p_percInhib</th><th scope=col>exp_dist_weighted_unifrac</th><th scope=col>p_dist_weighted_unifrac</th><th scope=col>exp_dist_unweighted_unifrac</th><th scope=col>⋯</th><th scope=col>exp_faith_pd</th><th scope=col>p_faith_pd</th><th scope=col>exp_shannon</th><th scope=col>p_shannon</th><th scope=col>exp_chao1</th><th scope=col>p_chao1</th><th scope=col>exp_observed_otus</th><th scope=col>p_observed_otus</th><th scope=col>Bd_load</th><th scope=col>PABD</th></tr>
+	<tr><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>⋯</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Raca_3</td><td>Raca</td><td>3</td><td> 9.341112</td><td>0.28075</td><td>0.1684250</td><td>0.46025</td><td>0.3557743</td><td>0.47500</td><td>0.5510810</td><td>⋯</td><td>18.892454</td><td>0.51675</td><td>4.046665</td><td>0.55850</td><td>4.958495</td><td>0.53350</td><td>4.787349</td><td>0.54100</td><td>1.6666667</td><td>1</td></tr>
+	<tr><td>Raca_5</td><td>Raca</td><td>5</td><td>10.060102</td><td>0.38225</td><td>0.3258500</td><td>0.76475</td><td>0.3929189</td><td>0.58725</td><td>0.5347671</td><td>⋯</td><td>18.969275</td><td>0.52125</td><td>4.103164</td><td>0.59150</td><td>5.003668</td><td>0.58625</td><td>4.814126</td><td>0.57300</td><td>0.3333333</td><td>1</td></tr>
+	<tr><td>Raca_1</td><td>Raca</td><td>1</td><td> 7.184143</td><td>0.11025</td><td>0.3433750</td><td>0.78625</td><td>0.3649125</td><td>0.50450</td><td>0.6237047</td><td>⋯</td><td>19.645063</td><td>0.58425</td><td>3.596405</td><td>0.29650</td><td>4.973789</td><td>0.55225</td><td>4.778301</td><td>0.53125</td><td>1.3333333</td><td>1</td></tr>
+	<tr><td>Anbo_4</td><td>Anbo</td><td>4</td><td>10.572122</td><td>0.49975</td><td>0.2481600</td><td>0.16750</td><td>0.3299370</td><td>0.81150</td><td>0.5055086</td><td>⋯</td><td>11.877388</td><td>0.55275</td><td>4.087962</td><td>0.80225</td><td>4.541058</td><td>0.59700</td><td>4.350221</td><td>0.59825</td><td>9.3333333</td><td>1</td></tr>
+	<tr><td>Osse_1</td><td>Osse</td><td>1</td><td>17.496163</td><td>0.84400</td><td>0.7146667</td><td>0.95500</td><td>0.2263201</td><td>0.37825</td><td>0.5741972</td><td>⋯</td><td>12.289452</td><td>0.23075</td><td>2.820972</td><td>0.01475</td><td>4.647355</td><td>0.39950</td><td>4.503053</td><td>0.34375</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Raca_2</td><td>Raca</td><td>2</td><td>10.172122</td><td>0.38225</td><td>0.1715800</td><td>0.46725</td><td>0.4215555</td><td>0.68300</td><td>0.5907416</td><td>⋯</td><td>16.393598</td><td>0.31500</td><td>3.509171</td><td>0.24950</td><td>4.873402</td><td>0.43800</td><td>4.618498</td><td>0.32275</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Rhma_2</td><td>Rhma</td><td>2</td><td>12.934143</td><td>0.52450</td><td>0.2656750</td><td>0.54475</td><td>0.3151897</td><td>0.75050</td><td>0.4368452</td><td>⋯</td><td>17.052806</td><td>0.39400</td><td>3.781542</td><td>0.19700</td><td>4.926523</td><td>0.33575</td><td>4.796520</td><td>0.37175</td><td>3.0000000</td><td>1</td></tr>
+	<tr><td>Osse_6</td><td>Osse</td><td>6</td><td>16.684143</td><td>0.77600</td><td>0.6212000</td><td>0.89075</td><td>0.1863258</td><td>0.23375</td><td>0.5692046</td><td>⋯</td><td>11.081130</td><td>0.14650</td><td>3.959510</td><td>0.33725</td><td>4.491224</td><td>0.24600</td><td>4.338871</td><td>0.17975</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Rhma_8</td><td>Rhma</td><td>8</td><td>13.372122</td><td>0.62950</td><td>0.1841800</td><td>0.37600</td><td>0.2593964</td><td>0.57775</td><td>0.4528461</td><td>⋯</td><td>20.316535</td><td>0.65975</td><td>4.734074</td><td>0.74350</td><td>5.267725</td><td>0.70875</td><td>5.069300</td><td>0.71650</td><td>2.6666667</td><td>1</td></tr>
+	<tr><td>Raca_4</td><td>Raca</td><td>4</td><td> 9.372122</td><td>0.28075</td><td>0.2358400</td><td>0.61225</td><td>0.3738340</td><td>0.53200</td><td>0.5598198</td><td>⋯</td><td>17.283852</td><td>0.38175</td><td>3.698412</td><td>0.34800</td><td>4.876749</td><td>0.44075</td><td>4.624360</td><td>0.32775</td><td>1.3333333</td><td>1</td></tr>
+	<tr><td>Rapi_3</td><td>Rapi</td><td>3</td><td>10.972122</td><td>0.32350</td><td>0.2960200</td><td>0.36350</td><td>0.3020963</td><td>0.72000</td><td>0.5638124</td><td>⋯</td><td>12.884396</td><td>0.47500</td><td>3.526549</td><td>0.71200</td><td>4.536492</td><td>0.53075</td><td>4.400510</td><td>0.54325</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Anbo_5</td><td>Anbo</td><td>5</td><td> 9.972122</td><td>0.38500</td><td>0.4779400</td><td>0.52300</td><td>0.2268074</td><td>0.50075</td><td>0.4515899</td><td>⋯</td><td>12.893991</td><td>0.64050</td><td>3.635394</td><td>0.55275</td><td>4.608529</td><td>0.66825</td><td>4.471432</td><td>0.73875</td><td>3.6666667</td><td>1</td></tr>
+	<tr><td>Anbo_2</td><td>Anbo</td><td>2</td><td> 7.972122</td><td>0.16300</td><td>0.4077600</td><td>0.41650</td><td>0.4667199</td><td>0.97625</td><td>0.5260473</td><td>⋯</td><td> 9.896821</td><td>0.34775</td><td>3.513490</td><td>0.47375</td><td>4.273462</td><td>0.29675</td><td>4.133217</td><td>0.32550</td><td>7.6666667</td><td>1</td></tr>
+	<tr><td>Osse_2</td><td>Osse</td><td>2</td><td>15.413469</td><td>0.69975</td><td>0.3917333</td><td>0.60150</td><td>0.4970169</td><td>0.97800</td><td>0.6135747</td><td>⋯</td><td>10.399780</td><td>0.10625</td><td>3.067436</td><td>0.03900</td><td>4.386108</td><td>0.16200</td><td>4.290411</td><td>0.14425</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Anbo_1</td><td>Anbo</td><td>1</td><td> 8.496163</td><td>0.26175</td><td>0.5260333</td><td>0.61150</td><td>0.1877465</td><td>0.33875</td><td>0.4714899</td><td>⋯</td><td>12.176982</td><td>0.57950</td><td>3.603555</td><td>0.53425</td><td>4.527175</td><td>0.58150</td><td>4.358675</td><td>0.61150</td><td>3.3333333</td><td>1</td></tr>
+	<tr><td>Osse_3</td><td>Osse</td><td>3</td><td>15.746803</td><td>0.69975</td><td>0.7465000</td><td>0.96550</td><td>0.2921054</td><td>0.61675</td><td>0.6222537</td><td>⋯</td><td>11.291160</td><td>0.15900</td><td>3.103314</td><td>0.04275</td><td>4.579333</td><td>0.32625</td><td>4.469952</td><td>0.30725</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Raca_6</td><td>Raca</td><td>6</td><td>11.972122</td><td>0.49850</td><td>0.1943400</td><td>0.52300</td><td>0.2713065</td><td>0.21725</td><td>0.5597031</td><td>⋯</td><td>18.547558</td><td>0.48900</td><td>4.329456</td><td>0.72200</td><td>5.129715</td><td>0.71475</td><td>4.816176</td><td>0.57500</td><td>0.0000000</td><td>0</td></tr>
+	<tr><td>Anbo_3</td><td>Anbo</td><td>3</td><td> 8.310102</td><td>0.26175</td><td>0.1785000</td><td>0.08550</td><td>0.4413905</td><td>0.96425</td><td>0.4961407</td><td>⋯</td><td>10.210317</td><td>0.37750</td><td>3.696321</td><td>0.59050</td><td>4.208133</td><td>0.22950</td><td>4.135214</td><td>0.32800</td><td>7.0000000</td><td>1</td></tr>
+	<tr><td>Osse_4</td><td>Osse</td><td>4</td><td>13.684143</td><td>0.50725</td><td>0.6371750</td><td>0.90500</td><td>0.3263908</td><td>0.72200</td><td>0.5891475</td><td>⋯</td><td> 9.796180</td><td>0.08025</td><td>3.208808</td><td>0.05900</td><td>4.304888</td><td>0.11900</td><td>4.125404</td><td>0.05375</td><td>1.3333333</td><td>1</td></tr>
+	<tr><td>Rhma_9</td><td>Rhma</td><td>9</td><td>11.122122</td><td>0.41175</td><td>0.1257250</td><td>0.23575</td><td>0.3021019</td><td>0.71550</td><td>0.4186255</td><td>⋯</td><td>21.443993</td><td>0.73625</td><td>4.485146</td><td>0.60450</td><td>5.230084</td><td>0.67075</td><td>5.048299</td><td>0.69050</td><td>3.3333333</td><td>1</td></tr>
+	<tr><td>Anbo_6</td><td>Anbo</td><td>6</td><td>11.172122</td><td>0.61700</td><td>0.4705200</td><td>0.51225</td><td>0.1548809</td><td>0.21575</td><td>0.4491073</td><td>⋯</td><td>10.073538</td><td>0.36500</td><td>3.307971</td><td>0.35625</td><td>4.365898</td><td>0.39550</td><td>4.097388</td><td>0.28625</td><td>3.6666667</td><td>1</td></tr>
+	<tr><td>Osse_5</td><td>Osse</td><td>5</td><td>12.184143</td><td>0.39925</td><td>0.6573500</td><td>0.92125</td><td>0.2076695</td><td>0.31200</td><td>0.6913696</td><td>⋯</td><td>11.306620</td><td>0.16100</td><td>2.965797</td><td>0.02850</td><td>4.445089</td><td>0.20375</td><td>4.301355</td><td>0.15225</td><td>2.3333333</td><td>1</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
 # Quick and dirty
 all_p_noinfect <- all_p %>%
 filter(PABD>0)
@@ -2439,6 +2693,240 @@ anova_Bdload_percInhib <- anova(lm(log(Bd_load+1) ~ species*p_percInhib, data=al
 
 
 ```R
+# Print to see it
+anova_Bdload_observed_otus
+anova_Bdload_chao1
+anova_Bdload_faith_pd
+anova_Bdload_shannon
+
+anova_Bdload_dist_braycurtis
+anova_Bdload_dist_unweighted_unifrac
+anova_Bdload_dist_weighted_unifrac
+
+anova_Bdload_disper_braycurtis
+anova_Bdload_disper_unweighted_unifrac
+anova_Bdload_disper_weighted_unifrac
+
+anova_Bdload_inhibRich
+anova_Bdload_percInhib
+```
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>8.0540782</td><td>0.0113591</td></tr>
+	<tr><th scope=row>p_observed_otus</th><td>1</td><td>0.04781891</td><td>0.04781891</td><td>0.3588225</td><td>0.5680324</td></tr>
+	<tr><th scope=row>species:p_observed_otus</th><td>3</td><td>0.10528276</td><td>0.03509425</td><td>0.2633395</td><td>0.8498111</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.93286323</td><td>0.13326618</td><td>       NA</td><td>       NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>9.0164174</td><td>0.008405318</td></tr>
+	<tr><th scope=row>p_chao1</th><td>1</td><td>0.08496995</td><td>0.08496995</td><td>0.7137787</td><td>0.426122111</td></tr>
+	<tr><th scope=row>species:p_chao1</th><td>3</td><td>0.16769796</td><td>0.05589932</td><td>0.4695748</td><td>0.712881753</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.83329699</td><td>0.11904243</td><td>       NA</td><td>         NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>8.0150951</td><td>0.01150495</td></tr>
+	<tr><th scope=row>p_faith_pd</th><td>1</td><td>0.02892451</td><td>0.02892451</td><td>0.2159926</td><td>0.65622025</td></tr>
+	<tr><th scope=row>species:p_faith_pd</th><td>3</td><td>0.11963997</td><td>0.03987999</td><td>0.2978022</td><td>0.82616223</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.93740042</td><td>0.13391435</td><td>       NA</td><td>        NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>11.0364167</td><td>0.00480577</td></tr>
+	<tr><th scope=row>p_shannon</th><td>1</td><td>0.02398124</td><td>0.02398124</td><td> 0.2465834</td><td>0.63470336</td></tr>
+	<tr><th scope=row>species:p_shannon</th><td>3</td><td>0.38120532</td><td>0.12706844</td><td> 1.3065620</td><td>0.34563473</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.68077834</td><td>0.09725405</td><td>        NA</td><td>        NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>12.581419</td><td>0.003304135</td></tr>
+	<tr><th scope=row>p_dist_braycurtis</th><td>1</td><td>0.1528814</td><td>0.15288145</td><td> 1.792044</td><td>0.222518153</td></tr>
+	<tr><th scope=row>species:p_dist_braycurtis</th><td>3</td><td>0.3359049</td><td>0.11196831</td><td> 1.312469</td><td>0.343968582</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.5971785</td><td>0.08531122</td><td>       NA</td><td>         NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>19.353770</td><td>0.0009104063</td></tr>
+	<tr><th scope=row>p_dist_unweighted_unifrac</th><td>1</td><td>0.4931686</td><td>0.49316860</td><td> 8.892527</td><td>0.0204558248</td></tr>
+	<tr><th scope=row>species:p_dist_unweighted_unifrac</th><td>3</td><td>0.2045849</td><td>0.06819498</td><td> 1.229652</td><td>0.3682448279</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.3882114</td><td>0.05545877</td><td>       NA</td><td>          NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>38.691143</td><td>9.987554e-05</td></tr>
+	<tr><th scope=row>p_dist_weighted_unifrac</th><td>1</td><td>0.3122347</td><td>0.31223475</td><td>11.255298</td><td>1.216904e-02</td></tr>
+	<tr><th scope=row>species:p_dist_weighted_unifrac</th><td>3</td><td>0.5795422</td><td>0.19318074</td><td> 6.963693</td><td>1.653551e-02</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.1941879</td><td>0.02774113</td><td>       NA</td><td>          NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>12.7646026</td><td>0.003168609</td></tr>
+	<tr><th scope=row>p_disper_braycurtis</th><td>1</td><td>0.3375546</td><td>0.33755463</td><td> 4.0143532</td><td>0.085167815</td></tr>
+	<tr><th scope=row>species:p_disper_braycurtis</th><td>3</td><td>0.1598018</td><td>0.05326726</td><td> 0.6334785</td><td>0.616593351</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.5886085</td><td>0.08408693</td><td>        NA</td><td>         NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>8.3087045</td><td>0.01046253</td></tr>
+	<tr><th scope=row>p_disper_unweighted_unifrac</th><td>1</td><td>0.03938877</td><td>0.03938877</td><td>0.3049088</td><td>0.59800117</td></tr>
+	<tr><th scope=row>species:p_disper_unweighted_unifrac</th><td>3</td><td>0.14230117</td><td>0.04743372</td><td>0.3671849</td><td>0.77920858</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.90427496</td><td>0.12918214</td><td>       NA</td><td>        NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>10.2813409</td><td>0.005862291</td></tr>
+	<tr><th scope=row>p_disper_weighted_unifrac</th><td>1</td><td>0.06541587</td><td>0.06541587</td><td> 0.6266097</td><td>0.454583981</td></tr>
+	<tr><th scope=row>species:p_disper_weighted_unifrac</th><td>3</td><td>0.28977340</td><td>0.09659113</td><td> 0.9252333</td><td>0.476908257</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.73077563</td><td>0.10439652</td><td>        NA</td><td>         NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.22000862</td><td>1.07333621</td><td>8.6261815</td><td>0.009467849</td></tr>
+	<tr><th scope=row>p_inhibRich</th><td>1</td><td>0.13155754</td><td>0.13155754</td><td>1.0573008</td><td>0.338045097</td></tr>
+	<tr><th scope=row>species:p_inhibRich</th><td>3</td><td>0.08341323</td><td>0.02780441</td><td>0.2234583</td><td>0.877187039</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.87099412</td><td>0.12442773</td><td>       NA</td><td>         NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+<table>
+<caption>A anova: 4 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>Df</th><th scope=col>Sum Sq</th><th scope=col>Mean Sq</th><th scope=col>F value</th><th scope=col>Pr(&gt;F)</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>18.1302351</td><td>0.001112535</td></tr>
+	<tr><th scope=row>p_percInhib</th><td>1</td><td>0.5385233</td><td>0.53852329</td><td> 9.0964544</td><td>0.019495242</td></tr>
+	<tr><th scope=row>species:p_percInhib</th><td>3</td><td>0.1330315</td><td>0.04434382</td><td> 0.7490327</td><td>0.556563235</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.4144101</td><td>0.05920145</td><td>        NA</td><td>         NA</td></tr>
+</tbody>
+</table>
+
+
+
+
+```R
+# Get sample size
+nrow(all_p_noinfect)
+```
+
+
+15
+
+
+
+```R
 cor.test(all_p$p_inhibRich, all_p$p_disper_unweighted_unifrac)
 cor.test(all_p$p_percInhib, all_p$p_dist_weighted_unifrac)
 ```
@@ -2448,13 +2936,13 @@ cor.test(all_p$p_percInhib, all_p$p_dist_weighted_unifrac)
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_disper_unweighted_unifrac
-    t = -2.3667, df = 20, p-value = 0.02815
+    t = -2.6807, df = 20, p-value = 0.01437
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.74286273 -0.05748054
+     -0.7690443 -0.1181369
     sample estimates:
            cor 
-    -0.4677533 
+    -0.5141375 
 
 
 
@@ -2463,13 +2951,13 @@ cor.test(all_p$p_percInhib, all_p$p_dist_weighted_unifrac)
     	Pearson's product-moment correlation
     
     data:  all_p$p_percInhib and all_p$p_dist_weighted_unifrac
-    t = -2.3985, df = 20, p-value = 0.02633
+    t = -2.4242, df = 20, p-value = 0.02495
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.74565776 -0.06372335
+     -0.7478929 -0.0687543
     sample estimates:
            cor 
-    -0.4726339 
+    -0.4765488 
 
 
 
@@ -2492,24 +2980,24 @@ anova(lm(log(Bd_load+1) ~ species*p_percInhib, data=all_p_noinfect))
     
     Residuals:
          Min       1Q   Median       3Q      Max 
-    -0.31922 -0.09352  0.00000  0.05120  0.34186 
+    -0.31579 -0.09829  0.00000  0.04948  0.35115 
     
     Coefficients:
                             Estimate Std. Error t value Pr(>|t|)    
-    (Intercept)               2.4237     0.2155  11.245 9.82e-06 ***
-    speciesRhma              -0.9512     0.4979  -1.910   0.0977 .  
-    speciesOsse             -23.0958    20.6598  -1.118   0.3005    
-    speciesRaca              -0.8634     0.6485  -1.331   0.2248    
-    p_percInhib              -1.4756     0.4968  -2.970   0.0208 *  
-    speciesRhma:p_percInhib   1.2437     1.2230   1.017   0.3430    
-    speciesOsse:p_percInhib  25.2539    22.6444   1.115   0.3016    
-    speciesRaca:p_percInhib   0.2111     1.0503   0.201   0.8464    
+    (Intercept)               2.4271     0.2217  10.947 1.18e-05 ***
+    speciesRhma              -0.9533     0.5027  -1.896   0.0997 .  
+    speciesOsse             -21.4439    19.3377  -1.109   0.3041    
+    speciesRaca              -0.8592     0.6580  -1.306   0.2329    
+    p_percInhib              -1.4856     0.5135  -2.893   0.0232 *  
+    speciesRhma:p_percInhib   1.2525     1.2248   1.023   0.3405    
+    speciesOsse:p_percInhib  23.4349    21.1814   1.106   0.3051    
+    speciesRaca:p_percInhib   0.2245     1.0589   0.212   0.8382    
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
     
-    Residual standard error: 0.2401 on 7 degrees of freedom
-    Multiple R-squared:  0.9063,	Adjusted R-squared:  0.8125 
-    F-statistic: 9.669 on 7 and 7 DF,  p-value: 0.003889
+    Residual standard error: 0.2433 on 7 degrees of freedom
+    Multiple R-squared:  0.9038,	Adjusted R-squared:  0.8075 
+    F-statistic: 9.391 on 7 and 7 DF,  p-value: 0.004243
 
 
 
@@ -2521,10 +3009,10 @@ anova(lm(log(Bd_load+1) ~ species*p_percInhib, data=all_p_noinfect))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>18.615381</td><td>0.001026096</td></tr>
-	<tr><th scope=row>p_percInhib</th><td>1</td><td>0.5521686</td><td>0.55216857</td><td> 9.576522</td><td>0.017454082</td></tr>
-	<tr><th scope=row>species:p_percInhib</th><td>3</td><td>0.1301864</td><td>0.04339545</td><td> 0.752628</td><td>0.554797907</td></tr>
-	<tr><th scope=row>Residuals</th><td>7</td><td>0.4036100</td><td>0.05765857</td><td>       NA</td><td>         NA</td></tr>
+	<tr><th scope=row>species</th><td>3</td><td>3.2200086</td><td>1.07333621</td><td>18.1302351</td><td>0.001112535</td></tr>
+	<tr><th scope=row>p_percInhib</th><td>1</td><td>0.5385233</td><td>0.53852329</td><td> 9.0964544</td><td>0.019495242</td></tr>
+	<tr><th scope=row>species:p_percInhib</th><td>3</td><td>0.1330315</td><td>0.04434382</td><td> 0.7490327</td><td>0.556563235</td></tr>
+	<tr><th scope=row>Residuals</th><td>7</td><td>0.4144101</td><td>0.05920145</td><td>        NA</td><td>         NA</td></tr>
 </tbody>
 </table>
 
@@ -2760,18 +3248,18 @@ write.table(stats_table_causeffect, file="./6_Statistics/cause_effect_stats.txt"
 	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>observed_otus</th><td>Alpha diversity    </td><td>Observed otus     </td><td>p=0.389, LR Chisq(1)=0.742 </td><td>p=0.559, F(1,7)=0.375 </td><td>p=0.959, F(1,15)=0.003</td><td>p=0.713, F(1,7)=0.147</td></tr>
-	<tr><th scope=row>chao1</th><td>Alpha diversity    </td><td>Chao1             </td><td>p=0.126, LR Chisq(1)=2.343 </td><td>p=0.429, F(1,7)=0.706 </td><td>p=0.862, F(1,15)=0.031</td><td>p=0.865, F(1,7)=0.031</td></tr>
-	<tr><th scope=row>faith_pd</th><td>Alpha diversity    </td><td>Faith's PD        </td><td>p=0.521, LR Chisq(1)=0.413 </td><td>p=0.65, F(1,7)=0.225  </td><td>p=0.457, F(1,15)=0.583</td><td>p=0.955, F(1,7)=0.003</td></tr>
-	<tr><th scope=row>shannon</th><td>Alpha diversity    </td><td>Shannon           </td><td>p=0.555, LR Chisq(1)=0.349 </td><td>p=0.654, F(1,7)=0.22  </td><td>p=0.595, F(1,15)=0.294</td><td>p=0.279, F(1,7)=1.38 </td></tr>
-	<tr><th scope=row>disper_braycurtis</th><td>Dispersion         </td><td>Bray-curtis       </td><td>p=0.994, LR Chisq(1)=0     </td><td>p=0.084, F(1,7)=4.067 </td><td>p=0.815, F(1,15)=0.057</td><td>p=0.44, F(1,7)=0.671 </td></tr>
-	<tr><th scope=row>disper_unweighted_unifrac</th><td>Dispersion         </td><td>Unweighted Unifrac</td><td>p=0.005, LR Chisq(1)=8.035 </td><td>p=0.632, F(1,7)=0.251 </td><td>p=0.506, F(1,15)=0.464</td><td>p=0.922, F(1,7)=0.01 </td></tr>
-	<tr><th scope=row>disper_weighted_unifrac</th><td>Dispersion         </td><td>Weighted Unifrac  </td><td>p=0.826, LR Chisq(1)=0.048 </td><td>p=0.447, F(1,7)=0.649 </td><td>p=0.498, F(1,15)=0.482</td><td>p=0.238, F(1,7)=1.668</td></tr>
-	<tr><th scope=row>dist_braycurtis</th><td>Distance           </td><td>Bray-curtis       </td><td>p=0.838, LR Chisq(1)=0.042 </td><td>p=0.23, F(1,7)=1.73   </td><td>p=0.066, F(1,15)=3.938</td><td>p=0.244, F(1,7)=1.621</td></tr>
-	<tr><th scope=row>dist_unweighted_unifrac</th><td>Distance           </td><td>Unweighted Unifrac</td><td>p=0.472, LR Chisq(1)=0.517 </td><td>p=0.02, F(1,7)=9.033  </td><td>p=0.208, F(1,15)=1.729</td><td>p=0.378, F(1,7)=0.886</td></tr>
-	<tr><th scope=row>dist_weighted_unifrac</th><td>Distance           </td><td>Weighted Unifrac  </td><td>p=0.837, LR Chisq(1)=0.042 </td><td>p=0.012, F(1,7)=11.168</td><td>p=0.166, F(1,15)=2.121</td><td>p=0.338, F(1,7)=1.055</td></tr>
-	<tr><th scope=row>inhibRich</th><td>Inhibitory Richness</td><td><span style=white-space:pre-wrap>Count             </span></td><td>p&lt;0.001, LR Chisq(1)=12.504</td><td>p=0.327, F(1,7)=1.112 </td><td>p=0.325, F(1,15)=1.035</td><td>p=0.819, F(1,7)=0.056</td></tr>
-	<tr><th scope=row>percInhib</th><td>Percent Inhibitory </td><td>Proportion        </td><td>p=0.12, LR Chisq(1)=2.423  </td><td>p=0.017, F(1,7)=9.577 </td><td>p=0.669, F(1,15)=0.19 </td><td>p=0.907, F(1,7)=0.015</td></tr>
+	<tr><th scope=row>observed_otus</th><td>Alpha diversity    </td><td>Observed otus     </td><td>p=0.442, LR Chisq(1)=0.591 </td><td>p=0.568, F(1,7)=0.359 </td><td>p=0.957, F(1,15)=0.003</td><td>p=0.681, F(1,7)=0.184</td></tr>
+	<tr><th scope=row>chao1</th><td>Alpha diversity    </td><td>Chao1             </td><td>p=0.129, LR Chisq(1)=2.308 </td><td>p=0.426, F(1,7)=0.714 </td><td>p=0.867, F(1,15)=0.029</td><td>p=0.861, F(1,7)=0.033</td></tr>
+	<tr><th scope=row>faith_pd</th><td>Alpha diversity    </td><td>Faith's PD        </td><td>p=0.509, LR Chisq(1)=0.435 </td><td>p=0.656, F(1,7)=0.216 </td><td>p=0.444, F(1,15)=0.619</td><td>p=0.915, F(1,7)=0.012</td></tr>
+	<tr><th scope=row>shannon</th><td>Alpha diversity    </td><td>Shannon           </td><td>p=0.565, LR Chisq(1)=0.332 </td><td>p=0.635, F(1,7)=0.247 </td><td>p=0.551, F(1,15)=0.373</td><td>p=0.297, F(1,7)=1.269</td></tr>
+	<tr><th scope=row>disper_braycurtis</th><td>Dispersion         </td><td>Bray-curtis       </td><td>p=0.983, LR Chisq(1)=0     </td><td>p=0.085, F(1,7)=4.014 </td><td>p=0.768, F(1,15)=0.09 </td><td>p=0.465, F(1,7)=0.598</td></tr>
+	<tr><th scope=row>disper_unweighted_unifrac</th><td>Dispersion         </td><td>Unweighted Unifrac</td><td>p=0.004, LR Chisq(1)=8.221 </td><td>p=0.598, F(1,7)=0.305 </td><td>p=0.569, F(1,15)=0.339</td><td>p=0.981, F(1,7)=0.001</td></tr>
+	<tr><th scope=row>disper_weighted_unifrac</th><td>Dispersion         </td><td>Weighted Unifrac  </td><td>p=0.783, LR Chisq(1)=0.076 </td><td>p=0.455, F(1,7)=0.627 </td><td>p=0.51, F(1,15)=0.455 </td><td>p=0.254, F(1,7)=1.546</td></tr>
+	<tr><th scope=row>dist_braycurtis</th><td>Distance           </td><td>Bray-curtis       </td><td>p=0.847, LR Chisq(1)=0.037 </td><td>p=0.223, F(1,7)=1.792 </td><td>p=0.056, F(1,15)=4.295</td><td>p=0.227, F(1,7)=1.758</td></tr>
+	<tr><th scope=row>dist_unweighted_unifrac</th><td>Distance           </td><td>Unweighted Unifrac</td><td>p=0.486, LR Chisq(1)=0.485 </td><td>p=0.02, F(1,7)=8.893  </td><td>p=0.158, F(1,15)=2.212</td><td>p=0.496, F(1,7)=0.515</td></tr>
+	<tr><th scope=row>dist_weighted_unifrac</th><td>Distance           </td><td>Weighted Unifrac  </td><td>p=0.877, LR Chisq(1)=0.024 </td><td>p=0.012, F(1,7)=11.255</td><td>p=0.176, F(1,15)=2.019</td><td>p=0.396, F(1,7)=0.818</td></tr>
+	<tr><th scope=row>inhibRich</th><td>Inhibitory Richness</td><td><span style=white-space:pre-wrap>Count             </span></td><td>p&lt;0.001, LR Chisq(1)=12.504</td><td>p=0.338, F(1,7)=1.057 </td><td>p=0.279, F(1,15)=1.264</td><td>p=0.773, F(1,7)=0.09 </td></tr>
+	<tr><th scope=row>percInhib</th><td>Percent Inhibitory </td><td>Proportion        </td><td>p=0.115, LR Chisq(1)=2.479 </td><td>p=0.019, F(1,7)=9.096 </td><td>p=0.65, F(1,15)=0.214 </td><td>p=0.927, F(1,7)=0.009</td></tr>
 </tbody>
 </table>
 
@@ -2822,18 +3310,18 @@ write.table(stats_table_causeffect_interactiononly, file="./6_Statistics/cause_e
 	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>observed_otus</th><td>Alpha diversity    </td><td>Observed otus     </td><td>p=0.309, LR Chisq(3)=3.592</td><td>p=0.839, F(3,7)=0.279</td><td>p=0.057, F(1,15)=4.257</td><td>p=0.749, F(3,7)=0.413</td></tr>
-	<tr><th scope=row>chao1</th><td>Alpha diversity    </td><td>Chao1             </td><td>p=0.805, LR Chisq(3)=0.987</td><td>p=0.711, F(3,7)=0.472</td><td>p=0.025, F(1,15)=6.159</td><td>p=0.807, F(3,7)=0.326</td></tr>
-	<tr><th scope=row>faith_pd</th><td>Alpha diversity    </td><td>Faith's PD        </td><td>p=0.504, LR Chisq(3)=2.347</td><td>p=0.825, F(3,7)=0.3  </td><td>p=0.107, F(1,15)=2.945</td><td>p=0.67, F(3,7)=0.541 </td></tr>
-	<tr><th scope=row>shannon</th><td>Alpha diversity    </td><td>Shannon           </td><td>p=0.967, LR Chisq(3)=0.265</td><td>p=0.344, F(3,7)=1.312</td><td>p=0.279, F(1,15)=1.259</td><td>p=0.162, F(3,7)=2.318</td></tr>
-	<tr><th scope=row>disper_braycurtis</th><td>Dispersion         </td><td>Bray-curtis       </td><td>p=0.748, LR Chisq(3)=1.222</td><td>p=0.603, F(3,7)=0.658</td><td>p=0.508, F(1,15)=0.461</td><td>p=0.398, F(3,7)=1.138</td></tr>
-	<tr><th scope=row>disper_unweighted_unifrac</th><td>Dispersion         </td><td>Unweighted Unifrac</td><td>p=0.562, LR Chisq(3)=2.049</td><td>p=0.76, F(3,7)=0.396 </td><td>p=0.289, F(1,15)=1.209</td><td>p=0.855, F(3,7)=0.256</td></tr>
-	<tr><th scope=row>disper_weighted_unifrac</th><td>Dispersion         </td><td>Weighted Unifrac  </td><td>p=0.046, LR Chisq(3)=8.016</td><td>p=0.46, F(3,7)=0.967 </td><td>p=0.673, F(1,15)=0.186</td><td>p=0.934, F(3,7)=0.139</td></tr>
-	<tr><th scope=row>dist_braycurtis</th><td>Distance           </td><td>Bray-curtis       </td><td>p=0.673, LR Chisq(3)=1.542</td><td>p=0.362, F(3,7)=1.251</td><td>p=0.816, F(1,15)=0.056</td><td>p=0.345, F(3,7)=1.308</td></tr>
-	<tr><th scope=row>dist_unweighted_unifrac</th><td>Distance           </td><td>Unweighted Unifrac</td><td>p=0.803, LR Chisq(3)=0.995</td><td>p=0.346, F(3,7)=1.304</td><td>p=0.777, F(1,15)=0.083</td><td>p=0.233, F(3,7)=1.809</td></tr>
-	<tr><th scope=row>dist_weighted_unifrac</th><td>Distance           </td><td>Weighted Unifrac  </td><td>p=0.938, LR Chisq(3)=0.41 </td><td>p=0.015, F(3,7)=7.188</td><td>p=0.685, F(1,15)=0.171</td><td>p=0.503, F(3,7)=0.863</td></tr>
-	<tr><th scope=row>inhibRich</th><td>Inhibitory Richness</td><td>Count             </td><td>p=1, LR Chisq(3)=0        </td><td>p=0.851, F(3,7)=0.262</td><td>p=0.781, F(1,15)=0.08 </td><td>p=0.756, F(3,7)=0.402</td></tr>
-	<tr><th scope=row>percInhib</th><td>Percent Inhibitory </td><td>Proportion        </td><td>p=0.937, LR Chisq(3)=0.418</td><td>p=0.555, F(3,7)=0.753</td><td>p=0.471, F(1,15)=0.548</td><td>p=0.022, F(3,7)=6.203</td></tr>
+	<tr><th scope=row>observed_otus</th><td>Alpha diversity    </td><td>Observed otus     </td><td>p=0.293, LR Chisq(3)=3.722</td><td>p=0.85, F(3,7)=0.263 </td><td>p=0.065, F(1,15)=3.977</td><td>p=0.76, F(3,7)=0.397 </td></tr>
+	<tr><th scope=row>chao1</th><td>Alpha diversity    </td><td>Chao1             </td><td>p=0.82, LR Chisq(3)=0.921 </td><td>p=0.713, F(3,7)=0.47 </td><td>p=0.034, F(1,15)=5.454</td><td>p=0.778, F(3,7)=0.368</td></tr>
+	<tr><th scope=row>faith_pd</th><td>Alpha diversity    </td><td>Faith's PD        </td><td>p=0.522, LR Chisq(3)=2.249</td><td>p=0.826, F(3,7)=0.298</td><td>p=0.104, F(1,15)=2.998</td><td>p=0.617, F(3,7)=0.632</td></tr>
+	<tr><th scope=row>shannon</th><td>Alpha diversity    </td><td>Shannon           </td><td>p=0.963, LR Chisq(3)=0.284</td><td>p=0.346, F(3,7)=1.307</td><td>p=0.296, F(1,15)=1.172</td><td>p=0.177, F(3,7)=2.195</td></tr>
+	<tr><th scope=row>disper_braycurtis</th><td>Dispersion         </td><td>Bray-curtis       </td><td>p=0.739, LR Chisq(3)=1.259</td><td>p=0.617, F(3,7)=0.633</td><td>p=0.513, F(1,15)=0.45 </td><td>p=0.396, F(3,7)=1.142</td></tr>
+	<tr><th scope=row>disper_unweighted_unifrac</th><td>Dispersion         </td><td>Unweighted Unifrac</td><td>p=0.574, LR Chisq(3)=1.992</td><td>p=0.779, F(3,7)=0.367</td><td>p=0.304, F(1,15)=1.134</td><td>p=0.824, F(3,7)=0.3  </td></tr>
+	<tr><th scope=row>disper_weighted_unifrac</th><td>Dispersion         </td><td>Weighted Unifrac  </td><td>p=0.047, LR Chisq(3)=7.972</td><td>p=0.477, F(3,7)=0.925</td><td>p=0.658, F(1,15)=0.204</td><td>p=0.926, F(3,7)=0.151</td></tr>
+	<tr><th scope=row>dist_braycurtis</th><td>Distance           </td><td>Bray-curtis       </td><td>p=0.683, LR Chisq(3)=1.497</td><td>p=0.344, F(3,7)=1.312</td><td>p=0.842, F(1,15)=0.041</td><td>p=0.346, F(3,7)=1.306</td></tr>
+	<tr><th scope=row>dist_unweighted_unifrac</th><td>Distance           </td><td>Unweighted Unifrac</td><td>p=0.774, LR Chisq(3)=1.114</td><td>p=0.368, F(3,7)=1.23 </td><td>p=0.783, F(1,15)=0.079</td><td>p=0.259, F(3,7)=1.672</td></tr>
+	<tr><th scope=row>dist_weighted_unifrac</th><td>Distance           </td><td>Weighted Unifrac  </td><td>p=0.949, LR Chisq(3)=0.355</td><td>p=0.017, F(3,7)=6.964</td><td>p=0.587, F(1,15)=0.307</td><td>p=0.537, F(3,7)=0.79 </td></tr>
+	<tr><th scope=row>inhibRich</th><td>Inhibitory Richness</td><td>Count             </td><td>p=1, LR Chisq(3)=0        </td><td>p=0.877, F(3,7)=0.223</td><td>p=0.748, F(1,15)=0.107</td><td>p=0.761, F(3,7)=0.394</td></tr>
+	<tr><th scope=row>percInhib</th><td>Percent Inhibitory </td><td>Proportion        </td><td>p=0.95, LR Chisq(3)=0.351 </td><td>p=0.557, F(3,7)=0.749</td><td>p=0.472, F(1,15)=0.543</td><td>p=0.034, F(3,7)=5.161</td></tr>
 </tbody>
 </table>
 
@@ -2888,10 +3376,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.456224908</td><td> 4</td><td>3.53348874</td><td>0.03671534</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.001507008</td><td> 1</td><td>0.04668746</td><td>0.83228447</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.048734155</td><td> 3</td><td>0.50326520</td><td>0.68663665</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.419622379</td><td>13</td><td>        NA</td><td>        NA</td></tr>
+	<tr><th scope=row>species</th><td>0.468047756</td><td> 4</td><td>3.62430759</td><td>0.03399065</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.002299609</td><td> 1</td><td>0.07122768</td><td>0.79374433</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.047463002</td><td> 3</td><td>0.49003694</td><td>0.69520641</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.419709192</td><td>13</td><td>        NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -2909,10 +3397,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>4.046815e-01</td><td> 4</td><td>3.618377265</td><td>0.03416138</td></tr>
-	<tr><th scope=row>Bd_load</th><td>3.931605e-05</td><td> 1</td><td>0.001406146</td><td>0.97065717</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>7.012814e-02</td><td> 3</td><td>0.836048662</td><td>0.49781731</td></tr>
-	<tr><th scope=row>Residuals</th><td>3.634820e-01</td><td>13</td><td>         NA</td><td>        NA</td></tr>
+	<tr><th scope=row>species</th><td>4.030798e-01</td><td> 4</td><td>3.467053013</td><td>0.03886601</td></tr>
+	<tr><th scope=row>Bd_load</th><td>6.884238e-05</td><td> 1</td><td>0.002368565</td><td>0.96192372</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>6.402971e-02</td><td> 3</td><td>0.734327486</td><td>0.54991486</td></tr>
+	<tr><th scope=row>Residuals</th><td>3.778452e-01</td><td>13</td><td>         NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -2930,10 +3418,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.3372787770</td><td> 4</td><td>2.212726322</td><td>0.1242602</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.0002724119</td><td> 1</td><td>0.007148661</td><td>0.9339075</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.0677959901</td><td> 3</td><td>0.593036511</td><td>0.6305235</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.4953870772</td><td>13</td><td>         NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>3.617283e-01</td><td> 4</td><td>2.423595255</td><td>0.1009869</td></tr>
+	<tr><th scope=row>Bd_load</th><td>8.725583e-05</td><td> 1</td><td>0.002338472</td><td>0.9621662</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>6.731394e-02</td><td> 3</td><td>0.601341824</td><td>0.6255199</td></tr>
+	<tr><th scope=row>Residuals</th><td>4.850714e-01</td><td>13</td><td>         NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -2951,10 +3439,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.59193585</td><td> 4</td><td>5.8851042</td><td>0.006274246</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.02793549</td><td> 1</td><td>1.1109533</td><td>0.311071487</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.05812202</td><td> 3</td><td>0.7704757</td><td>0.530838401</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.32689167</td><td>13</td><td>       NA</td><td>         NA</td></tr>
+	<tr><th scope=row>species</th><td>0.59245291</td><td> 4</td><td>6.2643321</td><td>0.00490218</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.02629982</td><td> 1</td><td>1.1123301</td><td>0.31078374</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.05379194</td><td> 3</td><td>0.7583625</td><td>0.53716113</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.30737067</td><td>13</td><td>       NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -2975,10 +3463,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.095991811</td><td> 4</td><td>0.79006706</td><td>0.5520233</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.001435455</td><td> 1</td><td>0.04725843</td><td>0.8312792</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.162209099</td><td> 3</td><td>1.78009722</td><td>0.2004907</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.394869498</td><td>13</td><td>        NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>0.103920706</td><td> 4</td><td>0.90464114</td><td>0.4894965</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.001464334</td><td> 1</td><td>0.05098876</td><td>0.8248629</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.169983603</td><td> 3</td><td>1.97296787</td><td>0.1679039</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.373343948</td><td>13</td><td>        NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -2996,10 +3484,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>1.044586e-01</td><td> 4</td><td>1.2910806558</td><td>0.3237804</td></tr>
-	<tr><th scope=row>Bd_load</th><td>3.186089e-06</td><td> 1</td><td>0.0001575168</td><td>0.9901769</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>3.533407e-02</td><td> 3</td><td>0.5822927738</td><td>0.6370443</td></tr>
-	<tr><th scope=row>Residuals</th><td>2.629507e-01</td><td>13</td><td>          NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>0.1147646328</td><td> 4</td><td>1.49060456</td><td>0.2616623</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.0004911867</td><td> 1</td><td>0.02551884</td><td>0.8755364</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.0390819448</td><td> 3</td><td>0.67681391</td><td>0.5815643</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.2502240143</td><td>13</td><td>        NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3017,10 +3505,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.030744442</td><td> 4</td><td>0.28120467</td><td>0.8849256</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.001192545</td><td> 1</td><td>0.04363053</td><td>0.8377799</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.050860502</td><td> 3</td><td>0.62026217</td><td>0.6142437</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.355326380</td><td>13</td><td>        NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>0.0282302770</td><td> 4</td><td>0.2600621</td><td>0.8983035</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.0004889673</td><td> 1</td><td>0.0180178</td><td>0.8952762</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.0522148637</td><td> 3</td><td>0.6413497</td><td>0.6018777</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.3527941481</td><td>13</td><td>       NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3041,10 +3529,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.08825117</td><td> 4</td><td>0.7182268</td><td>0.5944510</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.02510562</td><td> 1</td><td>0.8172822</td><td>0.3824235</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.03048371</td><td> 3</td><td>0.3307864</td><td>0.8032534</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.39933944</td><td>13</td><td>       NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>0.08278459</td><td> 4</td><td>0.6827500</td><td>0.6162788</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.02384820</td><td> 1</td><td>0.7867339</td><td>0.3912038</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.03058404</td><td> 3</td><td>0.3363147</td><td>0.7993901</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.39406799</td><td>13</td><td>       NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3062,10 +3550,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.09243349</td><td> 4</td><td>0.87566397</td><td>0.5047054</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.00161147</td><td> 1</td><td>0.06106472</td><td>0.8086806</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.02267019</td><td> 3</td><td>0.28635318</td><td>0.8344173</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.34306406</td><td>13</td><td>        NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>0.0963114752</td><td> 4</td><td>0.89727827</td><td>0.4933221</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.0005668309</td><td> 1</td><td>0.02112334</td><td>0.8866727</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.0254130389</td><td> 3</td><td>0.31567810</td><td>0.8138323</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.3488464011</td><td>13</td><td>        NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3083,10 +3571,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.03485978</td><td> 4</td><td>0.408069</td><td>0.7996826</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.02677414</td><td> 1</td><td>1.253673</td><td>0.2831130</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.04472850</td><td> 3</td><td>0.698123</td><td>0.5696515</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.27763515</td><td>13</td><td>      NA</td><td>       NA</td></tr>
+	<tr><th scope=row>species</th><td>0.03341139</td><td> 4</td><td>0.3937018</td><td>0.8095727</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.02452745</td><td> 1</td><td>1.1560731</td><td>0.3018326</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.04281976</td><td> 3</td><td>0.6727533</td><td>0.5838594</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.27581034</td><td>13</td><td>       NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3107,10 +3595,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>0.393214803</td><td> 4</td><td>5.1166135</td><td>0.01065293</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.007098905</td><td> 1</td><td>0.3694912</td><td>0.55375297</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.019467550</td><td> 3</td><td>0.3377558</td><td>0.79838381</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.249764441</td><td>13</td><td>       NA</td><td>        NA</td></tr>
+	<tr><th scope=row>species</th><td>0.389199966</td><td> 4</td><td>5.1131824</td><td>0.01067915</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.009653331</td><td> 1</td><td>0.5072893</td><td>0.48890105</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.020652863</td><td> 3</td><td>0.3617741</td><td>0.78166764</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.247380160</td><td>13</td><td>       NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -3131,10 +3619,10 @@ Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>1.3012329220</td><td> 4</td><td>20.08201669</td><td>1.797794e-05</td></tr>
-	<tr><th scope=row>Bd_load</th><td>0.0004876189</td><td> 1</td><td> 0.03010182</td><td>8.649318e-01</td></tr>
-	<tr><th scope=row>species:Bd_load</th><td>0.0378657065</td><td> 3</td><td> 0.77917872</td><td>5.263389e-01</td></tr>
-	<tr><th scope=row>Residuals</th><td>0.2105867684</td><td>13</td><td>         NA</td><td>          NA</td></tr>
+	<tr><th scope=row>species</th><td>1.310835571</td><td> 4</td><td>19.45731590</td><td>2.136528e-05</td></tr>
+	<tr><th scope=row>Bd_load</th><td>0.000508238</td><td> 1</td><td> 0.03017601</td><td>8.647673e-01</td></tr>
+	<tr><th scope=row>species:Bd_load</th><td>0.041205574</td><td> 3</td><td> 0.81551024</td><td>5.079427e-01</td></tr>
+	<tr><th scope=row>Residuals</th><td>0.218951865</td><td>13</td><td>         NA</td><td>          NA</td></tr>
 </tbody>
 </table>
 
@@ -3159,7 +3647,7 @@ Anova(glm(PABD ~ species+p_inhibRich, data=all_p, family=binomial), type=3)
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>species</th><td>17.92298</td><td>4</td><td>0.0012776113</td></tr>
+	<tr><th scope=row>species</th><td>17.78476</td><td>4</td><td>0.0013595300</td></tr>
 	<tr><th scope=row>p_inhibRich</th><td>12.50375</td><td>1</td><td>0.0004061357</td></tr>
 </tbody>
 </table>
@@ -3179,7 +3667,7 @@ grid.arrange(gg_PABD_inhibRich,gg_PABD_disper_unweighted_unifrac, nrow=1)
 ```
 
 
-![png](output_70_0.png)
+![png](output_74_0.png)
 
 
 
@@ -3219,13 +3707,13 @@ capture.output(pearson_inhibRich_percInhib
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_observed_otus
-    t = -1.2695, df = 20, p-value = 0.2189
+    t = -1.4425, df = 20, p-value = 0.1646
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.6229589  0.1678632
+     -0.6451012  0.1316621
     sample estimates:
            cor 
-    -0.2730712 
+    -0.3069871 
 
 
 
@@ -3234,13 +3722,13 @@ capture.output(pearson_inhibRich_percInhib
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_chao1
-    t = -0.95225, df = 20, p-value = 0.3523
+    t = -1.0459, df = 20, p-value = 0.3081
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.5790281  0.2338835
+     -0.5924491  0.2144793
     sample estimates:
            cor 
-    -0.2082609 
+    -0.2277211 
 
 
 
@@ -3249,13 +3737,13 @@ capture.output(pearson_inhibRich_percInhib
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_faith_pd
-    t = -2.1617, df = 20, p-value = 0.04294
+    t = -2.3469, df = 20, p-value = 0.02934
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.72397010 -0.01664327
+     -0.74109540 -0.05356058
     sample estimates:
-          cor 
-    -0.435198 
+           cor 
+    -0.4646759 
 
 
 
@@ -3264,13 +3752,13 @@ capture.output(pearson_inhibRich_percInhib
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_shannon
-    t = -1.7206, df = 20, p-value = 0.1008
+    t = -1.8062, df = 20, p-value = 0.08596
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.67803948  0.07368312
+     -0.68754353  0.05595263
     sample estimates:
            cor 
-    -0.3590803 
+    -0.3744901 
 
 
 
@@ -3279,13 +3767,13 @@ capture.output(pearson_inhibRich_percInhib
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_percInhib
-    t = 1.6903, df = 20, p-value = 0.1065
+    t = 1.8011, df = 20, p-value = 0.08679
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.07997107  0.67460749
+     -0.05701009  0.68698375
     sample estimates:
           cor 
-    0.3535581 
+    0.3735776 
 
 
 
@@ -3304,13 +3792,13 @@ capture.output(pearson_inhibRich_disper_UWU
     	Pearson's product-moment correlation
     
     data:  all_p$p_inhibRich and all_p$p_disper_unweighted_unifrac
-    t = -2.3667, df = 20, p-value = 0.02815
+    t = -2.6807, df = 20, p-value = 0.01437
     alternative hypothesis: true correlation is not equal to 0
     95 percent confidence interval:
-     -0.74286273 -0.05748054
+     -0.7690443 -0.1181369
     sample estimates:
            cor 
-    -0.4677533 
+    -0.5141375 
 
 
 
@@ -3330,7 +3818,7 @@ grid.arrange(gg_dist_Bd_load,gg_percInhib_Bd_load, nrow=1)
 ```
 
 
-![png](output_73_0.png)
+![png](output_77_0.png)
 
 
 #### Plotting all other traits
@@ -3354,7 +3842,7 @@ facet_wrap(~Metric, ncol=3)
 ```
 
 
-![png](output_75_0.png)
+![png](output_79_0.png)
 
 
 
@@ -3376,7 +3864,7 @@ facet_wrap(~Metric, ncol=3)
 ```
 
 
-![png](output_76_0.png)
+![png](output_80_0.png)
 
 
 
@@ -3398,7 +3886,7 @@ facet_wrap(~Metric, ncol=3)
 ```
 
 
-![png](output_77_0.png)
+![png](output_81_0.png)
 
 
 
@@ -3420,7 +3908,7 @@ facet_wrap(~Metric, ncol=3)
 ```
 
 
-![png](output_78_0.png)
+![png](output_82_0.png)
 
 
 
@@ -3465,8 +3953,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.02213283</td><td>0.02213283</td><td>0.7769432</td><td>0.394083</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.37033189</td><td>0.02848707</td><td>       NA</td><td>      NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.02183691</td><td>0.02183691</td><td>0.7484216</td><td>0.402659</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.37930462</td><td>0.02917728</td><td>       NA</td><td>      NA</td></tr>
 </tbody>
 </table>
 
@@ -3483,8 +3971,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.01982118</td><td>0.01982118</td><td>0.9278082</td><td>0.3530092</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.27772480</td><td>0.02136345</td><td>       NA</td><td>       NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.01808523</td><td>0.01808523</td><td>0.8207845</td><td>0.381436</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.28644308</td><td>0.02203408</td><td>       NA</td><td>      NA</td></tr>
 </tbody>
 </table>
 
@@ -3501,8 +3989,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.08480322</td><td>0.08480322</td><td>1.860532</td><td>0.1957144</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.59254133</td><td>0.04558010</td><td>      NA</td><td>       NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.09538738</td><td>0.09538738</td><td>2.143749</td><td>0.1669111</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.57844261</td><td>0.04449559</td><td>      NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3519,8 +4007,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0001237349</td><td>0.0001237349</td><td>0.004912101</td><td>0.9451916</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.3274675401</td><td>0.0251898108</td><td>         NA</td><td>       NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0005608813</td><td>0.0005608813</td><td>0.02156902</td><td>0.8854926</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.3380523520</td><td>0.0260040271</td><td>        NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3537,8 +4025,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.05381761</td><td>0.05381761</td><td>2.410618</td><td>0.1445125</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.29022802</td><td>0.02232523</td><td>      NA</td><td>       NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.05251019</td><td>0.05251019</td><td>2.364403</td><td>0.1481085</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.28871239</td><td>0.02220865</td><td>      NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3555,8 +4043,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.08559103</td><td>0.08559103</td><td>6.025078</td><td>0.02896133</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.18467534</td><td>0.01420580</td><td>      NA</td><td>        NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0818057</td><td>0.08180570</td><td>5.498159</td><td>0.03556807</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.1934237</td><td>0.01487874</td><td>      NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -3573,8 +4061,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0282033</td><td>0.0282033</td><td>1.946545</td><td>0.1863382</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.1883557</td><td>0.0144889</td><td>      NA</td><td>       NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.02497779</td><td>0.02497779</td><td>1.67838</td><td>0.2176723</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.19346702</td><td>0.01488208</td><td>     NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3591,8 +4079,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.2159731</td><td>0.21597312</td><td>6.931685</td><td>0.02067671</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.4050459</td><td>0.03115737</td><td>      NA</td><td>        NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.2075804</td><td>0.20758040</td><td>6.742967</td><td>0.02214325</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.4002015</td><td>0.03078473</td><td>      NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -3609,8 +4097,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0003861858</td><td>0.0003861858</td><td>0.0172152</td><td>0.8976206</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.2916269142</td><td>0.0224328396</td><td>       NA</td><td>       NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0005006307</td><td>0.0005006307</td><td>0.02178931</td><td>0.8849138</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.2986877193</td><td>0.0229759784</td><td>        NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3627,8 +4115,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.09247272</td><td>0.09247272</td><td>4.728446</td><td>0.04872375</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.25423684</td><td>0.01955668</td><td>      NA</td><td>        NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.08931975</td><td>0.08931975</td><td>4.612486</td><td>0.05117358</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.25174206</td><td>0.01936477</td><td>      NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -3645,8 +4133,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.001139996</td><td>0.001139996</td><td>0.02173356</td><td>0.88506</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.681892213</td><td>0.052453247</td><td>        NA</td><td>     NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.0009257023</td><td>0.0009257023</td><td>0.01731273</td><td>0.8973328</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.6951028561</td><td>0.0534694505</td><td>        NA</td><td>       NA</td></tr>
 </tbody>
 </table>
 
@@ -3663,8 +4151,8 @@ anova(lm(p_inhibRich ~ Bd_load, data=all_p_pred_infectonly))
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.2114840</td><td>0.2114840</td><td>6.861106</td><td>0.02121144</td></tr>
-	<tr><th scope=row>Residuals</th><td>13</td><td>0.4007068</td><td>0.0308236</td><td>      NA</td><td>        NA</td></tr>
+	<tr><th scope=row>Bd_load</th><td> 1</td><td>0.2072915</td><td>0.20729152</td><td>6.555865</td><td>0.02371922</td></tr>
+	<tr><th scope=row>Residuals</th><td>13</td><td>0.4110503</td><td>0.03161925</td><td>      NA</td><td>        NA</td></tr>
 </tbody>
 </table>
 
@@ -3725,7 +4213,7 @@ adonis2(braycurtis_filt ~ species + time + species:time + Bd_exposure:prepost + 
 	<tr><th scope=row>species:time</th><td>  4</td><td>  4.4888688</td><td>0.036846334</td><td> 6.407864</td><td>0.001</td></tr>
 	<tr><th scope=row>Bd_exposure:prepost</th><td>  3</td><td>  1.8637336</td><td>0.015298231</td><td> 3.547308</td><td>0.001</td></tr>
 	<tr><th scope=row>species:Bd_exposure:prepost</th><td> 12</td><td>  5.0701333</td><td>0.041617573</td><td> 2.412540</td><td>0.001</td></tr>
-	<tr><th scope=row>Bd_exposure:prepost:Bd_load</th><td>  1</td><td>  0.2690098</td><td>0.002208134</td><td> 1.536047</td><td>0.023</td></tr>
+	<tr><th scope=row>Bd_exposure:prepost:Bd_load</th><td>  1</td><td>  0.2690098</td><td>0.002208134</td><td> 1.536047</td><td>0.017</td></tr>
 	<tr><th scope=row>Residual</th><td>489</td><td> 85.6391854</td><td>0.702958838</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>121.8267426</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -3775,7 +4263,7 @@ adonis2(braycurtis_filt ~ species + time + species:time + Bd_exposure:prepost + 
 	<tr><th scope=row>species:time</th><td>  4</td><td> 1.9827712</td><td>0.03950100</td><td> 7.923136</td><td>0.001</td></tr>
 	<tr><th scope=row>Bd_exposure:prepost</th><td>  3</td><td> 0.7225346</td><td>0.01439442</td><td> 3.849656</td><td>0.001</td></tr>
 	<tr><th scope=row>species:Bd_exposure:prepost</th><td> 12</td><td> 2.0958687</td><td>0.04175414</td><td> 2.791691</td><td>0.001</td></tr>
-	<tr><th scope=row>Bd_exposure:prepost:PABD</th><td>  1</td><td> 0.1570189</td><td>0.00312815</td><td> 2.509785</td><td>0.013</td></tr>
+	<tr><th scope=row>Bd_exposure:prepost:PABD</th><td>  1</td><td> 0.1570189</td><td>0.00312815</td><td> 2.509785</td><td>0.010</td></tr>
 	<tr><th scope=row>Residual</th><td>489</td><td>30.5931619</td><td>0.60948059</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>50.1954651</td><td>1.00000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -3796,7 +4284,7 @@ adonis2(braycurtis_filt ~ species + time + species:time + Bd_exposure:prepost + 
 	<tr><th scope=row>species:time</th><td>  4</td><td>  4.4888688</td><td>0.036846334</td><td> 6.402467</td><td>0.001</td></tr>
 	<tr><th scope=row>Bd_exposure:prepost</th><td>  3</td><td>  1.8637336</td><td>0.015298231</td><td> 3.544321</td><td>0.001</td></tr>
 	<tr><th scope=row>species:Bd_exposure:prepost</th><td> 12</td><td>  5.0701333</td><td>0.041617573</td><td> 2.410508</td><td>0.001</td></tr>
-	<tr><th scope=row>Bd_exposure:prepost:PABD</th><td>  1</td><td>  0.1968232</td><td>0.001615599</td><td> 1.122914</td><td>0.267</td></tr>
+	<tr><th scope=row>Bd_exposure:prepost:PABD</th><td>  1</td><td>  0.1968232</td><td>0.001615599</td><td> 1.122914</td><td>0.235</td></tr>
 	<tr><th scope=row>Residual</th><td>489</td><td> 85.7113719</td><td>0.703551372</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>121.8267426</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
@@ -3817,7 +4305,7 @@ adonis2(braycurtis_filt ~ species + time + species:time + Bd_exposure:prepost + 
 	<tr><th scope=row>species:time</th><td>  4</td><td>  9.927152</td><td>0.049647520</td><td>10.595595</td><td>0.001</td></tr>
 	<tr><th scope=row>Bd_exposure:prepost</th><td>  3</td><td>  3.531178</td><td>0.017660075</td><td> 5.025266</td><td>0.001</td></tr>
 	<tr><th scope=row>species:Bd_exposure:prepost</th><td> 12</td><td>  9.310482</td><td>0.046563437</td><td> 3.312467</td><td>0.001</td></tr>
-	<tr><th scope=row>Bd_exposure:prepost:PABD</th><td>  1</td><td>  0.467981</td><td>0.002340459</td><td> 1.997970</td><td>0.007</td></tr>
+	<tr><th scope=row>Bd_exposure:prepost:PABD</th><td>  1</td><td>  0.467981</td><td>0.002340459</td><td> 1.997970</td><td>0.004</td></tr>
 	<tr><th scope=row>Residual</th><td>489</td><td>114.537630</td><td>0.572823816</td><td>       NA</td><td>   NA</td></tr>
 	<tr><th scope=row>Total</th><td>514</td><td>199.952632</td><td>1.000000000</td><td>       NA</td><td>   NA</td></tr>
 </tbody>
