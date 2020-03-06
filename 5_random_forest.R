@@ -28,9 +28,16 @@ otu_rank <- count_to_percentileranking(OTU=otu)
 # Make OTU into presence absence
 otu_PA <- count_to_presenceabsence(OTU=otu)
 
+otu_PA_tosave <- cbind("#OTU ID"=rownames(otu_PA),otu_PA) %>%
+  select("#OTU ID",everything())
+# Save rank and prevelance 
+write.table(otu_PA_tosave, file="./5_random_forest/OTUTable_prevalence.txt", quote=FALSE, sep="\t"
+            , row.names = FALSE, col.names = TRUE)
+
 # Add OTU table to mf 
 mf_rank <- mf_otu_combine(otu_rank, mf)
 mf_PA <- mf_otu_combine(otu_PA, mf)
+
 
 #--------- Random forest data setup -------------#
 
@@ -619,5 +626,35 @@ summary(glm(inhibitory ~ MeanDecreaseAccuracy, data=rank_PABD_filtered, family =
 rank_PABD_filtered %>%
   ggplot() +geom_point(aes(x=inhibitory, y=MeanDecreaseAccuracy), position=position_jitter(height=0, width=0.1))
 
+
+####### Save PA table for otu ##########
+
+mf_tosave <- mf_PA %>%
+  filter(prepost=="Pre", Bd_exposure=="Bd-exposed") %>%
+  select(-c("SampleID","prepost","Bd_exposure")) %>%
+  gather(-c(indivID),key=OTU, value=PA) %>%
+  mutate(PA=as.numeric(PA)) %>%
+  # filter(indivID==c("Anbo_4","Anbo_2"), OTU=="TACGTAGGGTACGAGCGTTGTCCGGAATTATTGGGCGTAAAGAGCTCGTAGGTGGTTGGTCACGTCTGCTGTGGAAACGCAACGCTTAAC") %>%
+  group_by(indivID, OTU) %>%
+  summarize(avePA=mean(PA)) %>%
+  ungroup() %>%
+  separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
+  select(-indiv) %>%
+  # filter(!is.na(avePA)) %>%
+  spread(key=OTU, value=avePA)  %>% 
+  select(-species) %>%
+  as.data.frame()
+
+rownames(mf_tosave) <- mf_tosave$indivID
+mf_tosave <- mf_tosave %>%
+  select(-indivID) %>%
+  t() %>%as.data.frame()
+
+otu_PA_tosave <- cbind("#OTU ID"=rownames(mf_tosave),mf_tosave) %>%
+  select("#OTU ID",everything())
+
+# Save rank and prevelance 
+write.table(otu_PA_tosave, file="./5_random_forest/OTUTable_prevalence.txt", quote=FALSE, sep="\t"
+            , row.names = FALSE, col.names = TRUE)
 
 
