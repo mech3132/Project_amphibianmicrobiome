@@ -78,12 +78,12 @@ all_p_pred <- all_p_pred %>%
   separate(indivID, into=c("species","indiv"), remove=FALSE)
 
 #### experimental design ####
-plot_experimental_design <- mf_alt_filt_final %>%
+plot_experimental_design <-mf_alt_filt_final %>%
   mutate(Contaminated = factor(ifelse(orig_contam ==1, "!Contaminated",NA), levels=c("!Contaminated"))
          , Bd_logload = (Bd_load)) %>%
   ggplot(aes(x=time, y=indiv)) +
   geom_line(aes(group=indivID, col=Bd_exposure)) +
-  geom_point(aes(group=indivID,bg=Bd_logload), cex=4, pch=21)+
+  geom_point(aes(group=indivID, bg=Bd_logload, col=Bd_exposure), cex=4, pch=21)+
   scale_color_manual(values=c("black","blue","orange")) +
   scale_fill_gradient(low = "white", high = "red") +
   geom_vline(aes(xintercept=5.5), col="orange")+
@@ -93,6 +93,22 @@ plot_experimental_design <- mf_alt_filt_final %>%
   ylab("Individual Amphibian") +
   theme(strip.text = element_text(size=14), 
         axis.title = element_text(size=14))
+
+# plot_experimental_design <- mf_alt_filt_final %>%
+#   mutate(Contaminated = factor(ifelse(orig_contam ==1, "!Contaminated",NA), levels=c("!Contaminated"))
+#          , Bd_logload = (Bd_load)) %>%
+#   ggplot(aes(x=time, y=indiv)) +
+#   geom_line(aes(group=indivID, col=Bd_exposure)) +
+#   geom_point(aes(group=indivID, bg=Bd_logload), cex=4, pch=21)+
+#   scale_color_manual(values=c("black","blue","orange")) +
+#   scale_fill_gradient(low = "white", high = "red") +
+#   geom_vline(aes(xintercept=5.5), col="orange")+
+#   geom_point(aes(group=indivID, col=Contaminated), cex=1, pch=19)+ ## NEW LINE
+#   facet_wrap(~species, nrow=5) +
+#   xlab("Time (Day)") +
+#   ylab("Individual Amphibian") +
+#   theme(strip.text = element_text(size=14), 
+#         axis.title = element_text(size=14))
 #plot_experimental_design
 
 pdf(file = "./7_figures/experimental_design.pdf", width = 4.5,height = 10.5)
