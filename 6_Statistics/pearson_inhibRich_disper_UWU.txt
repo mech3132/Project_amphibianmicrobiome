@@ -2,11 +2,11 @@
 	Pearson's product-moment correlation
 
 data:  all_p$p_inhibRich and all_p$p_disper_unweighted_unifrac
-t = -2.6807, df = 20, p-value = 0.01437
+t = -2.1007, df = 20, p-value = 0.04855
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- -0.7690443 -0.1181369
+ -0.71806019 -0.00433559
 sample estimates:
        cor 
--0.5141375 
+-0.4251669 
 

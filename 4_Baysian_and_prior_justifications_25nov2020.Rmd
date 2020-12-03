@@ -6,27 +6,9 @@ author: "Melissa Chen"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
+
 ```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
 
 ```{r}
@@ -62,6 +44,10 @@ filter(Bd_exposure == "Bd-exposed")
 
 dir.create("./4_Bayesian_models")
 
+
+```
+
+```{r}
 #### PLOTTING EXP DESIGN ####
 options(repr.plot.width=5, repr.plot.height=10)
 mf_alt_filt_final %>%
@@ -77,8 +63,9 @@ mf_alt_filt_final %>%
     facet_wrap(~species, nrow=5) +
     xlab("Time") +
     ylab("Individual Toad")
+```
 
-
+```{r}
 #### PLOTTING BETA COMPOSITION PLOTS ####
 # What do different species look like? (Control only)
 options(repr.plot.width=12, repr.plot.height=12)
@@ -111,7 +98,9 @@ grid.arrange( gg_control_bc_sp,gg_control_bc_time
              , gg_control_uwu_sp,gg_control_uwu_time
              , gg_control_wu_sp,gg_control_wu_time 
             , nrow=3)
+```
 
+```{r}
 
 options(repr.plot.height=12, repr.plot.width=6) 
 gg_all_bc <- mf_alt_filt_final %>%
@@ -128,9 +117,9 @@ gg_all_wu <- mf_alt_filt_final %>%
     ggtitle(label = paste0("Weighted Unifrac (Stress:",as.character(round(mean(mf_alt_filt_final$NMDS_stress_weighted_unifrac),0)/100),")"))
 grid.arrange(gg_all_bc,gg_all_uwu, gg_all_wu
             , nrow=3)
+```
 
-
-
+```{r}
 # Check if marginal has an effect
 adonis2(braycurtis_filt ~ species:time, data=mf_alt_filt_final, by="margin")
 # Check main effects
@@ -151,8 +140,11 @@ adonis2(weighted_unifrac_filt ~ species:time, data=mf_alt_filt_final, by="margin
 adonis2(weighted_unifrac_filt ~ species + time + species:time, data=mf_alt_filt_final)
 # Include Bd_exposure
 adonis2(weighted_unifrac_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
+```
 
+```{r}
 options(repr.plot.height=5, repr.plot.width=12)
+
 # Bray curtis
 mf_alt_filt_final %>%
     mutate(Exposure=factor(prepost, levels=c("Pre","Post"))) %>%
@@ -229,7 +221,9 @@ mf_alt_filt_final %>%
     geom_point(aes(bg=time, col=Infection_status), cex=3, pch=21) +
     scale_color_manual(values=c("white","red"))+
     facet_wrap(~species, nrow=1)
+```
 
+```{r}
 ##### Plotting alpha diversity ######
 # Fit normal and lognormal distributions to each of the alpha diversity values
 
@@ -387,6 +381,9 @@ gg_divtime_treat <- mf_treat %>%
     geom_vline(aes(xintercept=5.5)) +
     facet_grid(~species)
 grid.arrange(gg_divtime_con, gg_divtime_treat, nrow=2)
+```
+
+```{r}
 
 ####### Alpha diversity metrics test ######
 # Loop through all alpha diversity metrics
@@ -420,6 +417,9 @@ for ( a in alpha_metrics ) {
     print("Bd_exposure")
     assign(paste0("anova_lmer_", a, "treat"), anova_log_lmer_2way(mf=mf_treat, dep = paste0(a), indep1="species", indep2="time"))
 }
+```
+
+```{r}
 
 #### Plotting dispersion ####
 # Bray-curtis
@@ -547,7 +547,8 @@ gg_dispertime_treat <- mf_treat %>%
     geom_vline(aes(xintercept=5.5))+
     facet_grid(~species)
 grid.arrange(gg_dispertime_con, gg_dispertime_treat, nrow=2)
-
+```
+```{r}
 ####### Dispersion metrics test ######
 # try regular 3-way iterative test
 for ( b in beta_metrics ) {
@@ -587,6 +588,9 @@ for ( b in beta_metrics ) {
     
 }
 
+```
+
+```{r}
 #### Plotting distance ####
 
 # Bray-curtis
@@ -733,7 +737,9 @@ gg_disttime_treat <- mf_treat %>%
     geom_vline(aes(xintercept=5.5))+
     facet_grid(~species)
 grid.arrange(gg_disttime_con, gg_disttime_treat, nrow=2)
+```
 
+```{r}
 ####### Distance metrics test ######
 
 # No indivID versions for these, because betareg doesn't have an easy mixed effects model
@@ -753,6 +759,10 @@ for ( b in beta_metrics ) {
     assign(paste0("anova_dist_",b,"_treat"),anova_betareg_2way(mf=mf_treat, dep = paste0("dist_",b), indep1="species", indep2="time"))
 
 }
+
+```
+
+```{r}
 
 #### Plotting inhib prop #####
 # Inhibitory proportion
@@ -801,6 +811,9 @@ gg_percInhibtime_treat <- mf_treat %>%
     facet_grid(~species)
 grid.arrange(gg_percInhibtime_con, gg_percInhibtime_treat, nrow=2)
 
+```
+
+```{r}
 #### Inhib prop metrics test #####
 # Check ANOVAs to see if statistical change in percent inhibitory. I think the beta distribution above looks the best.
 anova_percInhib <- anova_betareg_3way(mf=mf_alt_filt_final, dep="percInhib", indep1="species", indep2="time", indep3="Bd_exposure")
@@ -811,6 +824,9 @@ print("CONTROL")
 anova_percInhib_con <- anova_betareg_2way_percInhib(mf=mf_con, dep = "percInhib", indep1="species", indep2="time")
 print("Bd_exposure")
 anova_percInhib_treat <- anova_betareg_2way_percInhib(mf=mf_treat, dep = "percInhib", indep1="species", indep2="time")
+```
+
+```{r}
 
 ##### Plotting inhibitory richness #####
 # Inhibitory richness
@@ -859,7 +875,9 @@ gg_inhibRichtime_treat <- mf_treat %>%
     geom_vline(aes(xintercept=5.5))+
     facet_grid(~species)
 grid.arrange(gg_inhibRichtime_con, gg_inhibRichtime_treat, nrow=2)
+```
 
+```{r}
 ##### Inhib Rich metrics test #####
 
 # Check ANOVAs to see if statistical change in percent inhibitory. I think the beta distribution above looks the best.
@@ -870,28 +888,27 @@ anova_inhibRich_con <- anova_pois_2way(mf=mf_con, dep="inhibRich", indep1="speci
 print("Bd_exposure")
 anova_inhibRich_treat <- anova_pois_2way(mf=mf_treat, dep="inhibRich", indep1="species", indep2="time")
 
+```
+
+
+#### STOP HERE
+
+```{r rerun}
 
 # Re-run everything?
-RERUN_RICH = FALSE
-RERUN_DIST = FALSE
-RERUN_DISP = FALSE
-RERUN_PERCINHIB = FALSE
-RERUN_INHIBRICH = FALSE
+RERUN_RICH = TRUE
+RERUN_DIST = TRUE
+RERUN_DISP = TRUE
+RERUN_PERCINHIB = TRUE
+RERUN_INHIBRICH = TRUE
+
+```
+
+```{r, results="hide"}
 
 ##### RICHNESS (observed otus) (I) #######
-anova_observed_otus
-anova_lmer_observed_otus
 
 if ( RERUN_RICH ) {
-
-  lmer_log_observed_otus <- stan_lmer(log(observed_otus) ~ -1 + species + (1|indivID), data=mf_con
-                              , prior = normal(0, 10, autoscale = TRUE)
-                              #, family = gaussian(link="log")
-                              , seed = 988735
-                              , adapt_delta = 0.999
-
-  )
-  # anova_observed_otuscon
   lmer_log_observed_otus_wtime <- stan_lmer(log(observed_otus) ~ -1 + species*time + (1|indivID), data=mf_con
                                       , prior = normal(0, 10, autoscale = TRUE)
                                       #, family = gaussian(link="log")
@@ -899,27 +916,11 @@ if ( RERUN_RICH ) {
                                       , adapt_delta = 0.999
                                       
   )
-  save(lmer_log_observed_otus, file="./4_Bayesian_models/lmer_log_observed_otus.RData")
   save(lmer_log_observed_otus_wtime, file="./4_Bayesian_models/lmer_log_observed_otus_wtime.RData")
 } else {
-  load("./4_Bayesian_models/lmer_log_observed_otus.RData")
     load("./4_Bayesian_models/lmer_log_observed_otus_wtime.RData")
 }
-prior_summary(lmer_log_observed_otus)
 prior_summary(lmer_log_observed_otus_wtime)
-
-observed_otus_processed <- process_glmer(g_lmer = lmer_log_observed_otus
-                      , dep= "observed_otus"
-                      , name_dep="log_observed_otus"
-                      , transform_raw_func="log"
-                      , intercept_present=F
-                      , fit_distr="normal"
-                      , mf_con=mf_con
-                      , mf_treat=mf_treat)
-observed_otus_processed$gg_model_Distribution_of_all_values
-observed_otus_processed$gg_p
-observed_otus_processed$gg_ExpectedDistribution_and_Bd_exposed
-observed_otus_processed$gg_ExpectedDistribution_controls
 
 observed_otus_processed_wtime <- process_glmer_withtime(g_lmer = lmer_log_observed_otus_wtime
                                          , dep= "observed_otus"
@@ -931,25 +932,19 @@ observed_otus_processed_wtime <- process_glmer_withtime(g_lmer = lmer_log_observ
                                          , mf_treat=mf_treat
                                          , time_factor=T
                                          , time_inter = T)
+```
+
+```{r}
 observed_otus_processed_wtime$gg_model_Distribution_of_all_values
 observed_otus_processed_wtime$gg_p
 observed_otus_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 observed_otus_processed_wtime$gg_ExpectedDistribution_controls
+```
 
-
-
+```{r chao1I_process, results="hide"}
 ##### RICHNESS (Chao1 otus) (I) #######
 
 if ( RERUN_RICH ) {
-  
-  lmer_log_chao1 <- stan_lmer(log(chao1) ~ -1 + species + (1|indivID), data=mf_con
-                                      , prior = normal(0, 10, autoscale = TRUE)
-                                      #, family = gaussian(link="log")
-                                      , seed = 5793482
-                                      , adapt_delta = 0.999
-                                      
-  )
-  # anova_chao1con
   lmer_log_chao1_wtime <- stan_lmer(log(chao1) ~ -1 + species*time + (1|indivID), data=mf_con
                               , prior = normal(0, 10, autoscale = TRUE)
                               #, family = gaussian(link="log")
@@ -957,29 +952,12 @@ if ( RERUN_RICH ) {
                               , adapt_delta = 0.999
                               
   )
-  save(lmer_log_chao1, file="./4_Bayesian_models/lmer_log_chao1.RData")
   save(lmer_log_chao1_wtime, file="./4_Bayesian_models/lmer_log_chao1_wtime.RData")
 } else {
-  load("./4_Bayesian_models/lmer_log_chao1.RData")
     load("./4_Bayesian_models/lmer_log_chao1_wtime.RData")
     
 }
-prior_summary(lmer_log_chao1)
 prior_summary(lmer_log_chao1_wtime)
-
-
-chao1_processed <- process_glmer(g_lmer = lmer_log_chao1
-              , dep= "chao1"
-              , name_dep="log_chao1"
-              , transform_raw_func="log"
-              , intercept_present=F
-              , fit_distr="normal"
-              , mf_con=mf_con
-              , mf_treat=mf_treat)
-chao1_processed$gg_model_Distribution_of_all_values
-chao1_processed$gg_p
-chao1_processed$gg_ExpectedDistribution_and_Bd_exposed
-chao1_processed$gg_ExpectedDistribution_controls
 
 chao1_processed_wtime <- process_glmer_withtime(g_lmer = lmer_log_chao1_wtime
                                  , dep= "chao1"
@@ -995,45 +973,32 @@ chao1_processed_wtime$gg_model_Distribution_of_all_values
 chao1_processed_wtime$gg_p
 chao1_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 chao1_processed_wtime$gg_ExpectedDistribution_controls
+```
+
+```{r chao1I_plot}
+chao1_processed_wtime$gg_model_Distribution_of_all_values
+chao1_processed_wtime$gg_p
+chao1_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
+chao1_processed_wtime$gg_ExpectedDistribution_controls
+```
+
+```{r shannonI_process, results="hide"}
 
 ##### RICHNESS (Shannon) (I) #######
 
 if ( RERUN_RICH ) {
   
-  lmer_shannon <- stan_lmer(shannon ~ -1 + species + (1|indivID), data=mf_con
-                              , prior = normal(0, 10, autoscale = TRUE)
-                              , seed = 5793482
-                              , adapt_delta = 0.999
-                              
-  )
-  # anova_shannoncon
   lmer_shannon_wtime <- stan_lmer(shannon ~ -1 + species*time + (1|indivID), data=mf_con
                             , prior = normal(0, 10, autoscale = TRUE)
                             , seed = 5793482
                             , adapt_delta = 0.999
                             
   )
-  save(lmer_shannon, file="./4_Bayesian_models/lmer_shannon.RData")
   save(lmer_shannon_wtime, file="./4_Bayesian_models/lmer_shannon_wtime.RData")
 } else {
-    load("./4_Bayesian_models/lmer_shannon.RData")
     load("./4_Bayesian_models/lmer_shannon_wtime.RData")
 }
-prior_summary(lmer_shannon)
 prior_summary(lmer_shannon_wtime)
-
-shannon_processed <- process_glmer(g_lmer = lmer_shannon
-                                 , dep= "shannon"
-                                 , name_dep="shannon"
-                                 , transform_raw_func="None"
-                                 , intercept_present=F
-                                 , fit_distr="normal"
-                                 , mf_con=mf_con
-                                 , mf_treat=mf_treat)
-shannon_processed$gg_model_Distribution_of_all_values
-shannon_processed$gg_p
-shannon_processed$gg_ExpectedDistribution_and_Bd_exposed
-shannon_processed$gg_ExpectedDistribution_controls
 
 shannon_processed_wtime <- process_glmer_withtime(g_lmer = lmer_shannon_wtime
                                    , dep= "shannon"
@@ -1045,23 +1010,21 @@ shannon_processed_wtime <- process_glmer_withtime(g_lmer = lmer_shannon_wtime
                                    , mf_treat=mf_treat
                                    , time_inter=T
                                    , time_factor = T)
+```
+
+```{r shannonI_plot}
 shannon_processed_wtime$gg_model_Distribution_of_all_values
 shannon_processed_wtime$gg_p
 shannon_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 shannon_processed_wtime$gg_ExpectedDistribution_controls
+```
+
+```{r faithI_process, results="hide"}
 
 ##### RICHNESS (Faith's PD) (I) #######
 
 if ( RERUN_RICH ) {
   
-  glmer_faith_pd <- stan_glmer(faith_pd ~ species + (1|indivID), data=mf_con
-                            , prior = normal(0, 10, autoscale = TRUE)
-                            , seed = 5793482
-                            , family=Gamma(link="identity")
-                            , adapt_delta = 0.999
-
-  )
-  # anova_faith_pdcon
   glmer_faith_pd_wtime <- stan_glmer(faith_pd ~ species*time + (1|indivID), data=mf_con
                                , prior = normal(0, 10, autoscale = TRUE)
                                , seed = 5793482
@@ -1069,28 +1032,11 @@ if ( RERUN_RICH ) {
                                , adapt_delta = 0.999
                                
   )
-  save(glmer_faith_pd, file="./4_Bayesian_models/glmer_faith_pd.RData")
   save(glmer_faith_pd_wtime, file="./4_Bayesian_models/glmer_faith_pd_wtime.RData")
 } else {
-  load("./4_Bayesian_models/glmer_faith_pd.RData")
     load("./4_Bayesian_models/glmer_faith_pd_wtime.RData")
 }
-prior_summary(glmer_faith_pd)
 prior_summary(glmer_faith_pd_wtime)
-
-faith_pd_processed <- process_glmer(g_lmer = glmer_faith_pd
-                                   , dep= "faith_pd"
-                                   , name_dep="faith_pd"
-                                   , transform_raw_func="None"
-                                   , intercept_present=T
-                                   , fit_distr="Gamma"
-                                   , mf_con = mf_con
-                                   , mf_treat=mf_treat
-                                   )
-faith_pd_processed$gg_model_Distribution_of_all_values
-faith_pd_processed$gg_p
-faith_pd_processed$gg_ExpectedDistribution_and_Bd_exposed
-faith_pd_processed$gg_ExpectedDistribution_controls
 
 faith_pd_processed_wtime <- process_glmer_withtime(g_lmer = glmer_faith_pd_wtime
                                     , dep= "faith_pd"
@@ -1103,53 +1049,33 @@ faith_pd_processed_wtime <- process_glmer_withtime(g_lmer = glmer_faith_pd_wtime
                                     , time_inter = T
                                     , time_factor = T
 )
+```
+
+```{r faithI_plot}
 faith_pd_processed_wtime$gg_model_Distribution_of_all_values
 faith_pd_processed_wtime$gg_p
 faith_pd_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 faith_pd_processed_wtime$gg_ExpectedDistribution_controls
+```
+
+
+```{r disperBCI_process, results="hide"}
 
 ##### Dispersion (BC) (I) #######
 
 if ( RERUN_DISP ) {
-  
-  lmer_disper_braycurtis <- stan_lmer(log(disper_braycurtis) ~ -1 + species + (1|indivID) + time
-                             , data=mf_con
-                             , prior_intercept = normal(location = 0,scale = 5, autoscale = TRUE)
-                             , prior = normal(location=0, scale=5, autoscale=TRUE)
-                             , seed= 29473
-  )
-  
   lmer_disper_braycurtis_wtime <- stan_lmer(log(disper_braycurtis) ~ -1 + species*time + (1|indivID)
                                       , data=mf_con
                                       , prior_intercept = normal(location = 0,scale = 5, autoscale = TRUE)
                                       , prior = normal(location=0, scale=5, autoscale=TRUE)
                                       , seed= 29473
   )
-  save(lmer_disper_braycurtis, file="./4_Bayesian_models/lmer_disper_braycurtis.RData")
   save(lmer_disper_braycurtis_wtime, file="./4_Bayesian_models/lmer_disper_braycurtis_wtime.RData")
 } else {
-  load("./4_Bayesian_models/lmer_disper_braycurtis.RData")
     load("./4_Bayesian_models/lmer_disper_braycurtis_wtime.RData")
     
 }
-prior_summary(lmer_disper_braycurtis)
 prior_summary(lmer_disper_braycurtis_wtime)
-
-disper_braycurtis_processed <- process_glmer(g_lmer = lmer_disper_braycurtis
-                                    , dep= "disper_braycurtis"
-                                    , name_dep="log_disper_braycurtis"
-                                    , transform_raw_func="log"
-                                    , intercept_present=F
-                                    , time_factor = T
-                                    , fit_distr="normal"
-                                    , mf_con=mf_con
-                                    , mf_treat=mf_treat
-)
-disper_braycurtis_processed$gg_model_Distribution_of_all_values
-disper_braycurtis_processed$gg_p
-disper_braycurtis_processed$gg_ExpectedDistribution_and_Bd_exposed
-disper_braycurtis_processed$gg_ExpectedDistribution_controls
-
 
 disper_braycurtis_processed_wtime <- process_glmer_withtime(g_lmer = lmer_disper_braycurtis_wtime
                                              , dep= "disper_braycurtis"
@@ -1162,51 +1088,31 @@ disper_braycurtis_processed_wtime <- process_glmer_withtime(g_lmer = lmer_disper
                                              , mf_treat=mf_treat
                                              , time_inter = T
 )
+```
+
+```{r disperBCI_plot}
 disper_braycurtis_processed_wtime$gg_model_Distribution_of_all_values
 disper_braycurtis_processed_wtime$gg_p
 disper_braycurtis_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 disper_braycurtis_processed_wtime$gg_ExpectedDistribution_controls
+```
+
+```{r disperUWUI_process, results="hide"}
 
 ##### Dispersion (UWU) (I) #######
 
 if ( RERUN_DISP ) {
-  
-  lmer_disper_unweighted_unifrac <- stan_lmer(log(disper_unweighted_unifrac) ~ -1 + species + (1|indivID) + time
-                                      , data=mf_con
-                                      , prior_intercept = normal(location = 0,scale = 5, autoscale = TRUE)
-                                      , prior = normal(location=0, scale=5, autoscale=TRUE)
-                                      , seed= 29473
-  )
-  
   lmer_disper_unweighted_unifrac_wtime <- stan_lmer(log(disper_unweighted_unifrac) ~ -1 + species*time + (1|indivID) 
                                               , data=mf_con
                                               , prior_intercept = normal(location = 0,scale = 5, autoscale = TRUE)
                                               , prior = normal(location=0, scale=5, autoscale=TRUE)
                                               , seed= 29473
   )
-  save(lmer_disper_unweighted_unifrac, file="./4_Bayesian_models/lmer_disper_unweighted_unifrac.RData")
   save(lmer_disper_unweighted_unifrac_wtime, file="./4_Bayesian_models/lmer_disper_unweighted_unifrac_wtime.RData")
 } else {
-    load("./4_Bayesian_models/lmer_disper_unweighted_unifrac.RData")
     load("./4_Bayesian_models/lmer_disper_unweighted_unifrac_wtime.RData")
 }
-prior_summary(lmer_disper_unweighted_unifrac)
 prior_summary(lmer_disper_unweighted_unifrac_wtime)
-
-disper_unweighted_unifrac_processed <- process_glmer(g_lmer = lmer_disper_unweighted_unifrac
-                                             , dep= "disper_unweighted_unifrac"
-                                             , name_dep="log_disper_unweighted_unifrac"
-                                             , transform_raw_func="log"
-                                             , intercept_present=F
-                                             , time_factor = T
-                                             , fit_distr="normal"
-                                             , mf_con=mf_con
-                                             , mf_treat=mf_treat
-)
-disper_unweighted_unifrac_processed$gg_model_Distribution_of_all_values
-disper_unweighted_unifrac_processed$gg_p
-disper_unweighted_unifrac_processed$gg_ExpectedDistribution_and_Bd_exposed
-disper_unweighted_unifrac_processed$gg_ExpectedDistribution_controls
 
 disper_unweighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = lmer_disper_unweighted_unifrac_wtime
                                                      , dep= "disper_unweighted_unifrac"
@@ -1219,51 +1125,32 @@ disper_unweighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = lme
                                                      , mf_treat=mf_treat
                                                      , time_inter = T
 )
+```
+
+```{r disperUWUI_plot}
 disper_unweighted_unifrac_processed_wtime$gg_model_Distribution_of_all_values
 disper_unweighted_unifrac_processed_wtime$gg_p
 disper_unweighted_unifrac_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 disper_unweighted_unifrac_processed_wtime$gg_ExpectedDistribution_controls
+```
 
+
+
+```{r disperWUI_process, results="hide"}
 ##### Dispersion (WU) (I) #######
 
 if ( RERUN_DISP ) {
-  
-  lmer_disper_weighted_unifrac <- stan_lmer(log(disper_weighted_unifrac) ~ -1 + species + (1|indivID) + time
-                                              , data=mf_con
-                                              , prior_intercept = normal(location = 0,scale = 5, autoscale = TRUE)
-                                              , prior = normal(location=0, scale=5, autoscale=TRUE)
-                                              , seed= 29473
-  )
-
   lmer_disper_weighted_unifrac_wtime <- stan_lmer(log(disper_weighted_unifrac) ~ -1 + species*time + (1|indivID) 
                                             , data=mf_con
                                             , prior_intercept = normal(location = 0,scale = 5, autoscale = TRUE)
                                             , prior = normal(location=0, scale=5, autoscale=TRUE)
                                             , seed= 29473
   )
-  save(lmer_disper_weighted_unifrac, file="./4_Bayesian_models/lmer_disper_weighted_unifrac.RData")
   save(lmer_disper_weighted_unifrac_wtime, file="./4_Bayesian_models/lmer_disper_weighted_unifrac_wtime.RData")
 } else {
-    load("./4_Bayesian_models/lmer_disper_weighted_unifrac.RData")
     load("./4_Bayesian_models/lmer_disper_weighted_unifrac_wtime.RData")
 }
-prior_summary(lmer_disper_weighted_unifrac)
 prior_summary(lmer_disper_weighted_unifrac_wtime)
-
-disper_weighted_unifrac_processed <- process_glmer(g_lmer = lmer_disper_weighted_unifrac
-                                                     , dep= "disper_weighted_unifrac"
-                                                     , name_dep="log_disper_weighted_unifrac"
-                                                     , transform_raw_func="log"
-                                                     , intercept_present=F
-                                                     , time_factor = T
-                                                     , fit_distr="normal"
-                                                     , mf_con=mf_con
-                                                     , mf_treat=mf_treat
-)
-disper_weighted_unifrac_processed$gg_model_Distribution_of_all_values
-disper_weighted_unifrac_processed$gg_p
-disper_weighted_unifrac_processed$gg_ExpectedDistribution_and_Bd_exposed
-disper_weighted_unifrac_processed$gg_ExpectedDistribution_controls
 
 disper_weighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = lmer_disper_weighted_unifrac_wtime
                                                    , dep= "disper_weighted_unifrac"
@@ -1276,23 +1163,20 @@ disper_weighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = lmer_
                                                    , mf_treat=mf_treat
                                                    , time_inter = T
 )
+```
+
+```{r disperWUI_plot}
 disper_weighted_unifrac_processed_wtime$gg_model_Distribution_of_all_values
 disper_weighted_unifrac_processed_wtime$gg_p
 disper_weighted_unifrac_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 disper_weighted_unifrac_processed_wtime$gg_ExpectedDistribution_controls
+```
 
+
+```{r distBCI_process, results="hide"}
 ##### Distance (BC) (I) #######
 
 if ( RERUN_DIST ) {
-  
-  glmer_dist_braycurtis <- stan_glmer(dist_braycurtis ~ -1 + species + (1|indivID)
-                           , data=mf_con
-                           , family =mgcv::betar
-                           , prior_intercept = normal(location = 0.5,scale = 2.5, autoscale = TRUE)
-                           , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
-                           , seed= 623445
-  )
-  
   glmer_dist_braycurtis_wtime <- stan_glmer(dist_braycurtis ~ -1 + species*time + (1|indivID)
                                       , data=mf_con
                                       , family =mgcv::betar
@@ -1300,29 +1184,11 @@ if ( RERUN_DIST ) {
                                       , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
                                       , seed= 623445
   )
-  save(glmer_dist_braycurtis, file="./4_Bayesian_models/glmer_dist_braycurtis.RData")
   save(glmer_dist_braycurtis_wtime, file="./4_Bayesian_models/glmer_dist_braycurtis_wtime.RData")
 } else {
-    load("./4_Bayesian_models/glmer_dist_braycurtis.RData")
     load("./4_Bayesian_models/glmer_dist_braycurtis_wtime.RData")
 }
-prior_summary(glmer_dist_braycurtis)
 prior_summary(glmer_dist_braycurtis_wtime)
-
-dist_braycurtis_processed <- process_glmer(g_lmer = glmer_dist_braycurtis
-                                    , dep= "dist_braycurtis"
-                                    , name_dep="dist_braycurtis"
-                                    , transform_raw_func="beta"
-                                    , intercept_present=F
-                                    , fit_distr="Beta"
-                                    , mf_con=mf_con
-                                    , mf_treat=mf_treat
-)
-
-dist_braycurtis_processed$gg_model_Distribution_of_all_values
-dist_braycurtis_processed$gg_p
-dist_braycurtis_processed$gg_ExpectedDistribution_and_Bd_exposed
-dist_braycurtis_processed$gg_ExpectedDistribution_controls
 
 dist_braycurtis_processed_wtime <- process_glmer_withtime(g_lmer = glmer_dist_braycurtis_wtime
                                            , dep= "dist_braycurtis"
@@ -1336,24 +1202,20 @@ dist_braycurtis_processed_wtime <- process_glmer_withtime(g_lmer = glmer_dist_br
                                            , time_inter = T
                                            
 )
+```
 
+```{r distBCI_plot }
 dist_braycurtis_processed_wtime$gg_model_Distribution_of_all_values
 dist_braycurtis_processed_wtime$gg_p
 dist_braycurtis_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 dist_braycurtis_processed_wtime$gg_ExpectedDistribution_controls
+```
 
+
+```{r distUWUI_process, results="hide"}
 ##### Distance (UWU) (I) #######
 
 if ( RERUN_DIST ) {
-  
-  glmer_dist_unweighted_unifrac <- stan_glmer(dist_unweighted_unifrac ~ -1 + species + (1|indivID)
-                                      , data=mf_con
-                                      , family =mgcv::betar
-                                      , prior_intercept = normal(location = 0.5,scale = 2.5, autoscale = TRUE)
-                                      , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
-                                      , seed= 623445
-  )
-  
   glmer_dist_unweighted_unifrac_wtime <- stan_glmer(dist_unweighted_unifrac ~ -1 + species*time + (1|indivID)
                                               , data=mf_con
                                               , family =mgcv::betar
@@ -1361,29 +1223,11 @@ if ( RERUN_DIST ) {
                                               , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
                                               , seed= 623445
   )
-  save(glmer_dist_unweighted_unifrac, file="./4_Bayesian_models/glmer_dist_unweighted_unifrac.RData")
   save(glmer_dist_unweighted_unifrac_wtime, file="./4_Bayesian_models/glmer_dist_unweighted_unifrac_wtime.RData")
 } else {
-    load("./4_Bayesian_models/glmer_dist_unweighted_unifrac.RData")
     load("./4_Bayesian_models/glmer_dist_unweighted_unifrac_wtime.RData")
 }
-prior_summary(glmer_dist_unweighted_unifrac)
 prior_summary(glmer_dist_unweighted_unifrac_wtime)
-
-dist_unweighted_unifrac_processed <- process_glmer(g_lmer = glmer_dist_unweighted_unifrac
-                                           , dep= "dist_unweighted_unifrac"
-                                           , name_dep="dist_unweighted_unifrac"
-                                           , transform_raw_func="beta"
-                                           , intercept_present=F
-                                           , fit_distr="Beta"
-                                           , mf_con=mf_con
-                                           , mf_treat=mf_treat
-)
-
-dist_unweighted_unifrac_processed$gg_model_Distribution_of_all_values
-dist_unweighted_unifrac_processed$gg_p
-dist_unweighted_unifrac_processed$gg_ExpectedDistribution_and_Bd_exposed
-dist_unweighted_unifrac_processed$gg_ExpectedDistribution_controls
 
 dist_unweighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = glmer_dist_unweighted_unifrac_wtime
                                                    , dep= "dist_unweighted_unifrac"
@@ -1397,24 +1241,19 @@ dist_unweighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = glmer
                                                    , time_inter = T
                                                    
 )
+```
+
+```{r distUWUI_plot}
 
 dist_unweighted_unifrac_processed_wtime$gg_model_Distribution_of_all_values
 dist_unweighted_unifrac_processed_wtime$gg_p
 dist_unweighted_unifrac_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 dist_unweighted_unifrac_processed_wtime$gg_ExpectedDistribution_controls
+```
 
+```{r distWUI_process, results="hide"}
 ##### Distance (WU) (I) #######
-
 if ( RERUN_DIST ) {
-  
-  glmer_dist_weighted_unifrac <- stan_glmer(dist_weighted_unifrac ~ -1 + species + (1|indivID)
-                                              , data=mf_con
-                                              , family =mgcv::betar
-                                              , prior_intercept = normal(location = 0.5,scale = 2.5, autoscale = TRUE)
-                                              , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
-                                              , seed= 623445
-  )
-  # anova_dist_weighted_unifrac_con
   glmer_dist_weighted_unifrac_wtime <- stan_glmer(dist_weighted_unifrac ~ -1 + species*time + (1|indivID)
                                             , data=mf_con
                                             , family =mgcv::betar
@@ -1422,29 +1261,11 @@ if ( RERUN_DIST ) {
                                             , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
                                             , seed= 623445
   )
-  save(glmer_dist_weighted_unifrac, file="./4_Bayesian_models/glmer_dist_weighted_unifrac.RData")
   save(glmer_dist_weighted_unifrac_wtime, file="./4_Bayesian_models/glmer_dist_weighted_unifrac_wtime.RData")
 } else {
-    load("./4_Bayesian_models/glmer_dist_weighted_unifrac.RData")
     load("./4_Bayesian_models/glmer_dist_weighted_unifrac_wtime.RData")
 }
-prior_summary(glmer_dist_weighted_unifrac)
 prior_summary(glmer_dist_weighted_unifrac_wtime)
-
-dist_weighted_unifrac_processed <- process_glmer(g_lmer = glmer_dist_weighted_unifrac
-                                                   , dep= "dist_weighted_unifrac"
-                                                   , name_dep="dist_weighted_unifrac"
-                                                   , transform_raw_func="beta"
-                                                   , intercept_present=F
-                                                   , fit_distr="Beta"
-                                                   , mf_con=mf_con
-                                                   , mf_treat=mf_treat
-)
-
-dist_weighted_unifrac_processed$gg_model_Distribution_of_all_values
-dist_weighted_unifrac_processed$gg_p
-dist_weighted_unifrac_processed$gg_ExpectedDistribution_and_Bd_exposed
-dist_weighted_unifrac_processed$gg_ExpectedDistribution_controls
 
 dist_weighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = glmer_dist_weighted_unifrac_wtime
                                                  , dep= "dist_weighted_unifrac"
@@ -1457,25 +1278,19 @@ dist_weighted_unifrac_processed_wtime <- process_glmer_withtime(g_lmer = glmer_d
                                                  , time_factor = T
                                                  , time_inter = T
 )
+```
 
+```{r distWUI_plot}
 dist_weighted_unifrac_processed_wtime$gg_model_Distribution_of_all_values
 dist_weighted_unifrac_processed_wtime$gg_p
 dist_weighted_unifrac_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 dist_weighted_unifrac_processed_wtime$gg_ExpectedDistribution_controls
 
+```
+
+```{r percInhibI_process, results="hide"}
 ##### Percent Inhibitory (I) #######
-
-
 if ( RERUN_PERCINHIB ) {
-  
-  glmer_percInhib <- stan_glmer(percInhib ~ -1 + species + (1|indivID)
-                                      , data=mf_con
-                                      , family =mgcv::betar
-                                      , prior_intercept = normal(location = 0.5,scale = 2.5, autoscale = TRUE)
-                                      , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
-                                      , seed= 59283
-  )
-  # anova_percInhib_con
   glmer_percInhib_wtime <- stan_glmer(percInhib ~ -1 + species*time + (1|indivID)
                                 , data=mf_con
                                 , family =mgcv::betar
@@ -1483,30 +1298,11 @@ if ( RERUN_PERCINHIB ) {
                                 , prior = normal(location=0.5, scale=2.5, autoscale=TRUE)
                                 , seed= 59283
   )
-  save(glmer_percInhib, file="./4_Bayesian_models/glmer_percInhib.RData")
   save(glmer_percInhib_wtime, file="./4_Bayesian_models/glmer_percInhib_wtime.RData")
 } else {
-    load("./4_Bayesian_models/glmer_percInhib.RData")
     load("./4_Bayesian_models/glmer_percInhib_wtime.RData")
 }
-prior_summary(glmer_percInhib)
 prior_summary(glmer_percInhib_wtime)
-
-percInhib_processed <- process_glmer(g_lmer = glmer_percInhib
-                                           , dep= "percInhib"
-                                           , name_dep="percInhib"
-                                           , transform_raw_func="beta"
-                                           , intercept_present=F
-                                           , fit_distr="Beta"
-                                           , mf_con=mf_con
-                                           , mf_treat=mf_treat
-)
-
-percInhib_processed$gg_model_Distribution_of_all_values
-percInhib_processed$gg_p
-percInhib_processed$gg_ExpectedDistribution_and_Bd_exposed
-percInhib_processed$gg_ExpectedDistribution_controls
-
 
 percInhib_processed_wtime <- process_glmer_withtime(g_lmer = glmer_percInhib_wtime
                                      , dep= "percInhib"
@@ -1519,49 +1315,30 @@ percInhib_processed_wtime <- process_glmer_withtime(g_lmer = glmer_percInhib_wti
                                      , time_inter = T
                                      , time_factor=T
 )
+```
 
+```{r percInhibI_plot}
 percInhib_processed_wtime$gg_model_Distribution_of_all_values
 percInhib_processed_wtime$gg_p
 percInhib_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 percInhib_processed_wtime$gg_ExpectedDistribution_controls
 
+```
+
+
+```{r inhibRichI_process, results="hide"}
 ##### Inhibitory Richness (I) #######
 
 if ( RERUN_INHIBRICH ) {
-  # Here, I include a random variable of sample because of over-dispersion from poisson
-  glmer_inhibRich <- stan_glmer(inhibRich ~ species + (1|indivID) + (1|SampleID) + time, data=mf_con
-                                    , prior = normal(0, 10, autoscale = TRUE)
-                                    , family= poisson(link="identity")
-                                    , seed = 5423409)
-  # anova_inhibRich_con
   glmer_inhibRich_wtime <- stan_glmer(inhibRich ~ species*time + (1|indivID) + (1|SampleID), data=mf_con
                                 , prior = normal(0, 10, autoscale = TRUE)
                                 , family= poisson(link="identity")
                                 , seed = 5423409)
-  save(glmer_inhibRich, file="./4_Bayesian_models/glmer_inhibRich.RData")
   save(glmer_inhibRich_wtime, file="./4_Bayesian_models/glmer_inhibRich_wtime.RData")
 } else {
-    load("./4_Bayesian_models/glmer_inhibRich.RData")
     load("./4_Bayesian_models/glmer_inhibRich_wtime.RData")
 }
-prior_summary(glmer_inhibRich)
 prior_summary(glmer_inhibRich_wtime)
-
-inhibRich_processed <- process_glmer(g_lmer = glmer_inhibRich
-                                     , dep= "inhibRich"
-                                     , name_dep="inhibRich"
-                                     , transform_raw_func="None"
-                                     , intercept_present=T
-                                     , fit_distr="Poisson"
-                                     , mf_con=mf_con
-                                     , mf_treat=mf_treat
-                                     , time_factor=T
-)
-
-inhibRich_processed$gg_model_Distribution_of_all_values
-inhibRich_processed$gg_p
-inhibRich_processed$gg_ExpectedDistribution_and_Bd_exposed
-inhibRich_processed$gg_ExpectedDistribution_controls
 
 inhibRich_processed_wtime <- process_glmer_withtime(g_lmer = glmer_inhibRich_wtime
                                      , dep= "inhibRich"
@@ -1574,12 +1351,17 @@ inhibRich_processed_wtime <- process_glmer_withtime(g_lmer = glmer_inhibRich_wti
                                      , time_factor=T
                                      , time_inter=T
 )
+```
 
+```{r inhibRichI_plot }
 inhibRich_processed_wtime$gg_model_Distribution_of_all_values
 inhibRich_processed_wtime$gg_p
 inhibRich_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
 inhibRich_processed_wtime$gg_ExpectedDistribution_controls
+```
 
+
+```{r combine_p}
 # Combine all p values and save work
 all_tabs <- c("observed_otus"
 , "chao1"
@@ -1638,24 +1420,19 @@ all_p_combined <- all_p_con %>%
   rbind(all_p_temp)
 
 save(all_p_combined, file="./4_Bayesian_models/all_p_combined.RData")
+```
 
+```{r}
 # Make a mf with pre-exposure treatment individuals
 mf_all_noinfect <- mf_alt_filt_final %>%
 filter(!(Bd_exposure=="Bd-exposed"&prepost=="Post"))
+```
 
 
-
+```{r alphaobservedII_process, results="hide"}
 ##### RICHNESS (observed otus) (II) #######
 # There was no effect of time
 if ( RERUN_RICH ) {
-  lmer_log_observed_otus_all <- stan_lmer(log(observed_otus) ~ -1 + species + (1|indivID), data=mf_all_noinfect
-                                      , prior = normal(0, 10, autoscale = TRUE)
-                                      #, family = gaussian(link="log")
-                                      , seed = 298473
-                                      , adapt_delta = 0.999
-                                      
-  )
-  
   lmer_log_observed_otus_all_wtime <- stan_lmer(log(observed_otus) ~ -1 + species*time + (1|indivID), data=mf_all_noinfect
                                           , prior = normal(0, 10, autoscale = TRUE)
                                           #, family = gaussian(link="log")
@@ -1663,28 +1440,11 @@ if ( RERUN_RICH ) {
                                           , adapt_delta = 0.999
                                           
   )
-  save(lmer_log_observed_otus_all, file="./4_Bayesian_models/lmer_log_observed_otus_all.RData")
   save(lmer_log_observed_otus_all_wtime, file="./4_Bayesian_models/lmer_log_observed_otus_all_wtime.RData")
 } else {
-    load("./4_Bayesian_models/lmer_log_observed_otus_all.RData")
     load("./4_Bayesian_models/lmer_log_observed_otus_all_wtime.RData")
 }
-prior_summary(lmer_log_observed_otus_all)
 prior_summary(lmer_log_observed_otus_all_wtime)
-
-
-observed_otus_processed_all <- process_glmer_all(g_lmer = lmer_log_observed_otus_all
-                                         , dep= "observed_otus"
-                                         , name_dep="log_observed_otus"
-                                         , transform_raw_func="log"
-                                         , intercept_present=F
-                                         , fit_distr="normal"
-                                         , mf_con=mf_con
-                                         , mf_treat=mf_treat)
-observed_otus_processed_all$gg_model_Distribution_of_all_values
-observed_otus_processed_all$gg_p
-observed_otus_processed_all$gg_ExpectedDistribution_and_Bd_exposed
-observed_otus_processed_all$gg_ExpectedDistribution_controls
 
 observed_otus_processed_all_wtime <- process_glmer_all_wtime(g_lmer = lmer_log_observed_otus_all_wtime
                                                  , dep= "observed_otus"
@@ -1696,23 +1456,19 @@ observed_otus_processed_all_wtime <- process_glmer_all_wtime(g_lmer = lmer_log_o
                                                  , mf_treat=mf_treat
                                                  , time_factor = T
                                                  , time_inter = T)
+```
+
+```{r alphaobservedII_plot}
 observed_otus_processed_all_wtime$gg_model_Distribution_of_all_values
 observed_otus_processed_all_wtime$gg_p
 observed_otus_processed_all_wtime$gg_ExpectedDistribution_and_Bd_exposed
 observed_otus_processed_all_wtime$gg_ExpectedDistribution_controls
+```
 
-
+```{r alphachao1II_process, results="hide"}
 ##### RICHNESS (Chao1) (II) #######
 
 if ( RERUN_RICH ) {
-  
-  lmer_log_chao1_all <- stan_lmer(log(chao1) ~ -1 + species + (1|indivID), data=mf_all_noinfect
-                              , prior = normal(0, 10, autoscale = TRUE)
-                              #, family = gaussian(link="log")
-                              , seed = 5793482
-                              , adapt_delta = 0.999
-
-  )
   
   lmer_log_chao1_all_wtime <- stan_lmer(log(chao1) ~ -1 + species*time + (1|indivID), data=mf_all_noinfect
                                   , prior = normal(0, 10, autoscale = TRUE)
@@ -1721,28 +1477,11 @@ if ( RERUN_RICH ) {
                                   , adapt_delta = 0.999
                                   
   )
-  save(lmer_log_chao1_all, file="./4_Bayesian_models/lmer_log_chao1_all.RData")
   save(lmer_log_chao1_all_wtime, file="./4_Bayesian_models/lmer_log_chao1_all_wtime.RData")
 } else {
-    load("./4_Bayesian_models/lmer_log_chao1_all.RData")
     load("./4_Bayesian_models/lmer_log_chao1_all_wtime.RData")
 }
-prior_summary(lmer_log_chao1_all)
 prior_summary(lmer_log_chao1_all_wtime)
-
-
-chao1_processed_all <- process_glmer_all(g_lmer = lmer_log_chao1_all
-                                 , dep= "chao1"
-                                 , name_dep="log_chao1"
-                                 , transform_raw_func="log"
-                                 , intercept_present=F
-                                 , fit_distr="normal"
-                                 , mf_con=mf_con
-                                 , mf_treat=mf_treat)
-chao1_processed_all$gg_model_Distribution_of_all_values
-chao1_processed_all$gg_p
-chao1_processed_all$gg_ExpectedDistribution_and_Bd_exposed
-chao1_processed_all$gg_ExpectedDistribution_controls
 
 chao1_processed_all_wtime <- process_glmer_all_wtime(g_lmer = lmer_log_chao1_all_wtime
                                          , dep= "chao1"
@@ -1754,18 +1493,14 @@ chao1_processed_all_wtime <- process_glmer_all_wtime(g_lmer = lmer_log_chao1_all
                                          , mf_treat=mf_treat
                                          , time_factor = T
                                          , time_inter = T)
+```
+
+```{r alphachao1II_plot}
 chao1_processed_all_wtime$gg_model_Distribution_of_all_values
 chao1_processed_all_wtime$gg_p
 chao1_processed_all_wtime$gg_ExpectedDistribution_and_Bd_exposed
 chao1_processed_all_wtime$gg_ExpectedDistribution_controls
-
-
-
-
 ```
-
-#### STOP HERE 
-
 
 ```{r alphaShannonII_process, results="hide"}
 ##### DIVERSITY (Shannon) (II) #######

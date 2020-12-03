@@ -1,13 +1,13 @@
 Microbial.Community.Trait	Metric	Test	Control_species	Control_time	Control_speciesxtime	Treatment_species	Treatment_time	Treatment_speciesxtime
-Alpha diversity	Observed otus	ANOVA	p<0.001, F(4,206)=9.539	p=0.644, F(1,206)=0.214	p=0.063, F(4,206)=2.267	p<0.001, F(4,289)=15.359	p=0.417, F(1,289)=0.662	p<0.001, F(4,289)=7.319
-Alpha diversity	Chao1	ANOVA	p<0.001, F(4,206)=8.939	p=0.488, F(1,206)=0.482	p=0.076, F(4,206)=2.148	p<0.001, F(4,289)=13.442	p=0.479, F(1,289)=0.502	p<0.001, F(4,289)=5.004
-Alpha diversity	Faith's PD	ANOVA	p<0.001, F(4,206)=9.185	p=0.514, F(1,206)=0.427	p=0.063, F(4,206)=2.268	p<0.001, F(4,289)=19.88	p=0.251, F(1,289)=1.324	p<0.001, F(4,289)=9.14
-Alpha diversity	Shannon	ANOVA	p=0.026, F(4,206)=2.817	p=0.678, F(1,206)=0.173	p=0.002, F(4,206)=4.416	p<0.001, F(4,289)=7.448	p=0.01, F(1,289)=6.71	p<0.001, F(4,289)=9.922
-Dispersion	Bray-curtis	ANOVA	p<0.001, F(4,206)=6.318	p<0.001, F(1,206)=27.294	p=0.072, F(4,206)=2.184	p=0.882, F(4,289)=0.294	p<0.001, F(1,289)=27.573	p=0.01, F(4,289)=3.378
-Dispersion	Unweighted Unifrac	ANOVA	p=0.601, F(4,206)=0.689	p=0.024, F(1,206)=5.138	p=0.012, F(4,206)=3.28	p=0.318, F(4,289)=1.185	p=0.022, F(1,289)=5.287	p=0.183, F(4,289)=1.568
-Dispersion	Weighted Unifrac	ANOVA	p<0.001, F(4,206)=5.296	p<0.001, F(1,206)=23.797	p=0.003, F(4,206)=4.245	p=0.552, F(4,289)=0.76	p=0.021, F(1,289)=5.385	p=0.678, F(4,289)=0.579
-Distance	Bray-curtis	LR Chisq	p=0.016, LR Chisq(4)=12.197	p=0.502, LR Chisq(1)=0.45	p=0.89, LR Chisq(4)=1.128	p=0.417, LR Chisq(4)=3.92	p=0.757, LR Chisq(1)=0.096	p=0.819, LR Chisq(4)=1.543
-Distance	Unweighted Unifrac	LR Chisq	p<0.001, LR Chisq(4)=21.02	p=0.288, LR Chisq(1)=1.129	p=0.408, LR Chisq(4)=3.988	p<0.001, LR Chisq(4)=20.257	p=0.56, LR Chisq(1)=0.339	p=0.181, LR Chisq(4)=6.257
-Distance	Weighted Unifrac	LR Chisq	p=0.064, LR Chisq(4)=8.875	p=0.13, LR Chisq(1)=2.295	p=0.824, LR Chisq(4)=1.513	p=0.165, LR Chisq(4)=6.5	p=0.582, LR Chisq(1)=0.302	p=0.752, LR Chisq(4)=1.912
-Inhibitory Richness	Count	LR Chisq	p<0.001, LR Chisq(4)=25.884	p=0.002, LR Chisq(1)=9.813	p<0.001, LR Chisq(4)=27.335	p<0.001, LR Chisq(4)=38.899	p=0.003, LR Chisq(1)=8.707	p<0.001, LR Chisq(4)=23.356
-Percent Inhibitory	Proportion	LR Chisq	p<0.001, LR Chisq(4)=77.452	p=0.162, LR Chisq(1)=1.957	p<0.001, LR Chisq(4)=40.898	p<0.001, LR Chisq(4)=79.648	p=0.575, LR Chisq(1)=0.314	p<0.001, LR Chisq(4)=73.554
+Alpha diversity	Observed otus	Chisq	p<0.001, Chisq(4)=28.464	p=0.572, Chisq(1)=0.32	p=0.038, Chisq(4)=10.169	p<0.001, Chisq(4)=46.91	p=0.387, Chisq(1)=0.75	p<0.001, Chisq(4)=32.464
+Alpha diversity	Chao1	Chisq	p<0.001, Chisq(4)=27.454	p=0.451, Chisq(1)=0.567	p=0.057, Chisq(4)=9.172	p<0.001, Chisq(4)=46.501	p=0.458, Chisq(1)=0.55	p<0.001, Chisq(4)=21.018
+Alpha diversity	Faith's PD	Chisq	p<0.001, Chisq(4)=27.608	p=0.585, Chisq(1)=0.298	p=0.034, Chisq(4)=10.397	p<0.001, Chisq(4)=64.113	p=0.226, Chisq(1)=1.463	p<0.001, Chisq(4)=39.785
+Alpha diversity	Shannon	Chisq	p=0.025, Chisq(4)=11.111	p=0.669, Chisq(1)=0.183	p=0.001, Chisq(4)=17.737	p<0.001, Chisq(4)=24.542	p=0.01, Chisq(1)=6.663	p<0.001, Chisq(4)=41.75
+Dispersion	Bray-curtis	Chisq	p<0.001, Chisq(4)=25.27	p<0.001, Chisq(1)=27.294	p=0.068, Chisq(4)=8.736	p=0.902, Chisq(4)=1.048	p<0.001, Chisq(1)=31.715	p=0.005, Chisq(4)=15.02
+Dispersion	Unweighted Unifrac	Chisq	p=0.6, Chisq(4)=2.754	p=0.023, Chisq(1)=5.138	p=0.011, Chisq(4)=13.12	p=0.356, Chisq(4)=4.392	p=0.02, Chisq(1)=5.432	p=0.175, Chisq(4)=6.342
+Dispersion	Weighted Unifrac	ANOVA	p=0.001, Chisq(4)=18.366	p<0.001, Chisq(1)=25.536	p=0.001, Chisq(4)=18.342	p=0.552, F(4,289)=0.76	p=0.021, F(1,289)=5.385	p=0.678, F(4,289)=0.579
+Distance	Bray-curtis	Chisq	p=0.018, Chisq(4)=11.873	p=0.893, Chisq(1)=0.018	p=0.939, Chisq(4)=0.795	p=0.135, Chisq(4)=7.015	p=0.854, Chisq(1)=0.034	p=0.278, Chisq(4)=5.089
+Distance	Unweighted Unifrac	Chisq	p<0.001, Chisq(4)=62.486	p=0.214, Chisq(1)=1.543	p=0.314, Chisq(4)=4.754	p<0.001, Chisq(4)=38.185	p=0.507, Chisq(1)=0.44	p=0.072, Chisq(4)=8.612
+Distance	Weighted Unifrac	Chisq	p=0.003, Chisq(4)=15.895	p=0.213, Chisq(1)=1.55	p=0.875, Chisq(4)=1.221	p=0.214, Chisq(4)=5.81	p=0.471, Chisq(1)=0.521	p=0.483, Chisq(4)=3.464
+Inhibitory Richness	Count	Chisq	p<0.001, Chisq(4)=24.946	p=0.002, Chisq(1)=10.013	p<0.001, Chisq(4)=26.177	p<0.001, Chisq(4)=36.931	p=0.003, Chisq(1)=8.721	p<0.001, Chisq(4)=23.455
+Percent Inhibitory	Proportion	Chisq	p<0.001, Chisq(4)=22.924	p=0.218, Chisq(1)=1.515	p<0.001, Chisq(4)=40.919	p<0.001, Chisq(4)=55.808	p=0.773, Chisq(1)=0.083	p<0.001, Chisq(4)=60.376

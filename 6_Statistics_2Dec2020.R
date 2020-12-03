@@ -9,7 +9,8 @@ library(lmtest) # for beta analysis
 library(MASS) # for isoMDS and stepAIC
 library(ade4)
 library(reshape2)
-library(lme4)
+library(lme4) # mixed effect models
+library(pwr) # power test
 dir.create("./6_Statistics")
 
 # Mapping files
@@ -272,6 +273,7 @@ write.table(adonis_composition_wu_timexspeciesxbdloadxtreatment
 
 ### Observed_otus
 # Type I ANOVA to see if interactions present
+
 Anova(lmer(log(observed_otus) ~ species*time + (1|indivID), data=mf_con), type = 2)
 # Type III ANOVA (regardless of interactions)
 anova_richness_logobsotu_speciesxtime_con <- Anova(lmer(log(observed_otus) ~ species*time + (1|indivID), data=mf_con), type=3)
@@ -358,14 +360,19 @@ write.table(anova_richness_logobsotu_speciesxtime_treat
             , file="./6_Statistics/anova_richness_shannon_speciesxtime_treat.txt"
             , quote=FALSE, sep="\t", col.names=NA, row.names=TRUE)
 
-#### STOP HERE ####
+# Rescale variables because of converging problems
+mf_con_rescaled <- mf_con %>%
+  mutate(time_scaled = (time-mean(time, na.rm=TRUE))/sd(time, na.rm=TRUE))
+mf_treat_rescaled <- mf_treat %>%
+  mutate(time_scaled = (time-mean(time, na.rm=TRUE))/sd(time, na.rm=TRUE))
+
+
 
 ### Braycurtis
 # Type I ANOVA to see if interactions present
-anova(lm(log(disper_braycurtis) ~ species*time, data=mf_con))
+Anova(lmer(log(disper_braycurtis) ~ species*time + (1|indivID), data=mf_con), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_disper_braycurtis_speciesxtime_con <- Anova(lm(log(disper_braycurtis) ~ species*time, data=mf_con), type=3)
-
+anova_disper_braycurtis_speciesxtime_con <- Anova(lmer(log(disper_braycurtis) ~ species*time+ (1|indivID), data=mf_con), type=3)
 anova_disper_braycurtis_speciesxtime_con
 
 write.table(anova_disper_braycurtis_speciesxtime_con
@@ -374,9 +381,9 @@ write.table(anova_disper_braycurtis_speciesxtime_con
 
 ### Unweighted Unifrac
 # Type I ANOVA to see if interactions present
-anova(lm(log(disper_unweighted_unifrac) ~ species*time, data=mf_con))
+Anova(lmer(log(disper_unweighted_unifrac) ~ species*time+ (1|indivID), data=mf_con), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_disper_unweighted_unifrac_speciesxtime_con <- Anova(lm(log(disper_unweighted_unifrac) ~ species*time, data=mf_con), type=3)
+anova_disper_unweighted_unifrac_speciesxtime_con <- Anova(lmer(log(disper_unweighted_unifrac) ~ species*time+ (1|indivID), data=mf_con), type=3)
 
 anova_disper_unweighted_unifrac_speciesxtime_con
 
@@ -386,9 +393,9 @@ write.table(anova_disper_unweighted_unifrac_speciesxtime_con
 
 ### Unweighted Unifrac
 # Type I ANOVA to see if interactions present
-anova(lm(log(disper_weighted_unifrac) ~ species*time, data=mf_con))
+Anova(lmer(log(disper_weighted_unifrac) ~ species*time + (1|indivID), data=mf_con), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_disper_weighted_unifrac_speciesxtime_con <- Anova(lm(log(disper_weighted_unifrac) ~ species*time, data=mf_con), type=3)
+anova_disper_weighted_unifrac_speciesxtime_con <- Anova(lmer(log(disper_weighted_unifrac) ~ species*time + (1|indivID), data=mf_con), type=3)
 
 anova_disper_weighted_unifrac_speciesxtime_con
 
@@ -401,9 +408,9 @@ write.table(anova_disper_weighted_unifrac_speciesxtime_con
 
 ### Braycurtis
 # Type I ANOVA to see if interactions present
-anova(lm(log(disper_braycurtis) ~ species*time, data=mf_treat))
+Anova(lmer(log(disper_braycurtis) ~ species*time + (1|indivID), data=mf_treat), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_disper_braycurtis_speciesxtime_treat <- Anova(lm(log(disper_braycurtis) ~ species*time, data=mf_treat), type=3)
+anova_disper_braycurtis_speciesxtime_treat <- Anova(lmer(log(disper_braycurtis) ~ species*time + (1|indivID), data=mf_treat), type=3)
 
 anova_disper_braycurtis_speciesxtime_treat
 
@@ -413,9 +420,9 @@ write.table(anova_disper_braycurtis_speciesxtime_treat
 
 ### Unweighted Unifrac
 # Type I ANOVA to see if interactions present
-anova(lm(log(disper_unweighted_unifrac) ~ species*time, data=mf_treat))
+Anova(lmer(log(disper_unweighted_unifrac) ~ species*time + (1|indivID), data=mf_treat),type=2)
 # Type III ANOVA (regardless of interactions)
-anova_disper_unweighted_unifrac_speciesxtime_treat <- Anova(lm(log(disper_unweighted_unifrac) ~ species*time, data=mf_treat), type=3)
+anova_disper_unweighted_unifrac_speciesxtime_treat <- Anova(lmer(log(disper_unweighted_unifrac) ~ species*time + (1|indivID), data=mf_treat), type=3)
 
 anova_disper_unweighted_unifrac_speciesxtime_treat
 
@@ -425,7 +432,7 @@ write.table(anova_disper_unweighted_unifrac_speciesxtime_treat
 
 ### Unweighted Unifrac
 # Type I ANOVA to see if interactions present
-anova(lm(log(disper_weighted_unifrac) ~ species*time, data=mf_treat))
+Anova(lmer(log(disper_weighted_unifrac) ~ species*time + (1|indivID), data=mf_treat), type=2)
 # Type III ANOVA (regardless of interactions)
 anova_disper_weighted_unifrac_speciesxtime_treat <- Anova(lm(log(disper_weighted_unifrac) ~ species*time, data=mf_treat), type=3)
 
@@ -439,10 +446,11 @@ write.table(anova_disper_weighted_unifrac_speciesxtime_treat
 
 
 ### Braycurtis
+
 # Type I ANOVA to see if interactions present
-Anova(glm(dist_braycurtis ~ species*time, data=mf_con, family=Gamma(link="identity")), type=3)
+Anova(glmer(dist_braycurtis ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma(link="identity")), type=3)
 # Type III ANOVA (regardless of interactions)
-anova_dist_braycurtis_speciesxtime_con <- Anova(glm(dist_braycurtis ~ species*time, data=mf_con, family=Gamma(link="identity")), type=3)
+anova_dist_braycurtis_speciesxtime_con <- Anova(glmer(dist_braycurtis ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma(link="identity")), type=3)
 
 anova_dist_braycurtis_speciesxtime_con
 
@@ -452,9 +460,9 @@ write.table(anova_dist_braycurtis_speciesxtime_con
 
 ### Unweighted Unifrac
 # Type I ANOVA to see if interactions present
-Anova(glm(dist_unweighted_unifrac ~ species*time, data=mf_con, family=Gamma(link="identity")), type=3)
+Anova(glmer(dist_unweighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma(link="identity")), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_dist_unweighted_unifrac_speciesxtime_con <- Anova(glm(dist_unweighted_unifrac ~ species*time, data=mf_con, family=Gamma(link="identity")), type=3)
+anova_dist_unweighted_unifrac_speciesxtime_con <- Anova(glmer(dist_unweighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma(link="identity")), type=3)
 
 anova_dist_unweighted_unifrac_speciesxtime_con
 
@@ -465,9 +473,9 @@ write.table(anova_dist_unweighted_unifrac_speciesxtime_con
 
 ### Weighted Unifrac
 # Type I ANOVA to see if interactions present
-Anova(glm(dist_weighted_unifrac ~ species*time, data=mf_con, family=Gamma(link="identity")), type=3)
+Anova(glmer(dist_weighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma(link="identity")), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_dist_weighted_unifrac_speciesxtime_con <- Anova(glm(dist_weighted_unifrac ~ species*time, data=mf_con, family=Gamma(link="identity")), type=3)
+anova_dist_weighted_unifrac_speciesxtime_con <- Anova(glmer(dist_weighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma(link="identity")), type=3)
 
 anova_dist_weighted_unifrac_speciesxtime_con
 
@@ -481,9 +489,9 @@ write.table(anova_dist_weighted_unifrac_speciesxtime_con
 
 ### Braycurtis
 # Type I ANOVA to see if interactions present
-Anova(glm(dist_braycurtis ~ species*time, data=mf_treat, family=Gamma(link="identity")), type=3)
+Anova(glmer(dist_braycurtis ~ species*time_scaled + (1|indivID), data=mf_treat_rescaled, family=Gamma(link="identity")), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_dist_braycurtis_speciesxtime_treat <- Anova(glm(dist_braycurtis ~ species*time, data=mf_treat, family=Gamma(link="identity")), type=3)
+anova_dist_braycurtis_speciesxtime_treat <- Anova(glmer(dist_braycurtis ~ species*time_scaled + (1|indivID), data=mf_treat_rescaled, family=Gamma(link="identity")), type=3)
 
 anova_dist_braycurtis_speciesxtime_treat
 
@@ -493,9 +501,9 @@ write.table(anova_dist_braycurtis_speciesxtime_treat
 
 ### Unweighted Unifrac
 # Type I ANOVA to see if interactions present
-Anova(glm(dist_unweighted_unifrac ~ species*time, data=mf_treat, family=Gamma(link="identity")), type=3)
+Anova(glmer(dist_unweighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_treat_rescaled, family=Gamma(link="identity")), type=2)
 # Type II ANOVA when interactions ARE NOT present
-anova_dist_unweighted_unifrac_speciesxtime_treat <- Anova(glm(dist_unweighted_unifrac ~ species*time, data=mf_treat, family=Gamma(link="identity")), type=3)
+anova_dist_unweighted_unifrac_speciesxtime_treat <- Anova(glmer(dist_unweighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_treat_rescaled, family=Gamma(link="identity")), type=3)
 
 anova_dist_unweighted_unifrac_speciesxtime_treat
 
@@ -506,9 +514,9 @@ write.table(anova_dist_unweighted_unifrac_speciesxtime_treat
 
 ### Weighted Unifrac
 # Type I ANOVA to see if interactions present
-Anova(glm(dist_weighted_unifrac ~ species*time, data=mf_treat, family=Gamma(link="identity")), type=3)
+Anova(glmer(dist_weighted_unifrac ~ species*time_scaled + (1|indivID), data=mf_treat_rescaled, family=Gamma(link="identity")), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_dist_weighted_unifrac_speciesxtime_treat <- Anova(glm(dist_weighted_unifrac ~ species*time, data=mf_treat, family=Gamma(link="identity")), type=3)
+anova_dist_weighted_unifrac_speciesxtime_treat <- Anova(glmer(dist_weighted_unifrac ~ species*time_scaled  + (1|indivID), data=mf_treat_rescaled, family=Gamma(link="identity")), type=3)
 
 anova_dist_weighted_unifrac_speciesxtime_treat
 
@@ -521,9 +529,9 @@ write.table(anova_dist_weighted_unifrac_speciesxtime_treat
 
 
 # Type I ANOVA to see if interactions present
-Anova(glm(inhibRich ~ species*time, data=mf_con, family=poisson(link="identity")), type=3)
+Anova(glmer(inhibRich ~ species*time + (1|indivID), data=mf_con, family=poisson(link="identity")), type=3)
 # Type III ANOVA (regardless of interactions)
-anova_inhibRich_speciesxtime_con <- Anova(glm(inhibRich ~ species*time, data=mf_con, family=poisson(link="identity")), type=3)
+anova_inhibRich_speciesxtime_con <- Anova(glmer(inhibRich ~ species*time + (1|indivID), data=mf_con, family=poisson(link="identity")), type=3)
 
 anova_inhibRich_speciesxtime_con
 
@@ -533,9 +541,9 @@ write.table(anova_inhibRich_speciesxtime_con
 
 
 # Type I ANOVA to see if interactions present
-Anova(glm(inhibRich ~ species*time, data=mf_treat, family=poisson(link="identity")), type=3)
+Anova(glmer(inhibRich ~ species*time + (1|indivID), data=mf_treat, family=poisson(link="identity")), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_inhibRich_speciesxtime_treat <- Anova(glm(inhibRich ~ species*time, data=mf_treat, family=poisson(link="identity")), type=3)
+anova_inhibRich_speciesxtime_treat <- Anova(glmer(inhibRich ~ species*time + (1|indivID), data=mf_treat, family=poisson(link="identity")), type=3)
 
 anova_inhibRich_speciesxtime_treat
 
@@ -545,9 +553,9 @@ write.table(anova_inhibRich_speciesxtime_treat
 
 
 # Type I ANOVA to see if interactions present
-Anova(glm(percInhib ~ species*time, data=mf_con, family=Gamma), type=3)
+Anova(glmer(percInhib ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_percInhib_speciesxtime_con <- Anova(glm(percInhib ~ species*time, data=mf_con, family=Gamma), type=3)
+anova_percInhib_speciesxtime_con <- Anova(glmer(percInhib ~ species*time_scaled + (1|indivID), data=mf_con_rescaled, family=Gamma), type=3)
 
 anova_percInhib_speciesxtime_con
 
@@ -557,9 +565,9 @@ write.table(anova_percInhib_speciesxtime_con
 
 
 # Type I ANOVA to see if interactions present
-Anova(glm(percInhib ~ species*time, data=mf_treat, family=Gamma), type=3)
+Anova(glmer(percInhib ~ species*time + (1|indivID), data=mf_treat, family=Gamma), type=2)
 # Type III ANOVA (regardless of interactions)
-anova_percInhib_speciesxtime_treat <- Anova(glm(percInhib ~ species*time, data=mf_treat, family=), type=3)
+anova_percInhib_speciesxtime_treat <- Anova(glmer(percInhib ~ species*time + (1|indivID), data=mf_treat, family=Gamma), type=3)
 
 anova_percInhib_speciesxtime_treat
 
@@ -569,6 +577,8 @@ write.table(anova_percInhib_speciesxtime_treat
 
 
 get_stats <- function(stat_test, variable) {
+  # stat_test <- anova_percInhib_speciesxtime_treat
+  # variable <- "species"
     indep_var <- rownames(stat_test)
 stat_col <- colnames(stat_test)
 if ("LR Chisq" %in% stat_col) {
@@ -587,6 +597,13 @@ if ("LR Chisq" %in% stat_col) {
     p_val <- stat_test[variable, "Pr(>F)"]
     test <- "ANOVA"
 
+} else if ("Chisq" %in% stat_col) {
+  stat_val <- stat_test[variable,"Chisq"]
+  df_val <- stat_test[variable,"Df"]
+  stat_phrase <- paste0("Chisq(",df_val,")=",round(stat_val,3))
+  
+  p_val <- stat_test[variable, "Pr(>Chisq)"]
+  test <- "Chisq"
 } else {
     print("NO TEST MATCHING")
 }
@@ -744,7 +761,6 @@ stepAIC(lm(log(Bd_load+1) ~ species*p_dist_weighted_unifrac*p_percInhib, data=te
 
 
 # Quick and dirty
-
 anova_PABD_observed_otus <- Anova(glm(PABD ~ species*p_observed_otus, data=all_p, family=binomial))
 anova_PABD_chao1 <- Anova(glm(PABD ~ species*p_chao1, data=all_p, family=binomial))
 anova_PABD_faith_pd <- Anova(glm(PABD ~ species*p_faith_pd, data=all_p, family=binomial))
@@ -758,7 +774,6 @@ anova_PABD_dist_weighted_unifrac <- Anova(glm(PABD ~ species*p_dist_weighted_uni
 anova_PABD_disper_braycurtis <- Anova(glm(PABD ~ species*p_disper_braycurtis, data=all_p, family=binomial))
 anova_PABD_disper_unweighted_unifrac <- Anova(glm(PABD ~ species*p_disper_unweighted_unifrac, data=all_p, family=binomial))
 anova_PABD_disper_weighted_unifrac <- Anova(glm(PABD ~ species*p_disper_weighted_unifrac, data=all_p, family=binomial)) ### DIFFERENT
-
 
 anova_PABD_inhibRich <- Anova(glm(PABD ~ species*p_inhibRich, data=all_p, family=binomial))
 anova_PABD_percInhib <- Anova(glm(PABD ~ species*p_percInhib, data=all_p, family=binomial))
@@ -784,15 +799,33 @@ anova_PABD_percInhib
 ## Get individual correlations
 species_list <- as.vector(all_p %>% dplyr::select(species) %>% pull() %>% unique())
 metrics <- colnames(all_p)[grep("^p_",colnames(all_p))]
-all_anova_p_PABD <- list()
+all_anova_p_PABD <- as.data.frame(matrix(ncol=length(metrics), nrow=length(species_list), dimnames = list(species_list, metrics)))
+all_anova_p_Bd <- as.data.frame(matrix(ncol=length(metrics), nrow=length(species_list), dimnames = list(species_list, metrics)))
 for ( m in metrics) {
-  all_anova_p_PABD[[m]] <- list()
   for ( sp in species_list) {
     all_p_temp <- all_p %>% filter(species ==sp)
-    form <- formula(paste0("PABD ~ ",(m)))
-    # test <- summary(glm(form, data=all_p_temp, family=binomial))
-    # test$coefficients
-    all_anova_p_PABD[[m]][[sp]] <- (summary(glm(form, data=all_p_temp, family=binomial))$coefficients)
+    if (nrow(all_p_temp)>1) {
+      form_PABD <- formula(paste0("PABD ~ ",(m)))
+      form_Bd <- formula(paste0("log(Bd_load+1) ~ ",(m)))
+      PABD_result <- summary(glm(form_PABD, data=all_p_temp, family=binomial))$coefficients
+      BD_result <- summary(lm(form_Bd, data=all_p_temp))$coefficients
+      anova(lm(form_Bd, data=all_p_temp))
+      cor.test(all_p_temp$Bd_load, all_p_temp[,m])
+      
+      if ( length(unique(all_p_temp$PABD))<2 ) { # If there isn't actually any variability
+        PABD_output <- "No variance"
+      } else if ( m %in% rownames(PABD_result)) {
+        PABD_output <- round(PABD_result[m, "Pr(>|z|)"], 3)
+      } else { PABD_output <- NA}
+      
+      if ( length(all_p_temp$Bd_load)<3 ) {
+        BD_output <- "No variance"
+      } else if ( m %in% rownames(BD_result)) {
+        BD_output <- round(BD_result[m, "Pr(>|t|)"], 3)
+      } else { BD_output <- NA}
+      all_anova_p_PABD[sp, m] <- PABD_output
+      all_anova_p_Bd[sp, m] <- BD_output
+    }
   }
 }
 
@@ -821,7 +854,6 @@ anova_Bdload_disper_weighted_unifrac <- Anova(lm(log(Bd_load+1) ~ species*p_disp
 anova_Bdload_inhibRich <- Anova(lm(log(Bd_load+1) ~ species*p_inhibRich, data=all_p_noinfect))
 anova_Bdload_percInhib <- Anova(lm(log(Bd_load+1) ~ species*p_percInhib, data=all_p_noinfect))
 
-
 # Print to see it
 anova_Bdload_observed_otus
 anova_Bdload_chao1
@@ -839,40 +871,13 @@ anova_Bdload_disper_weighted_unifrac
 anova_Bdload_inhibRich
 anova_Bdload_percInhib
 
-## Get individual correlations
-species_list <- as.vector(all_p %>% dplyr::select(species) %>% pull() %>% unique())
-metrics <- colnames(all_p)[grep("^p_",colnames(all_p))]
-all_anova_p_Bd <- list()
-for ( m in metrics) {
-  all_anova_p_Bd[[m]] <- list()
-  for ( sp in species_list) {
-    all_p_temp <- all_p_noinfect %>% filter(species == sp)
-    if (nrow(all_p_temp)>0) {
-      form <- formula(paste0("log(Bd_load+1) ~ ",(m)))
-      # test <- summary(glm(form, data=all_p_temp, family=binomial))
-      # test$coefficients
-      all_anova_p_Bd[[m]][[sp]] <- (summary(lm(form, data=all_p_temp))$coefficients)
-    }
-    
-  }
-}
-
 # Get sample size
 nrow(all_p_noinfect)
 
 cor.test(all_p$p_inhibRich, all_p$p_disper_unweighted_unifrac)
 cor.test(all_p$p_percInhib, all_p$p_dist_weighted_unifrac)
 
-# What is the variance explained by inhibitory richness?
-
-summary(lm(log(Bd_load+1) ~ species*p_percInhib, data=all_p_noinfect))
-anova(lm(log(Bd_load+1) ~ species*p_percInhib, data=all_p_noinfect))
-
-
-# Filter out zeros
-all_p_pred_infectonly <- all_p_pred %>%
-filter(PABD>0)
-
+#### Does infection status change community metrics?
 # Presence/absence
 # WITH zeros
 print("Alpha diversity")
@@ -1049,32 +1054,32 @@ write.table(stats_table_causeffect_interactiononly, file="./6_Statistics/cause_e
 
 # Bd Load
 # NO zeros
-
-print("Alpha diversity")
-Anova(lm(p_observed_otus ~ species*Bd_load, data=all_p_pred), type=2)
-Anova(lm(p_chao1 ~ species*Bd_load, data=all_p_pred), type=2)
-Anova(lm(p_faith_pd ~ species*Bd_load, data=all_p_pred), type=2)
-Anova(lm(p_shannon ~ species*Bd_load, data=all_p_pred), type=2)
-
-print("Dist")
-Anova(lm(p_dist_braycurtis ~ species*Bd_load, data=all_p_pred), type=2)
-Anova(lm(p_dist_unweighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
- Anova(lm(p_dist_weighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
-
-
-print("Disper")
-Anova(lm(p_disper_braycurtis ~ species*Bd_load, data=all_p_pred), type=2)
-Anova(lm(p_disper_unweighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
-Anova(lm(p_disper_weighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
-
-
-print("inhibitory richness")
-Anova(lm(p_inhibRich ~ species*Bd_load, data=all_p_pred), type=2)
-print("inhibitory percent")
-Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
-
-
-Anova(glm(PABD ~ species+p_inhibRich, data=all_p, family=binomial), type=3)
+# 
+# print("Alpha diversity")
+# Anova(lm(p_observed_otus ~ species*Bd_load, data=all_p_pred), type=2)
+# Anova(lm(p_chao1 ~ species*Bd_load, data=all_p_pred), type=2)
+# Anova(lm(p_faith_pd ~ species*Bd_load, data=all_p_pred), type=2)
+# Anova(lm(p_shannon ~ species*Bd_load, data=all_p_pred), type=2)
+# 
+# print("Dist")
+# Anova(lm(p_dist_braycurtis ~ species*Bd_load, data=all_p_pred), type=2)
+# Anova(lm(p_dist_unweighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
+#  Anova(lm(p_dist_weighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
+# 
+# 
+# print("Disper")
+# Anova(lm(p_disper_braycurtis ~ species*Bd_load, data=all_p_pred), type=2)
+# Anova(lm(p_disper_unweighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
+# Anova(lm(p_disper_weighted_unifrac ~ species*Bd_load, data=all_p_pred), type=2)
+# 
+# 
+# print("inhibitory richness")
+# Anova(lm(p_inhibRich ~ species*Bd_load, data=all_p_pred), type=2)
+# print("inhibitory percent")
+# Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred), type=2)
+# 
+# 
+# Anova(glm(PABD ~ species+p_inhibRich, data=all_p, family=binomial), type=3)
 
 
 options(repr.plot.height=3, repr.plot.width=10)
@@ -1280,6 +1285,23 @@ importance_infect_onlyp_wsp_LOO %>% group_by(taxonomy) %>%
   summarize(meanIncMSE=mean(X.IncMSE), sdIncMSE=sd(X.IncMSE)) %>%
   arrange(-meanIncMSE)
 
+#### Effect of exposing to Bd
+
+Anova(lm(observed_otus ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(chao1 ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(shannon ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(faith_pd ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+
+Anova(lm(disper_braycurtis ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(disper_unweighted_unifrac ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(disper_weighted_unifrac ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+
+Anova(lm(dist_braycurtis ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(dist_unweighted_unifrac ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(dist_weighted_unifrac ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+
+Anova(lm(percInhib ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
+Anova(lm(inhibRich ~ species + time + species:time + Bd_exposure:prepost + species:Bd_exposure:prepost, data=mf_alt_filt_final))
 
 
 
