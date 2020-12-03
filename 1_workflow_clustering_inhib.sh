@@ -37,7 +37,7 @@ qiime vsearch cluster-features-closed-reference \
 --i-sequences final_filtered_repset.qza \
 --i-table $featureTable \
 --i-reference-sequences Amphibian-skin_bacteria_16S_sequences.qza \
---p-perc-identity 0.99 \
+--p-perc-identity 1 \
 --output-dir hits_inhib_database
 
 # Finally, I exported the files so I can use them easier

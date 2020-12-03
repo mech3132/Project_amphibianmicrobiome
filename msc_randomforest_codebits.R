@@ -583,4 +583,3 @@ extractItem  <- function(allOutput=list(), bd_type=c("infect","PABD"), otu_type 
 #   }
 #   return(dat_importance)
 # }
-
