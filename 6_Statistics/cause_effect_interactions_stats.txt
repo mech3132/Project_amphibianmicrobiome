@@ -1,13 +1,13 @@
 Microbial.Community.Trait	Metric	Effect_on_PABD	Effect_on_Bd_load	Effect_of_PABD	Effect_of_Bd_load
-Alpha diversity	Observed otus	p=0.331, LR Chisq(3)=3.419	p=0.816, F(3,7)=0.312	p=0.043, F(1,15)=4.864	p=0.802, F(3,7)=0.333
-Alpha diversity	Chao1	p=0.863, LR Chisq(3)=0.742	p=0.698, F(3,7)=0.494	p=0.025, F(1,15)=6.208	p=0.79, F(3,7)=0.351
-Alpha diversity	Faith's PD	p=0.387, LR Chisq(3)=3.032	p=0.804, F(3,7)=0.33	p=0.035, F(1,15)=5.393	p=0.603, F(3,7)=0.658
-Alpha diversity	Shannon	p=0.993, LR Chisq(3)=0.09	p=0.331, F(3,7)=1.358	p=0.316, F(1,15)=1.075	p=0.111, F(3,7)=2.908
-Dispersion	Bray-curtis	p=0.723, LR Chisq(3)=1.327	p=0.581, F(3,7)=0.7	p=0.579, F(1,15)=0.322	p=0.433, F(3,7)=1.038
-Dispersion	Unweighted Unifrac	p=0.498, LR Chisq(3)=2.379	p=0.788, F(3,7)=0.353	p=0.27, F(1,15)=1.311	p=0.847, F(3,7)=0.267
-Dispersion	Weighted Unifrac	p=0.048, LR Chisq(3)=7.915	p=0.402, F(3,7)=1.126	p=0.654, F(1,15)=0.209	p=0.952, F(3,7)=0.11
-Distance	Bray-curtis	p=0.661, LR Chisq(3)=1.591	p=0.364, F(3,7)=1.244	p=0.874, F(1,15)=0.026	p=0.353, F(3,7)=1.282
-Distance	Unweighted Unifrac	p=0.743, LR Chisq(3)=1.241	p=0.35, F(3,7)=1.293	p=0.774, F(1,15)=0.086	p=0.186, F(3,7)=2.122
-Distance	Weighted Unifrac	p=0.929, LR Chisq(3)=0.455	p=0.015, F(3,7)=7.26	p=0.677, F(1,15)=0.18	p=0.538, F(3,7)=0.788
-Inhibitory Richness	Count	p=1, LR Chisq(3)=0	p=0.904, F(3,7)=0.185	p=0.747, F(1,15)=0.108	p=0.403, F(3,7)=1.123
-Percent Inhibitory	Proportion	p=0.72, LR Chisq(3)=1.337	p=0.442, F(3,7)=1.014	p=0.363, F(1,15)=0.879	p=0.02, F(3,7)=6.39
+Alpha diversity	Observed otus	p=0.33, LR Chisq(3)=3.432	p=0.814, F(3,7)=0.315	p=0.78, Chisq(3)=1.086	p=0.292, Chisq(3)=3.732
+Alpha diversity	Chao1	p=0.868, LR Chisq(3)=0.722	p=0.678, F(3,7)=0.527	p=0.617, Chisq(3)=1.793	p=0.187, Chisq(3)=4.8
+Alpha diversity	Faith's PD	p=0.397, LR Chisq(3)=2.966	p=0.805, F(3,7)=0.329	p=0.658, Chisq(3)=1.605	p=0.094, Chisq(3)=6.383
+Alpha diversity	Shannon	p=0.988, LR Chisq(3)=0.131	p=0.335, F(3,7)=1.345	p=0.884, Chisq(3)=0.652	p=0.927, Chisq(3)=0.461
+Dispersion	Bray-curtis	p=0.732, LR Chisq(3)=1.288	p=0.551, F(3,7)=0.76	p=0.198, Chisq(3)=4.662	p=0.777, Chisq(3)=1.1
+Dispersion	Unweighted Unifrac	p=0.5, LR Chisq(3)=2.364	p=0.764, F(3,7)=0.39	p=0.419, Chisq(3)=2.826	p=0.701, Chisq(3)=1.419
+Dispersion	Weighted Unifrac	p=0.046, LR Chisq(3)=8.009	p=0.413, F(3,7)=1.092	p=0.019, Chisq(3)=9.901	p=0.274, Chisq(3)=3.889
+Distance	Bray-curtis	p=0.667, LR Chisq(3)=1.566	p=0.354, F(3,7)=1.277	p=0.696, Chisq(3)=1.442	p=0.794, Chisq(3)=1.031
+Distance	Unweighted Unifrac	p=0.709, LR Chisq(3)=1.384	p=0.319, F(3,7)=1.407	p=0.539, Chisq(3)=2.162	p=0.319, Chisq(3)=3.512
+Distance	Weighted Unifrac	p=0.939, LR Chisq(3)=0.404	p=0.012, F(3,7)=7.87	p=0.947, Chisq(3)=0.367	p=0.834, Chisq(3)=0.863
+Inhibitory Richness	Count	p=1, LR Chisq(3)=0	p=0.899, F(3,7)=0.191	p=0.15, Chisq(3)=5.313	p=0.858, Chisq(3)=0.766
+Percent Inhibitory	Proportion	p=0.725, LR Chisq(3)=1.316	p=0.447, F(3,7)=1.001	p=0.253, Chisq(3)=4.077	p=0.299, Chisq(3)=3.671

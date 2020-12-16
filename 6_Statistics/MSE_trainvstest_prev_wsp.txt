@@ -1,0 +1,12 @@
+
+	One Sample t-test
+
+data:  prevalence_wsp
+t = 0.50733, df = 14, p-value = 0.6198
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.1861981  0.3015769
+sample estimates:
+mean of x 
+0.0576894 
+

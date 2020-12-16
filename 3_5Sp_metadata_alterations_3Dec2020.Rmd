@@ -520,6 +520,7 @@ toKeepMF <-  c("SampleID"
                , "inhibRich"
                , "percInhib"
                , paste0(rep(c("NMDS1_", "NMDS2_","NMDS_stress_"), each=3), rep(allBeta$V1, 3))
+               , "host_weight"
                
 )
 
@@ -539,6 +540,7 @@ newNames <- c("SampleID"
                , "inhibRich"
                , "percInhib"
                , paste0(rep(c("NMDS1_", "NMDS2_","NMDS_stress_"), each=3), rep(allBeta$V1, 3))
+              , "mass_g"
 )
 
 mf_alt_final <- mf_alt %>% # mapping file with controls still in it
@@ -557,7 +559,8 @@ mf_alt_filt_final <- mf_alt_filt %>% # mapping file without controls
     mutate(species=factor(species, levels=c("Anbo","Rhma","Osse","Raca","Rapi"))
           , prepost=factor(prepost, levels=c("Pre","Post"))
           , indiv=factor(indiv, levels=c("1","2","3","4","5","6","7","8","9","10","11","12"))) %>%
-    mutate(Bd_exposure=factor(Bd_exposure, levels=c('Bd-exposed','Control')))
+    mutate(Bd_exposure=factor(Bd_exposure, levels=c('Bd-exposed','Control'))) %>%
+    mutate(mass_g = as.numeric(mass_g))
 
 ```
 

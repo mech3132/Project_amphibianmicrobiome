@@ -48,7 +48,7 @@ if ( RERUN_RF ) {
   # create progress bar
   pb <- txtProgressBar(min = 0, max = total, style = 3)
   i <- 1
-  for ( v in c(1:6)) {
+  for ( v in c(1:3)) {
     # v=7
     all_RF_predictBD <- list()
     
@@ -59,10 +59,87 @@ if ( RERUN_RF ) {
         for ( bd_type in c("infect")) {
           for ( prop in c(0.8)) {
             for ( repl in c(1:10) ) {
-              
               all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop, repl, sep="_")]] <- list()
               # Get a formatted mapping file
-              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p, mf_temp=mf_temp)
+              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p)
+              mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
+              indiv_list <- get_mf_pred_temp_bd[[2]]
+              # Mutate infection depending on question
+              Error_metric <- ifelse(bd_type=="PABD","MeanDecreaseAccuracy","X.IncMSE" )
+              
+              # Pick training and validation set
+              # set.seed(423*repl)
+              r <- sample(nrow(mf_pred_temp_bd), prop*nrow(mf_pred_temp_bd), replace=FALSE)
+              trainSet <- mf_pred_temp_bd[r,]
+              testSet <- mf_pred_temp_bd[-r,]
+              testSet_indiv <- as.character(unlist(indiv_list[-r,]))
+              
+              # Run random forest model
+              RF <- randomForest(response ~ ., data=trainSet,importance=TRUE)
+              # Run prediction
+              testSet_predictions <- predict(RF, testSet, type="class")
+              # Get error of predicted set
+              error <- ifelse(bd_type == "PABD", mean(testSet_predictions==testSet$response), mean((testSet_predictions-testSet$response)^2))
+              # importance of factors
+              importance_RF <- data.frame(importance(RF)) %>%
+                mutate(taxa=rownames(importance(RF))) %>%
+                select(taxa, everything()) %>%
+                arrange(-get(paste0(Error_metric)))
+              
+              # Add inhibitory to importance
+              # Match inhibitory to not
+              importance_RF[,c("taxonomy","inhibitory")] <- Taxa[match(importance_RF$taxa, Taxa$Sequence), c("Taxa","inhibitory")]
+              importance_RF <- importance_RF %>%
+                mutate(taxonomy=ifelse(is.na(taxonomy), taxa, taxonomy))
+              
+              # Save data
+              # all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["mf_used"]] <- mf_pred_temp_bd
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["RF"]] <- RF
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["importance"]] <- importance_RF
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["testSetError"]] <- error
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["test_train_comparison"]] <- data.frame(indivID=testSet_indiv, Test_pred=testSet_predictions, Test_obs=testSet$response)
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["R2"]] <- getR2(Test_pred=testSet_predictions, Test_obs=testSet$response)
+              
+              # Insert into data summary plot
+              #------- PROGRESS BAR ------- #
+              Sys.sleep(0.1)
+              i <- i+1
+              # update progress bar
+              setTxtProgressBar(pb, i)
+              #-----------------------------#
+            }
+            
+          }
+        }
+      }
+    }
+    assign(paste0("RF_infect_10_",v), all_RF_predictBD)
+    # get(paste0("RF_infect_10_",v)) %>%
+    # save(file=paste0("./5_random_forest_count/","RF_infect_10_",v,".RData"))
+  }
+  close(pb)
+  
+  save(RF_infect_10_1,file="./5_random_forest_count/RF_infect_10_1.RData" )
+  save(RF_infect_10_2,file="./5_random_forest_count/RF_infect_10_2.RData" )
+  save(RF_infect_10_3,file="./5_random_forest_count/RF_infect_10_3.RData" )
+  
+  # create progress bar
+  pb <- txtProgressBar(min = 0, max = total, style = 3)
+  i <- 1
+  for ( v in c(4:6)) {
+    # v=7
+    all_RF_predictBD <- list()
+    
+    for ( otu_type in c("count") ) {
+      for ( p_type in c("withp","nop") ) {
+        # for ( p_type in c("onlyp") ) {
+        
+        for ( bd_type in c("infect")) {
+          for ( prop in c(0.8)) {
+            for ( repl in c(1:10) ) {
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop, repl, sep="_")]] <- list()
+              # Get a formatted mapping file
+              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p)
               mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
               indiv_list <- get_mf_pred_temp_bd[[2]]
               # Mutate infection depending on question
@@ -120,10 +197,6 @@ if ( RERUN_RF ) {
   }
   close(pb)
   # 
-  save(RF_infect_10_1,file="./5_random_forest_count/RF_infect_10_1.RData" )
-  save(RF_infect_10_2,file="./5_random_forest_count/RF_infect_10_2.RData" )
-  save(RF_infect_10_3,file="./5_random_forest_count/RF_infect_10_3.RData" )
-
   save(RF_infect_10_4,file="./5_random_forest_count/RF_infect_10_4.RData" )
   save(RF_infect_10_5,file="./5_random_forest_count/RF_infect_10_5.RData" )
   save(RF_infect_10_6,file="./5_random_forest_count/RF_infect_10_6.RData" )
@@ -147,7 +220,7 @@ if ( RERUN_RF ) {
   # create progress bar
   pb <- txtProgressBar(min = 0, max = total, style = 3)
   i <- 1
-  for ( v in c(4:6)) {
+  for ( v in c(1:3)) {
     # v=1
     all_RF_predictBD <- list()
     
@@ -161,7 +234,7 @@ if ( RERUN_RF ) {
               
               all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop, repl, sep="_")]] <- list()
               # Get a formatted mapping file
-              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p, mf_temp=mf_temp)
+              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p)
               mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
               indiv_list <- get_mf_pred_temp_bd[[2]]
               # Mutate infection depending on question
@@ -224,6 +297,81 @@ if ( RERUN_RF ) {
   save(RF_PABD_10_2,file="./5_random_forest_count/RF_PABD_10_2.RData" )
   save(RF_PABD_10_3,file="./5_random_forest_count/RF_PABD_10_3.RData" )
 
+  # create progress bar
+  pb <- txtProgressBar(min = 0, max = total, style = 3)
+  i <- 1
+  for ( v in c(4:6)) {
+    # v=1
+    all_RF_predictBD <- list()
+    
+    for ( otu_type in c("count") ) {
+      for ( p_type in c("withp","nop") ) {
+        # for ( p_type in c("onlyp","nop") ) {
+        
+        for ( bd_type in c("PABD")) {
+          for ( prop in c(0.8)) {
+            for ( repl in c(1:10) ) {
+              
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop, repl, sep="_")]] <- list()
+              # Get a formatted mapping file
+              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p)
+              mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
+              indiv_list <- get_mf_pred_temp_bd[[2]]
+              # Mutate infection depending on question
+              Error_metric <- ifelse(bd_type=="PABD","MeanDecreaseAccuracy","X.IncMSE" )
+              
+              # Pick training and validation set
+              # set.seed(423*repl)
+              r <- sample(nrow(mf_pred_temp_bd), prop*nrow(mf_pred_temp_bd), replace=FALSE)
+              trainSet <- mf_pred_temp_bd[r,]
+              testSet <- mf_pred_temp_bd[-r,]
+              testSet_indiv <- as.character(unlist(indiv_list[-r,]))
+              # Run random forest model
+              RF <- randomForest(response ~ ., data=trainSet,importance=TRUE)
+              # Run prediction
+              testSet_predictions <- predict(RF, testSet, type="class")
+              # Get error of predicted set
+              error <- ifelse(bd_type == "PABD", mean(testSet_predictions==testSet$response), mean((testSet_predictions-testSet$response)^2))
+              # importance of factors
+              importance_RF <- data.frame(importance(RF)) %>%
+                mutate(taxa=rownames(importance(RF))) %>%
+                select(taxa, everything()) %>%
+                arrange(-get(paste0(Error_metric)))
+              
+              # Add inhibitory to importance
+              # Match inhibitory to not
+              importance_RF[,c("taxonomy","inhibitory")] <- Taxa[match(importance_RF$taxa, Taxa$Sequence), c("Taxa","inhibitory")]
+              importance_RF <- importance_RF %>%
+                mutate(taxonomy=ifelse(is.na(taxonomy), taxa, taxonomy))
+              
+              # Save data
+              # all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["mf_used"]] <- mf_pred_temp_bd
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["RF"]] <- RF
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["importance"]] <- importance_RF
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["testSetError"]] <- error
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["test_train_comparison"]] <- data.frame(indivID = testSet_indiv, Test_pred=testSet_predictions, Test_obs=testSet$response)
+              all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop,repl, sep="_")]][["R2"]] <- getR2(Test_pred=testSet_predictions, Test_obs=testSet$response)
+              
+              # Insert into data summary plot
+              #------- PROGRESS BAR ------- #
+              Sys.sleep(0.1)
+              i <- i+1
+              # update progress bar
+              setTxtProgressBar(pb, i)
+              #-----------------------------#
+            }
+            
+          }
+        }
+      }
+    }
+    # assign(paste0("RF_PABD_10_",v), all_RF_predictBD)
+    assign(paste0("RF_PABD_10_",v), all_RF_predictBD)
+    
+    # get(paste0("RF_PABD_10_",v)) %>%
+    # save(file=paste0("./5_random_forest_count/","RF_PABD_10_",v,".RData"))
+  }
+  close(pb)
   save(RF_PABD_10_4,file="./5_random_forest_count/RF_PABD_10_4.RData" )
   save(RF_PABD_10_5,file="./5_random_forest_count/RF_PABD_10_5.RData" )
   save(RF_PABD_10_6,file="./5_random_forest_count/RF_PABD_10_6.RData" )

@@ -1956,69 +1956,82 @@ process_glmer_all_wtime <- function(g_lmer, dep, name_dep, transform_raw_func, i
   }
   
   # Loop through and calculate probability of having diversity at that level
-  pos_exp_indiv <- mf_treat_temp %>%
-    as.data.frame() %>%
-    filter(time>5, Bd_exposure=="Bd-exposed") %>%
-    dplyr::select(indivID, species, Bd_load) %>%
-    group_by(indivID, species) %>%
-    summarize(max_Bd_load=max(Bd_load)) %>%
-    mutate(p=NA, exp=NA) %>%
-    mutate(p = as.numeric(p), exp = as.numeric(exp))
+  # 
+  # pos_exp_indiv <- mf_treat_temp %>%
+  #   as.data.frame() %>%
+  #   filter(time>5, Bd_exposure=="Bd-exposed") %>%
+  #   dplyr::select(indivID, species, Bd_load) %>%
+  #   group_by(indivID, species) %>%
+  #   summarize(max_Bd_load=max(Bd_load)) %>%
+  #   mutate(p=NA, exp=NA) %>%
+  #   mutate(p = as.numeric(p), exp = as.numeric(exp))
+  pos_exp_indiv <- post_test_set %>%
+    dplyr::select(indivID, species, time, Bd_load) %>%
+    mutate(p = NA, exp = NA) %>%
+    mutate( p = as.numeric(p), exp = as.numeric(exp))
+    
   ##################### PASTED ########
-  for ( i in pos_exp_indiv$indivID ) {
+  for ( i in 1:nrow(pos_exp_indiv) ) {
     # i = "Osse_5"
     #n_row <- match(i, treat_indiv)
-    sp <- unlist(strsplit(i,"_"))
-    num_sp <- match(sp[1], levels(factor(mf_treat_temp$species)))
+    indiv_ID <- as.character(pos_exp_indiv[i, "indivID"])
+    sp <- unlist(strsplit(indiv_ID,"_"))
+    num_sp <- match(sp[1], levels(factor(pos_exp_indiv$species)))
+    temp_time <- as.numeric(pos_exp_indiv[i,"time"])
     temp_dep <- mf_treat_temp %>%
-      filter(indivID==i, time >5 ) %>%
+      filter(indivID %in% indiv_ID, time == temp_time) %>%
       dplyr::select(dep) %>%
       pull()
-    temp_time <- mf_treat_temp %>%
-      filter(indivID==i, time >5 ) %>%
-      dplyr::select(time) %>%
-      pull()
     
-    x.fit <- alt_samps(inv_alt_samps(temp_dep)-temp_time*mean(t_var[sp[1]]))
-    x.fit <- x.fit[!is.na(x.fit)]
-    # I don't use a beta distribution here because often times optimization fails.
-    # I think the sample size is too small to adequeately estimate shape1 and shape2?
-    if ( fit_distr != "Beta" ) {
-      if ( length(x.fit)>1 ) {
-        fitted <- fitdistr(x.fit, densfun = paste0(fit_distr))$estimate
-        if ( fit_distr!="Gamma") {
-          exp <- fitted[1]
-        } else {
-          exp <-  fitted[1]/fitted[2]
-          
-        }
-      } else if (length(x.fit) == 1 ) {
-        exp <- x.fit
-      } else {
-        exp <- NA
-      }
-    } else {
-      if ( length(x.fit)>1 ) {
-        exp <-  fitdistr(x.fit, densfun = "normal")$estimate[1]
-      } else if (length(x.fit) == 1) {
-        exp <- (x.fit)
-      } else {
-        exp <- NA
-      }
-    }
+    exp <- alt_samps(inv_alt_samps(temp_dep)-temp_time*mean(t_var[sp[1]]))
     
+    p <- sum(exp_distr[,indiv_ID]<exp)/length(exp_distr[,indiv_ID])
+  
+    pos_exp_indiv[i,c("exp","p")] <- data.frame(exp =exp, p = p)
     
-    # pred_distr <- rnorm(length(samps_lmer_shannon$beta[,num_sp]), mean=rnorm(length(samps_lmer_shannon$beta[,num_sp]), mean=samps_lmer_shannon$beta[,num_sp], sd=toadID_sigma), sd=samp_sigma)
-    p <- sum(exp_distr[,i]<exp)/length(exp_distr[,i])
-    
-    ### Did they get infected?
-    # infect <- max(mf_treat %>%
-    #                 filter(indivID==i) %>%
-    #                 dplyr::select(Bd_load) %>%
-    #                 pull()
-    # )
-    
-    pos_exp_indiv[match(i, pos_exp_indiv$indivID),c("exp","p")] <- data.frame(exp =exp, p = p)
+
+  # ##################### PASTED ########
+  # for ( i in pos_exp_indiv$indivID ) {
+  #   # i = "Osse_5"
+  #   #n_row <- match(i, treat_indiv)
+  #   sp <- unlist(strsplit(i,"_"))
+  #   num_sp <- match(sp[1], levels(factor(mf_treat_temp$species)))
+  #   temp_dep <- mf_treat_temp %>%
+  #     filter(indivID==i, time >5 ) %>%
+  #     dplyr::select(dep) %>%
+  #     pull()
+  #   temp_time <- mf_treat_temp %>%
+  #     filter(indivID==i, time >5 ) %>%
+  #     dplyr::select(time) %>%
+  #     pull()
+  #   
+  #   x.fit <- alt_samps(inv_alt_samps(temp_dep)-temp_time*mean(t_var[sp[1]]))
+  #   x.fit <- x.fit[!is.na(x.fit)]
+  #   # I don't use a beta distribution here because often times optimization fails.
+  #   # I think the sample size is too small to adequeately estimate shape1 and shape2?
+  #   if ( fit_distr != "Beta" ) {
+  #     if ( length(x.fit)>1 ) {
+  #       fitted <- fitdistr(x.fit, densfun = paste0(fit_distr))$estimate
+  #       if ( fit_distr!="Gamma") {
+  #         exp <- fitted[1]
+  #       } else {
+  #         exp <-  fitted[1]/fitted[2]
+  #         
+  #       }
+  #     } else if (length(x.fit) == 1 ) {
+  #       exp <- x.fit
+  #     } else {
+  #       exp <- NA
+  #     }
+  #   } else {
+  #     if ( length(x.fit)>1 ) {
+  #       exp <-  fitdistr(x.fit, densfun = "normal")$estimate[1]
+  #     } else if (length(x.fit) == 1) {
+  #       exp <- (x.fit)
+  #     } else {
+  #       exp <- NA
+  #     }
+  #   }
     
   }
   
@@ -2026,7 +2039,8 @@ process_glmer_all_wtime <- function(g_lmer, dep, name_dep, transform_raw_func, i
   con_exp_indiv <- data.frame(indivID=mf_uninfected$indivID, exp=rep(NA, length(mf_uninfected$indivID)), p=rep(NA, length(mf_uninfected$indivID)), time=mf_uninfected$time)
   for ( i in 1:nrow(mf_uninfected) ) {
     indiv <- pull(mf_uninfected[i,"indivID"])
-    exp <- pull(mf_uninfected[i,"dep"])-pull(mf_uninfected[i,"time"])*t_var
+    sp <- unlist(strsplit(indiv, "_"))
+    exp <- pull(mf_uninfected[i,"dep"])-pull(mf_uninfected[i,"time"])*t_var[sp[1]]
     
     p <- sum(exp_distr[,indiv]<exp)/length(exp_distr[,indiv])
     
@@ -2036,13 +2050,13 @@ process_glmer_all_wtime <- function(g_lmer, dep, name_dep, transform_raw_func, i
     separate(indivID, into=c("species","indiv"), remove=FALSE)
   
   # Plot results 
-  gg_p <- ggplot(pos_exp_indiv, aes(x=p, y=max_Bd_load)) +
+  gg_p <- ggplot(pos_exp_indiv, aes(x=p, y=Bd_load)) +
     geom_point(aes(color=species), cex=4) +
     geom_smooth(aes(color=species),method=lm, se = FALSE) +
     geom_smooth(method=lm, se=FALSE, col="black") +
     xlab(label=paste0("p_",name_dep))
   # if we'd JUST plotted raw values
-  gg_raw <- ggplot(pos_exp_indiv, aes(x=exp, y=max_Bd_load))+
+  gg_raw <- ggplot(pos_exp_indiv, aes(x=exp, y=Bd_load))+
     geom_point(aes(color=species), cex=4) +
     geom_smooth(method=lm, se=FALSE, col="black") +
     geom_smooth(aes(color=species),method=lm, se = FALSE) +
@@ -2056,7 +2070,7 @@ process_glmer_all_wtime <- function(g_lmer, dep, name_dep, transform_raw_func, i
     mutate(species=factor(species,levels=c("Anbo","Rhma","Osse","Raca","Rapi")))%>%
     ggplot(aes(x=species, y=dep_var)) +
     geom_violin() +
-    geom_point(data=pos_exp_indiv, aes(x=species, y=exp, col=max_Bd_load),  cex=2, position=position_jitter(height=0, width=0.1)) +
+    geom_point(data=pos_exp_indiv, aes(x=species, y=exp, col=Bd_load),  cex=2, position=position_jitter(height=0, width=0.1)) +
     ylab(label=paste0(name_dep))
   
   gg_exp_distr_controls <- exp_distr %>%
@@ -2070,8 +2084,8 @@ process_glmer_all_wtime <- function(g_lmer, dep, name_dep, transform_raw_func, i
     ylab(label=paste0(name_dep))
   
   all_p <- pos_exp_indiv %>%
-    rename(infect=max_Bd_load) %>%
-    dplyr::select(indivID, exp, p, infect) 
+    rename(infect=Bd_load) %>%
+    dplyr::select(indivID, time, exp, p, infect) 
   
   # Make list of items
   output <- list()

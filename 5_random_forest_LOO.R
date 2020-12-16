@@ -641,7 +641,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -713,7 +713,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -785,7 +785,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -858,7 +858,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -930,7 +930,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -1001,7 +1001,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -1072,7 +1072,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question
@@ -1143,7 +1143,7 @@ if ( RERUN_RF ) {
                                           , otu_type = otu_type
                                           , bd_type=bd_type
                                           , p=p
-                                          , keepSp=TRUE)
+                                          , keepSp=keepSp)
   mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
   indiv_list <- get_mf_pred_temp_bd[[2]]
   # Mutate infection depending on question

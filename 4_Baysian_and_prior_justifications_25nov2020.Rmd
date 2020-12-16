@@ -120,26 +120,26 @@ grid.arrange(gg_all_bc,gg_all_uwu, gg_all_wu
 ```
 
 ```{r}
-# Check if marginal has an effect
-adonis2(braycurtis_filt ~ species:time, data=mf_alt_filt_final, by="margin")
-# Check main effects
-adonis2(braycurtis_filt ~ species + time + species:time, data=mf_alt_filt_final)
-# Include Bd_exposure
-adonis2(braycurtis_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
-
-# Check if marginal has an effect
-adonis2(unweighted_unifrac_filt ~ species:time, data=mf_alt_filt_final, by="margin")
-# Check main effects
-adonis2(unweighted_unifrac_filt ~ species + time + species:time, data=mf_alt_filt_final)
-# Include Bd_exposure
-adonis2(unweighted_unifrac_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
-
-# Check if marginal has an effect
-adonis2(weighted_unifrac_filt ~ species:time, data=mf_alt_filt_final, by="margin")
-# Check main effects
-adonis2(weighted_unifrac_filt ~ species + time + species:time, data=mf_alt_filt_final)
-# Include Bd_exposure
-adonis2(weighted_unifrac_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
+# # Check if marginal has an effect
+# adonis2(braycurtis_filt ~ species:time, data=mf_alt_filt_final, by="margin")
+# # Check main effects
+# adonis2(braycurtis_filt ~ species + time + species:time, data=mf_alt_filt_final)
+# # Include Bd_exposure
+# adonis2(braycurtis_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
+# 
+# # Check if marginal has an effect
+# adonis2(unweighted_unifrac_filt ~ species:time, data=mf_alt_filt_final, by="margin")
+# # Check main effects
+# adonis2(unweighted_unifrac_filt ~ species + time + species:time, data=mf_alt_filt_final)
+# # Include Bd_exposure
+# adonis2(unweighted_unifrac_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
+# 
+# # Check if marginal has an effect
+# adonis2(weighted_unifrac_filt ~ species:time, data=mf_alt_filt_final, by="margin")
+# # Check main effects
+# adonis2(weighted_unifrac_filt ~ species + time + species:time, data=mf_alt_filt_final)
+# # Include Bd_exposure
+# adonis2(weighted_unifrac_filt ~ species*time*Bd_exposure, data=mf_alt_filt_final)
 ```
 
 ```{r}
@@ -896,11 +896,11 @@ anova_inhibRich_treat <- anova_pois_2way(mf=mf_treat, dep="inhibRich", indep1="s
 ```{r rerun}
 
 # Re-run everything?
-RERUN_RICH = TRUE
-RERUN_DIST = TRUE
-RERUN_DISP = TRUE
-RERUN_PERCINHIB = TRUE
-RERUN_INHIBRICH = TRUE
+RERUN_RICH = FALSE
+RERUN_DIST = FALSE
+RERUN_DISP = FALSE
+RERUN_PERCINHIB = FALSE
+RERUN_INHIBRICH = FALSE
 
 ```
 
@@ -969,10 +969,7 @@ chao1_processed_wtime <- process_glmer_withtime(g_lmer = lmer_log_chao1_wtime
                                  , mf_treat=mf_treat
                                  , time_factor = T
                                  , time_inter = T)
-chao1_processed_wtime$gg_model_Distribution_of_all_values
-chao1_processed_wtime$gg_p
-chao1_processed_wtime$gg_ExpectedDistribution_and_Bd_exposed
-chao1_processed_wtime$gg_ExpectedDistribution_controls
+
 ```
 
 ```{r chao1I_plot}
@@ -1465,6 +1462,7 @@ observed_otus_processed_all_wtime$gg_ExpectedDistribution_and_Bd_exposed
 observed_otus_processed_all_wtime$gg_ExpectedDistribution_controls
 ```
 
+
 ```{r alphachao1II_process, results="hide"}
 ##### RICHNESS (Chao1) (II) #######
 
@@ -1897,8 +1895,6 @@ inhibRich_processed_all_wtime$gg_ExpectedDistribution_controls
 ```
 
 ```{r}
-
-
 # Combine all p values and save work
 all_tabs <- c("observed_otus"
               , "chao1"
@@ -1917,22 +1913,27 @@ for ( tab in all_tabs) {
   temp_tab <- get(paste0(tab,"_processed_all_wtime"))$all_p 
   name1 <- paste0("exp_",tab)
   name2 <- paste0("p_",tab)
-  colnames(temp_tab) <- c("indivID",name1, name2,"max_Bd_load")
+  colnames(temp_tab) <- c("indivID","time", name1, name2,"Bd_load")
   assign(paste0("all_p_pred_",tab), temp_tab)
 }
 
-
 # combine all_p's
-all_p_pred <- data.frame(indivID=observed_otus_processed_all_wtime$all_p$indivID, infect=observed_otus_processed_all_wtime$all_p$infect) 
+all_p_pred <- data.frame(indivID=observed_otus_processed_all_wtime$all_p$indivID
+                         ,time=observed_otus_processed_all_wtime$all_p$time
+                         ,infect=observed_otus_processed_all_wtime$all_p$infect) 
+
 for ( tab in all_tabs ) {
   all_p_pred <- get(paste0("all_p_pred_",tab)) %>%
-    dplyr::select(indivID,paste0("exp_",tab), paste0("p_",tab)) %>%
+    dplyr::select(indivID,paste0("exp_",tab), paste0("p_",tab), time) %>%
     left_join(all_p_pred)
 }
 
 save(all_p_pred, file="./4_Bayesian_models/all_p_pred.RData")
 
 write.table(all_p, file="./4_Bayesian_models/all_p.txt", quote=FALSE, row.names = FALSE
+            , sep="\t")
+
+write.table(all_p_pred, file="./4_Bayesian_models/all_p_pred.txt", quote=FALSE, row.names = FALSE
             , sep="\t")
 
 ```

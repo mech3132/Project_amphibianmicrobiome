@@ -60,7 +60,7 @@ if ( RERUN_RF ) {
               
               all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop, repl, sep="_")]] <- list()
               # Get a formatted mapping file
-              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p, mf_temp=mf_temp)
+              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p)
               mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
               indiv_list <- get_mf_pred_temp_bd[[2]]
               # Mutate infection depending on question
@@ -151,7 +151,7 @@ if ( RERUN_RF ) {
               
               all_RF_predictBD[[paste(otu_type, p_type, bd_type, prop, repl, sep="_")]] <- list()
               # Get a formatted mapping file
-              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p, mf_temp=mf_temp)
+              get_mf_pred_temp_bd <- get_mf_pred_temp(p_type=p_type, otu_type = otu_type, bd_type=bd_type, p=p)
               mf_pred_temp_bd <- get_mf_pred_temp_bd[[1]]
               indiv_list <- get_mf_pred_temp_bd[[2]]
               # Mutate infection depending on question

@@ -1,0 +1,12 @@
+
+	One Sample t-test
+
+data:  count_withsp
+t = 0.88079, df = 14, p-value = 0.3933
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.1628994  0.3899276
+sample estimates:
+mean of x 
+0.1135141 
+

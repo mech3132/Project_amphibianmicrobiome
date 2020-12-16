@@ -1,0 +1,12 @@
+
+	One Sample t-test
+
+data:  community_withsp
+t = 1.5412, df = 14, p-value = 0.1456
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.08384318  0.51199948
+sample estimates:
+mean of x 
+0.2140782 
+

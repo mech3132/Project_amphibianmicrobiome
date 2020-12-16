@@ -1006,6 +1006,7 @@ toKeepMF &lt;-  c(&quot;SampleID&quot;
                , &quot;inhibRich&quot;
                , &quot;percInhib&quot;
                , paste0(rep(c(&quot;NMDS1_&quot;, &quot;NMDS2_&quot;,&quot;NMDS_stress_&quot;), each=3), rep(allBeta$V1, 3))
+               , &quot;host_weight&quot;
                
 )
 
@@ -1025,6 +1026,7 @@ newNames &lt;- c(&quot;SampleID&quot;
                , &quot;inhibRich&quot;
                , &quot;percInhib&quot;
                , paste0(rep(c(&quot;NMDS1_&quot;, &quot;NMDS2_&quot;,&quot;NMDS_stress_&quot;), each=3), rep(allBeta$V1, 3))
+              , &quot;mass_g&quot;
 )
 
 mf_alt_final &lt;- mf_alt %&gt;% # mapping file with controls still in it
@@ -1047,7 +1049,12 @@ mf_alt_final &lt;- mf_alt %&gt;% # mapping file with controls still in it
     mutate(species=factor(species, levels=c(&quot;Anbo&quot;,&quot;Rhma&quot;,&quot;Osse&quot;,&quot;Raca&quot;,&quot;Rapi&quot;))
           , prepost=factor(prepost, levels=c(&quot;Pre&quot;,&quot;Post&quot;))
           , indiv=factor(indiv, levels=c(&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;10&quot;,&quot;11&quot;,&quot;12&quot;))) %&gt;%
-    mutate(Bd_exposure=factor(Bd_exposure, levels=c(&#39;Bd-exposed&#39;,&#39;Control&#39;)))</code></pre>
+    mutate(Bd_exposure=factor(Bd_exposure, levels=c(&#39;Bd-exposed&#39;,&#39;Control&#39;))) %&gt;%
+    mutate(mass_g = as.numeric(mass_g))</code></pre>
+<pre><code>## Warning: Problem with `mutate()` input `mass_g`.
+## ℹ NAs introduced by coercion
+## ℹ Input `mass_g` is `as.numeric(mass_g)`.</code></pre>
+<pre><code>## Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</code></pre>
 <p>Plot preliminary experimental design, just to make sure everything is working fine</p>
 <pre class="r"><code>options(repr.plot.width=5, repr.plot.height=10)
 mf_alt_filt_final %&gt;%

@@ -1,0 +1,10 @@
+# A tibble: 6 x 3
+# Groups:   species [2]
+  Training_data    species                     MSE
+  <chr>            <chr>                     <dbl>
+1 ASV counts       No species predictor       4.09
+2 Community traits No species predictor       3.48
+3 ASV prevalence   No species predictor       3.67
+4 ASV counts       With species as predictor  4.09
+5 Community traits With species as predictor  3.12
+6 ASV prevalence   With species as predictor  3.71

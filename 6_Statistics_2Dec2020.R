@@ -10,7 +10,6 @@ library(MASS) # for isoMDS and stepAIC
 library(ade4)
 library(reshape2)
 library(lme4) # mixed effect models
-library(pwr) # power test
 dir.create("./6_Statistics")
 
 # Mapping files
@@ -89,6 +88,26 @@ mf_con <- mf_alt_filt_final %>%
     filter(Bd_exposure=="Control")
 mf_treat <- mf_alt_filt_final %>%
     filter(Bd_exposure=="Bd-exposed")
+
+### Look at weights of amphibians through time
+mf_treat %>%
+  full_join(mf_con) %>%
+  ggplot() + geom_line(aes(x=time, y=mass_g, group=indiv, col=Bd_exposure))+
+  facet_wrap(.~species)
+
+### Get min/max Bd of each species, and # infected for each species
+mf_treat %>%
+  group_by(species, indivID) %>%
+  summarize(infected = ifelse(sum(PABD)>0, 1, 0)
+            , maxInfect = max(Bd_load)) %>%
+  ungroup() %>%
+  mutate(count=1) %>%
+  group_by(species) %>%
+  summarize(total = sum(count)
+            , n_infected = sum(infected)
+            , prop = n_infected/total
+            , ave_max = mean(ifelse(maxInfect==0, NA, maxInfect), na.rm=TRUE))
+
 ### Filter dm into con and treat
 braycurtis_filt_con <- braycurtis_filt[mf_con$SampleID,mf_con$SampleID]
 braycurtis_filt_treat <- braycurtis_filt[mf_treat$SampleID,mf_treat$SampleID]
@@ -96,8 +115,8 @@ braycurtis_filt_treat <- braycurtis_filt[mf_treat$SampleID,mf_treat$SampleID]
 unweighted_unifrac_filt_con <- unweighted_unifrac_filt[mf_con$SampleID,mf_con$SampleID]
 unweighted_unifrac_filt_treat <- unweighted_unifrac_filt[mf_treat$SampleID,mf_treat$SampleID]
 
-weighted_unifrac_filt_con <- unweighted_unifrac_filt[mf_con$SampleID,mf_con$SampleID]
-weighted_unifrac_filt_treat <- unweighted_unifrac_filt[mf_treat$SampleID,mf_treat$SampleID]
+weighted_unifrac_filt_con <- weighted_unifrac_filt[mf_con$SampleID,mf_con$SampleID]
+weighted_unifrac_filt_treat <- weighted_unifrac_filt[mf_treat$SampleID,mf_treat$SampleID]
 
 # Test to see if different alpha and beta metrics show the same result
 options(repr.plot.height=5, repr.plot.width=8)
@@ -203,7 +222,6 @@ adonis_composition_wu_timexspecies_con
 write.table(adonis_composition_wu_timexspecies_con
             , file="./6_Statistics/adonis_composition_wu_timexspecies_con.txt"
             , quote=FALSE, sep="\t", col.names=NA, row.names=TRUE)
-
 
 print("Braycurtis")
 adonis_composition_bc_timexspeciesxpabd_treat <- adonis2(dist(braycurtis_filt_treat) ~ species*time*PABD + indivID, data=mf_treat)
@@ -881,54 +899,54 @@ cor.test(all_p$p_percInhib, all_p$p_dist_weighted_unifrac)
 # Presence/absence
 # WITH zeros
 print("Alpha diversity")
-anova_observed_otus_PABD <- Anova(lm(p_observed_otus ~ species*PABD, data=all_p_pred), type=2)
-anova_chao1_PABD <- Anova(lm(p_chao1 ~ species*PABD, data=all_p_pred), type=2)
-anova_faith_pd_PABD <- Anova(lm(p_faith_pd ~ species*PABD, data=all_p_pred), type=2)
-anova_shannon_PABD <- Anova(lm(p_shannon ~ species*PABD, data=all_p_pred), type=2)
+anova_observed_otus_PABD <- Anova(lmer(p_observed_otus ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_chao1_PABD <- Anova(lmer(p_chao1 ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_faith_pd_PABD <- Anova(lmer(p_faith_pd ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_shannon_PABD <- Anova(lmer(p_shannon ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
 
 print("Dist")
-anova_dist_braycurtis_PABD <- Anova(lm(p_dist_braycurtis ~ species*PABD, data=all_p_pred), type=2)
-anova_dist_unweighted_unifrac_PABD <- Anova(lm(p_dist_unweighted_unifrac ~ species*PABD, data=all_p_pred), type=2)
-anova_dist_weighted_unifrac_PABD <- Anova(lm(p_dist_weighted_unifrac ~ species*PABD, data=all_p_pred), type=2)
+anova_dist_braycurtis_PABD <- Anova(lmer(p_dist_braycurtis ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_dist_unweighted_unifrac_PABD <- Anova(lmer(p_dist_unweighted_unifrac ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_dist_weighted_unifrac_PABD <- Anova(lmer(p_dist_weighted_unifrac ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
 
 
 print("Disper")
-anova_disper_braycurtis_PABD <- Anova(lm(p_disper_braycurtis ~ species*PABD, data=all_p_pred), type=2)
-anova_disper_unweighted_unifrac_PABD <- Anova(lm(p_disper_unweighted_unifrac ~ species*PABD, data=all_p_pred), type=2)
-anova_disper_weighted_unifrac_PABD <- Anova(lm(p_disper_weighted_unifrac ~ species*PABD, data=all_p_pred), type=2)
+anova_disper_braycurtis_PABD <- Anova(lmer(p_disper_braycurtis ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_disper_unweighted_unifrac_PABD <- Anova(lmer(p_disper_unweighted_unifrac ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
+anova_disper_weighted_unifrac_PABD <- Anova(lmer(p_disper_weighted_unifrac ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
 
 
 print("inhibitory richness")
-anova_inhibRich_PABD <- Anova(lm(p_inhibRich ~ species*PABD, data=all_p_pred), type=2)
+anova_inhibRich_PABD <- Anova(lmer(p_inhibRich ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
 print("inhibitory percent")
-anova_percInhib_PABD <- Anova(lm(p_percInhib ~ species*PABD, data=all_p_pred), type=2)
+anova_percInhib_PABD <- Anova(lmer(p_percInhib ~ species*PABD + (1|indivID), data=all_p_pred), type=2)
 
 
 # Bd Load
 # NO zeros
 
 print("Alpha diversity")
-anova_observed_otus_Bdload <- Anova(lm(p_observed_otus ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_chao1_Bdload <- Anova(lm(p_chao1 ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_faith_pd_Bdload <- Anova(lm(p_faith_pd ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_shannon_Bdload <- Anova(lm(p_shannon ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
+anova_observed_otus_Bdload <- Anova(lmer(p_observed_otus ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_chao1_Bdload <- Anova(lmer(p_chao1 ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_faith_pd_Bdload <- Anova(lmer(p_faith_pd ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_shannon_Bdload <- Anova(lmer(p_shannon ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
 
 print("Dist")
-anova_dist_braycurtis_Bdload <- Anova(lm(p_dist_braycurtis ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_dist_unweighted_unifrac_Bdload <- Anova(lm(p_dist_unweighted_unifrac ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_dist_weighted_unifrac_Bdload <- Anova(lm(p_dist_weighted_unifrac ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
+anova_dist_braycurtis_Bdload <- Anova(lmer(p_dist_braycurtis ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_dist_unweighted_unifrac_Bdload <- Anova(lmer(p_dist_unweighted_unifrac ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_dist_weighted_unifrac_Bdload <- Anova(lmer(p_dist_weighted_unifrac ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
 
 
 print("Disper")
-anova_disper_braycurtis_Bdload <- Anova(lm(p_disper_braycurtis ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_disper_unweighted_unifrac_Bdload <- Anova(lm(p_disper_unweighted_unifrac ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
-anova_disper_weighted_unifrac_Bdload <- Anova(lm(p_disper_weighted_unifrac ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
+anova_disper_braycurtis_Bdload <- Anova(lmer(p_disper_braycurtis ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_disper_unweighted_unifrac_Bdload <- Anova(lmer(p_disper_unweighted_unifrac ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
+anova_disper_weighted_unifrac_Bdload <- Anova(lmer(p_disper_weighted_unifrac ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
 
 
 print("inhibitory richness")
-anova_inhibRich_Bdload <- Anova(lm(p_inhibRich ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
+anova_inhibRich_Bdload <- Anova(lmer(p_inhibRich ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
 print("inhibitory percent")
-anova_percInhib_Bdload <- Anova(lm(p_percInhib ~ species*Bd_load, data=all_p_pred_infectonly), type=2)
+anova_percInhib_Bdload <- Anova(lmer(p_percInhib ~ species*Bd_load + (1|indivID), data=all_p_pred_infectonly), type=2)
 
 
 stats_table_causeffect <- data.frame("Microbial Community Trait"=c(
@@ -1246,6 +1264,7 @@ errorRate_test_all_summary <- errorRate_test_all %>%
   group_by(species, Training_data) %>%
   summarize(correct=mean(Test_pred==Test_obs))
 errorRate_test_all_summary
+capture.output(errorRate_test_all_summary, file = "6_Statistics/errorRate_test_all_summary.txt")
 
 MSE_test_all <- rbind(cbind(compare_infect_onlyp_nosp_LOO, species="No species predictor"), cbind(compare_infect_onlyp_wsp_LOO, species="With species as predictor")
                       , cbind(compare_infect_count_nosp_LOO, species="No species predictor"), cbind(compare_infect_count_wsp_LOO, species="With species as predictor")
@@ -1257,6 +1276,7 @@ MSE_test_all <- rbind(cbind(compare_infect_onlyp_nosp_LOO, species="No species p
   dplyr::select(Training_data, species, MSE)
 
 MSE_test_all
+capture.output(MSE_test_all, file = "6_Statistics/MSE_test_all.txt")
 
 ## Testing to see if MSE differs between training and test set
 
@@ -1268,22 +1288,34 @@ count_nosp <- MSE_infect_count_nosp_LOO$error-MSE_test_all%>%filter(Training_dat
 prevalence_wsp <- MSE_infect_PA_wsp_LOO$error-MSE_test_all%>%filter(Training_data=="ASV prevalence", species=="With species as predictor")%>%pull(MSE)
 prevalence_nosp <- MSE_infect_PA_nosp_LOO$error-MSE_test_all%>%filter(Training_data=="ASV prevalence", species=="No species predictor")%>%pull(MSE)
 t.test(community_withsp)
+capture.output(t.test(community_withsp), file="6_Statistics/MSE_trainvstest_community_withsp.txt")
 t.test(community_nosp)
+capture.output(t.test(community_nosp), file="6_Statistics/MSE_trainvstest_community_nosp.txt")
 t.test(count_withsp)
+capture.output(t.test(count_withsp), file="6_Statistics/MSE_trainvstest_count_withsp.txt")
 t.test(count_nosp)
+capture.output(t.test(count_nosp), file="6_Statistics/MSE_trainvstest_count_nosp.txt")
 t.test(prevalence_wsp)
+capture.output(t.test(prevalence_wsp), file="6_Statistics/MSE_trainvstest_prev_wsp.txt")
 t.test(prevalence_nosp)
+capture.output(t.test(prevalence_nosp), file="6_Statistics/MSE_trainvstest_prev_nosp.txt")
 
 ### Looking at importance; PABD
 
 importance_PABD_onlyp_wsp_LOO %>% group_by(taxonomy) %>%
   summarize(meanMDA=mean(MeanDecreaseAccuracy), sdMDA=sd(MeanDecreaseAccuracy)) %>%
   arrange(-meanMDA)
+importance_PABD_onlyp_wsp_LOO %>% group_by(taxonomy) %>%
+  summarize(meanMDA=mean(MeanDecreaseAccuracy), sdMDA=sd(MeanDecreaseAccuracy)) %>%
+  arrange(-meanMDA) %>% capture.output(file="6_Statistics/importance_PABD_onlyp_wsp_LOO.txt")
 
 ### Looking at importance; infect
 importance_infect_onlyp_wsp_LOO %>% group_by(taxonomy) %>%
   summarize(meanIncMSE=mean(X.IncMSE), sdIncMSE=sd(X.IncMSE)) %>%
   arrange(-meanIncMSE)
+importance_infect_onlyp_wsp_LOO %>% group_by(taxonomy) %>%
+  summarize(meanIncMSE=mean(X.IncMSE), sdIncMSE=sd(X.IncMSE)) %>%
+  arrange(-meanIncMSE)%>% capture.output(file="6_Statistics/importance_infect_onlyp_wsp_LOO.txt")
 
 #### Effect of exposing to Bd
 

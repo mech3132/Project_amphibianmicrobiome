@@ -92,7 +92,9 @@ plot_experimental_design <-mf_alt_filt_final %>%
   xlab("Time (Day)") +
   ylab("Individual Amphibian") +
   theme(strip.text = element_text(size=14), 
-        axis.title = element_text(size=14))
+        axis.title = element_text(size=14))+
+  labs(fill=expression(paste(italic("Bd")," load (log+1)"))
+       , col = expression(paste(italic("Bd"), " exposure")))
 
 # plot_experimental_design <- mf_alt_filt_final %>%
 #   mutate(Contaminated = factor(ifelse(orig_contam ==1, "!Contaminated",NA), levels=c("!Contaminated"))
@@ -122,14 +124,21 @@ gg_NMDS <- mf_con %>%
   geom_point(aes(col=species, alpha=time), cex=3, show.legend = FALSE) +
   ylab("NMDS 2 (Bray-curtis)") +
   xlab("NMDS 1 (Bray-curtis)") +
-  geom_text(aes(x=-0.75, y=0.75, label=paste0("Stress: ",round(unique(mf_con$NMDS_stress_braycurtis))/100)))
+  geom_text(aes(x=-0.75, y=0.75, label=paste0("Stress: ",round(unique(NMDS_stress_braycurtis))/100)))
+
+# gg_NMDS <- mf_con %>%
+#   ggplot(aes(x=NMDS1_unweighted_unifrac, y=NMDS2_unweighted_unifrac)) +
+#   geom_point(aes(col=species, alpha=time), cex=3, show.legend = FALSE) +
+#   ylab("NMDS 2 (Unweighted Unifrac)") +
+#   xlab("NMDS 1 (Unweighted Unifrac)") +
+#   geom_text(aes(x=-0.75, y=0.75, label=paste0("Stress: ",round(unique(NMDS_stress_unweighted_unifrac))/100)))
 
 gg_infect <- mf_treat  %>%
   group_by(species, indivID) %>%
   summarize("Max Bd load (log)"=max(Bd_load)) %>%
   ggplot(aes(x=species, y=`Max Bd load (log)`)) +
   geom_point(aes(col=species), cex=3, position = position_jitter(width=0.1, height=0.05), show.legend = FALSE) +
-  xlab("Species")
+  xlab("Species") + ylab(expression(paste("Max ",italic("Bd")," load (log+1)")))
 
 temp1a <-  mf_con %>%
   dplyr::select(species, shannon) %>%
@@ -141,26 +150,26 @@ temp1b <-  mf_con %>%
   rename(value=observed_otus)
 temp2 <- mf_con %>%
   dplyr::select(species, inhibRich) %>%
-  mutate(metric="Richness_of_inhibitory_bacteria")%>%
+  mutate(metric="Richness_of_putative_inhibitory_bacteria")%>%
   rename(value=inhibRich)
 temp3 <- mf_con %>%
   dplyr::select(species, percInhib) %>%
-  mutate(metric="Proportion_of_inhibitory_bacteria")%>%
+  mutate(metric="Proportion_of_putative_inhibitory_bacteria")%>%
   rename(value=percInhib)
 temp4 <- mf_con %>%
   dplyr::select(species, disper_unweighted_unifrac) %>%
   mutate(metric="Dispersion (log_unweighted_Unifrac)")%>%
   rename(value=disper_unweighted_unifrac)
 temp5 <- mf_con %>%
-  dplyr::select(species, dist_weighted_unifrac) %>%
-  mutate(metric="Instability (weighted_Unifrac)")%>%
-  rename(value=dist_weighted_unifrac)
+  dplyr::select(species, dist_unweighted_unifrac) %>%
+  mutate(metric="Instability (unweighted_Unifrac)")%>%
+  rename(value=dist_unweighted_unifrac)
 
 
 gg_all <- rbind(temp1a,temp1b,temp2,temp3,temp4, temp5) %>%
   rename(Species=species) %>%
   mutate(Metric = gsub("_"," ",metric, fixed=TRUE)) %>%
-  mutate(Metric = factor(Metric, levels=c("Bacterial richness","Shannon diversity","Richness of inhibitory bacteria","Proportion of inhibitory bacteria","Dispersion (log unweighted Unifrac)", "Instability (weighted Unifrac)"))) %>%
+  mutate(Metric = factor(Metric, levels=c("Bacterial richness","Shannon diversity","Richness of putative inhibitory bacteria","Proportion of putative inhibitory bacteria","Dispersion (log unweighted Unifrac)", "Instability (unweighted Unifrac)"))) %>%
   ggplot(aes(x=Species, y=value)) +
   geom_boxplot() +
   geom_point(aes(col=Species), position = position_jitter(width=0.1, height=0), alpha=1/3)+
@@ -1486,165 +1495,165 @@ ggsave(file="7_figures/RF_diag_propCorrect.pdf", height=3, width=6
 
 )
 
-
-
-#### RF old simulations ####
-#
-## Simple diagnostics
-# Mean squared Error
-summary_error_infect_MSER2_filt <- summary_error_infect_MSER2 %>%
-  filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
-  mutate(model_otu_type = ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"))
-summary_error_infect_MSER2 %>%
-  mutate(sdMSE=sqrt(varMSE)) %>% dplyr::select(meanMSE, sdMSE, everything())
-ggsave("./7_figures/RF_MSE_sim.pdf", height=3, width=5
-       , summary_error_infect %>%
-         filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
-         mutate(model_otu_type = factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts"))) %>%
-         ggplot() + geom_violin(aes(x=model_otu_type, y=MSE)) +
-         geom_jitter(aes(x=model_otu_type, y=MSE), width = 0.25, height=0) +
-         geom_point(data=summary_error_infect_MSER2_filt, aes(x=model_otu_type, y=meanMSE), col="red", cex=3) +
-         geom_segment(data=summary_error_infect_MSER2_filt, aes(x=model_otu_type, xend=model_otu_type, y=meanMSE-sqrt(varMSE), yend=meanMSE+sqrt(varMSE)), col="red") +
-         xlab("Predictors used") + ylab("Mean Squared Error")+
-         theme_classic()
-)
-
-# Proportion correct
-summary_error_PABD_mean_filt <- summary_error_PABD %>%
-  group_by(model_otu_type) %>%
-  summarize(meanPropCorrect=mean(propCorrect), sd=sd(propCorrect))%>%
-  filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
-  mutate(model_otu_type = factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts")))
-summary_error_PABD %>%
-  group_by(model_otu_type) %>%
-  summarize(meanPropCorrect=mean(propCorrect), sd=sd(propCorrect))
-ggsave("./7_figures/RF_propCorrect_sim.pdf", height=3, width=5
-       , summary_error_PABD %>%
-         filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
-         mutate(model_otu_type = factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts"))) %>%
-         ggplot() + geom_violin(aes(x=model_otu_type, y=propCorrect)) +
-         geom_jitter(aes(x=model_otu_type, y=propCorrect), height=0.05, width=0.25) +
-         geom_point(data=summary_error_PABD_mean_filt, aes(x=model_otu_type, y=meanPropCorrect), col="red") +
-         geom_segment(data=summary_error_PABD_mean_filt, aes(x=model_otu_type, xend=model_otu_type, y=meanPropCorrect-sd, yend=meanPropCorrect+sd), col="red") +
-         theme_classic() + xlab("Predictors used") +ylab("Proportion correct")
-)
-
-# Plotting only certain models
-# Infect
-all_test_train_comparisons_infect_filt <- all_test_train_comparisons_infect %>%
-  filter(model %in% c("ponly","nop"), otu_type %in% c("count",NA)) %>%
-  unite(model, otu_type, col = model_otu_type, remove=FALSE) %>%
-  rename(Predictors_used = model_otu_type) %>%
-  mutate(Predictors_used = factor(ifelse(Predictors_used=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts")))
-summary_indiv_infect_filt <- summary_indiv_infect %>%
-  filter(model %in% c("ponly","nop"), otu_type %in% c("count",NA)) %>%
-  rename(Predictors_used = model_otu_type) %>%
-  mutate(Predictors_used = factor(ifelse(Predictors_used=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts")))
-ggsave(filename="./7_figures/RF_full_bdload_filt.pdf", height=3, width=5
-       , all_test_train_comparisons_infect_filt %>%
-         ggplot(aes(x=Test_obs, y=Test_pred)) +
-         geom_jitter(aes(col=Predictors_used ),alpha=0.2, height=0, width=0.2) +
-         # geom_smooth(aes(col=Predictors_used), method="lm") +
-         geom_segment(data=summary_indiv_infect_filt, aes(x=Test_obs, xend=Test_obs, y=meanTestPred-sqrt(varTestPred), yend=meanTestPred+sqrt(varTestPred), col=Predictors_used)) +
-         geom_point(data=summary_indiv_infect_filt,aes(x=Test_obs, y=meanTestPred, col=Predictors_used)) +
-         geom_smooth(data=summary_indiv_infect_filt,aes(x=Test_obs, y=meanTestPred, col=Predictors_used), method="lm") +
-         geom_abline(aes(intercept=0, slope=1)) +
-         ylim(0,8) + xlim(0,8)+
-         theme_bw() +
-         ylab("Random Forest Predicted Bd load") + xlab("Observed Bd load")
-)
-
-
-summary_indiv_PABD_filt <- summary_indiv_PABD %>%
-  filter(model %in% c("ponly","nop"), otu_type %in% c("count",NA)) %>%
-  rename(Predictors_used = model_otu_type) %>%
-  mutate(Predictors_used = factor(ifelse(Predictors_used == "ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts"))) %>%
-  separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
-  arrange(species, indiv) %>%
-  mutate(indivID=factor(indivID, levels=unique(indivID)))
-# summary_error_PABD_mean_filt
-
-observed_PABD <- summary_indiv_PABD_filt %>%
-  dplyr::select(Predictors_used,indivID, Observed ) %>%
-  filter(Predictors_used =="Bacterial counts") %>%
-  mutate(Predictors_used = "Observed outcome") %>%
-  mutate(Observed=ifelse(Observed=="INFECTED",1,0)) %>%
-  rename(Proportion_infected=Observed)
-addline_format <- function(x,...){
-  gsub('\\s','\n',x)
-}
-
-ggsave("./7_figures/RF_full_PABD_filt.pdf", height=3, width=5
-  , summary_indiv_PABD_filt %>%
-    rename(Proportion_infected=infectRatio) %>%
-    dplyr::select(Predictors_used, indivID, Proportion_infected) %>%
-    rbind(observed_PABD) %>%
-    mutate(Predictors_used= factor(Predictors_used, levels=c("Observed outcome","Community traits","Bacterial counts"))) %>%
-    ggplot() +
-    geom_tile(aes(x=Predictors_used, y=indivID, fill=Proportion_infected), width=0.9, height=0.9) +
-    geom_vline(aes(xintercept=1.5), lwd=2)+
-    scale_fill_gradient2(low="lightblue",mid="white",high="darkred", midpoint=0.5,name="Proportion \npredicted \nto be infected (RF)") +
-    theme_classic() +
-    # theme(axis.text.x = element_text(angle=90)) +
-    xlab("Predictors used") +ylab("Amphibian ID") +
-    scale_x_discrete(breaks=c("Observed outcome","Community traits","Bacterial counts")
-                     , labels=addline_format(c("Observed outcome","Community traits","Bacterial counts")))
-  )
-
-
-##### Supp
-
-ggsave("./7_figures//RF_residuals_by_individual.pdf"
-       ,all_test_train_comparisons_infect %>%
-         group_by(indivID, model, otu_type, rep) %>%
-         summarize(ressq = (Test_pred-Test_obs)^2) %>%
-         ungroup() %>%
-         separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
-         arrange(species, indiv) %>%
-         mutate(indivID =factor(indivID, levels=unique(indivID))) %>%
-         rename(Predictors_used=model) %>%
-         mutate(Predictors_used = factor(ifelse(Predictors_used=="ponly","Community traits", ifelse(Predictors_used=="nop", "Bacteria","both community and bacteria"))
-                                         ,levels=c("Community traits","ASVs","both community and ASV"))
-                , otu_type = ifelse(otu_type=="count", "ASV count", ifelse(otu_type=="prev","Bacterial prevalence","No Bacteria"))) %>%
-         ggplot() +
-         geom_jitter(aes(x=indivID, y=sqrt(ressq), col=Predictors_used), height=0, width=0.2) +
-         facet_grid(otu_type~.)+
-         theme(axis.text.x = element_text(angle=90))+
-         ylab("Residuals")+ xlab("Amphibian ID")
-)
-
-
-ggsave("./7_figures/RF_error_by_individual.pdf", height=3, width=10
-       ,summary_indiv_PABD_filt %>%
-         separate(indivID, into=c("species","Individual")) %>%
-         rename(Observed_outcome=Observed) %>%
-         ggplot()  +
-         geom_jitter(aes(x=species, y=propCorrect,col=Individual, pch=Observed_outcome), height=0.0, width=0.25, cex=2) +
-         facet_grid(.~Predictors_used) +
-         theme(axis.text.x=element_text(angle=90)) +
-         xlab("Amphibian species") + ylab("Proportion correct")
-
-)
-
-ggsave("./7_figures/RF_infectfit_by_individual.pdf", height=3, width=6
-       , summary_indiv_infect %>%
-         filter(model_otu_type %in% c("ponly_NA","nop_count")) %>%
-         mutate(model_otu_type= factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"), levels=c("Community traits","Bacterial counts"))) %>%
-         separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
-         arrange(species, indiv) %>%
-         mutate(indivID = factor(indivID, levels=unique(indivID)), species=factor(species, levels=c("Anbo","Rhma","Osse","Raca","Rapi"))) %>%
-         ggplot(aes(x=Test_obs, y=meanTestPred)) +geom_point(aes(col=species)) +
-         # geom_jitter(data=all_test_train_comparisons_infect,aes(x=Test_obs, y=Test_pred), alpha=0.2, height=0, width=0.2) +
-         # geom_smooth(aes(col=model_otu_type), method="lm") +
-         geom_segment(aes(x=Test_obs, xend=Test_obs, y=meanTestPred-sqrt(varTestPred), yend=meanTestPred+sqrt(varTestPred), col=species)) +
-         geom_abline(aes(intercept=0, slope=1)) +
-         ylim(0,8) + xlim(0,8)  +
-         facet_wrap(.~model_otu_type) +
-         ylab("Mean predicted Bd load (by individual)") + xlab("Observed Bd load")+
-         theme_bw()
-
-       )
-#
+# 
+# 
+# #### RF old simulations ####
+# #
+# ## Simple diagnostics
+# # Mean squared Error
+# summary_error_infect_MSER2_filt <- summary_error_infect_MSER2 %>%
+#   filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
+#   mutate(model_otu_type = ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"))
+# summary_error_infect_MSER2 %>%
+#   mutate(sdMSE=sqrt(varMSE)) %>% dplyr::select(meanMSE, sdMSE, everything())
+# ggsave("./7_figures/RF_MSE_sim.pdf", height=3, width=5
+#        , summary_error_infect %>%
+#          filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
+#          mutate(model_otu_type = factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts"))) %>%
+#          ggplot() + geom_violin(aes(x=model_otu_type, y=MSE)) +
+#          geom_jitter(aes(x=model_otu_type, y=MSE), width = 0.25, height=0) +
+#          geom_point(data=summary_error_infect_MSER2_filt, aes(x=model_otu_type, y=meanMSE), col="red", cex=3) +
+#          geom_segment(data=summary_error_infect_MSER2_filt, aes(x=model_otu_type, xend=model_otu_type, y=meanMSE-sqrt(varMSE), yend=meanMSE+sqrt(varMSE)), col="red") +
+#          xlab("Predictors used") + ylab("Mean Squared Error")+
+#          theme_classic()
+# )
+# 
+# # Proportion correct
+# summary_error_PABD_mean_filt <- summary_error_PABD %>%
+#   group_by(model_otu_type) %>%
+#   summarize(meanPropCorrect=mean(propCorrect), sd=sd(propCorrect))%>%
+#   filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
+#   mutate(model_otu_type = factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts")))
+# summary_error_PABD %>%
+#   group_by(model_otu_type) %>%
+#   summarize(meanPropCorrect=mean(propCorrect), sd=sd(propCorrect))
+# ggsave("./7_figures/RF_propCorrect_sim.pdf", height=3, width=5
+#        , summary_error_PABD %>%
+#          filter(model_otu_type %in% c("ponly_NA", "nop_count")) %>%
+#          mutate(model_otu_type = factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts"))) %>%
+#          ggplot() + geom_violin(aes(x=model_otu_type, y=propCorrect)) +
+#          geom_jitter(aes(x=model_otu_type, y=propCorrect), height=0.05, width=0.25) +
+#          geom_point(data=summary_error_PABD_mean_filt, aes(x=model_otu_type, y=meanPropCorrect), col="red") +
+#          geom_segment(data=summary_error_PABD_mean_filt, aes(x=model_otu_type, xend=model_otu_type, y=meanPropCorrect-sd, yend=meanPropCorrect+sd), col="red") +
+#          theme_classic() + xlab("Predictors used") +ylab("Proportion correct")
+# )
+# 
+# # Plotting only certain models
+# # Infect
+# all_test_train_comparisons_infect_filt <- all_test_train_comparisons_infect %>%
+#   filter(model %in% c("ponly","nop"), otu_type %in% c("count",NA)) %>%
+#   unite(model, otu_type, col = model_otu_type, remove=FALSE) %>%
+#   rename(Predictors_used = model_otu_type) %>%
+#   mutate(Predictors_used = factor(ifelse(Predictors_used=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts")))
+# summary_indiv_infect_filt <- summary_indiv_infect %>%
+#   filter(model %in% c("ponly","nop"), otu_type %in% c("count",NA)) %>%
+#   rename(Predictors_used = model_otu_type) %>%
+#   mutate(Predictors_used = factor(ifelse(Predictors_used=="ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts")))
+# ggsave(filename="./7_figures/RF_full_bdload_filt.pdf", height=3, width=5
+#        , all_test_train_comparisons_infect_filt %>%
+#          ggplot(aes(x=Test_obs, y=Test_pred)) +
+#          geom_jitter(aes(col=Predictors_used ),alpha=0.2, height=0, width=0.2) +
+#          # geom_smooth(aes(col=Predictors_used), method="lm") +
+#          geom_segment(data=summary_indiv_infect_filt, aes(x=Test_obs, xend=Test_obs, y=meanTestPred-sqrt(varTestPred), yend=meanTestPred+sqrt(varTestPred), col=Predictors_used)) +
+#          geom_point(data=summary_indiv_infect_filt,aes(x=Test_obs, y=meanTestPred, col=Predictors_used)) +
+#          geom_smooth(data=summary_indiv_infect_filt,aes(x=Test_obs, y=meanTestPred, col=Predictors_used), method="lm") +
+#          geom_abline(aes(intercept=0, slope=1)) +
+#          ylim(0,8) + xlim(0,8)+
+#          theme_bw() +
+#          ylab("Random Forest Predicted Bd load") + xlab("Observed Bd load")
+# )
+# 
+# 
+# summary_indiv_PABD_filt <- summary_indiv_PABD %>%
+#   filter(model %in% c("ponly","nop"), otu_type %in% c("count",NA)) %>%
+#   rename(Predictors_used = model_otu_type) %>%
+#   mutate(Predictors_used = factor(ifelse(Predictors_used == "ponly_NA","Community traits","Bacterial counts"),levels=c("Community traits","Bacterial counts"))) %>%
+#   separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
+#   arrange(species, indiv) %>%
+#   mutate(indivID=factor(indivID, levels=unique(indivID)))
+# # summary_error_PABD_mean_filt
+# 
+# observed_PABD <- summary_indiv_PABD_filt %>%
+#   dplyr::select(Predictors_used,indivID, Observed ) %>%
+#   filter(Predictors_used =="Bacterial counts") %>%
+#   mutate(Predictors_used = "Observed outcome") %>%
+#   mutate(Observed=ifelse(Observed=="INFECTED",1,0)) %>%
+#   rename(Proportion_infected=Observed)
+# addline_format <- function(x,...){
+#   gsub('\\s','\n',x)
+# }
+# 
+# ggsave("./7_figures/RF_full_PABD_filt.pdf", height=3, width=5
+#   , summary_indiv_PABD_filt %>%
+#     rename(Proportion_infected=infectRatio) %>%
+#     dplyr::select(Predictors_used, indivID, Proportion_infected) %>%
+#     rbind(observed_PABD) %>%
+#     mutate(Predictors_used= factor(Predictors_used, levels=c("Observed outcome","Community traits","Bacterial counts"))) %>%
+#     ggplot() +
+#     geom_tile(aes(x=Predictors_used, y=indivID, fill=Proportion_infected), width=0.9, height=0.9) +
+#     geom_vline(aes(xintercept=1.5), lwd=2)+
+#     scale_fill_gradient2(low="lightblue",mid="white",high="darkred", midpoint=0.5,name="Proportion \npredicted \nto be infected (RF)") +
+#     theme_classic() +
+#     # theme(axis.text.x = element_text(angle=90)) +
+#     xlab("Predictors used") +ylab("Amphibian ID") +
+#     scale_x_discrete(breaks=c("Observed outcome","Community traits","Bacterial counts")
+#                      , labels=addline_format(c("Observed outcome","Community traits","Bacterial counts")))
+#   )
+# 
+# 
+# ##### Supp
+# 
+# ggsave("./7_figures//RF_residuals_by_individual.pdf"
+#        ,all_test_train_comparisons_infect %>%
+#          group_by(indivID, model, otu_type, rep) %>%
+#          summarize(ressq = (Test_pred-Test_obs)^2) %>%
+#          ungroup() %>%
+#          separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
+#          arrange(species, indiv) %>%
+#          mutate(indivID =factor(indivID, levels=unique(indivID))) %>%
+#          rename(Predictors_used=model) %>%
+#          mutate(Predictors_used = factor(ifelse(Predictors_used=="ponly","Community traits", ifelse(Predictors_used=="nop", "Bacteria","both community and bacteria"))
+#                                          ,levels=c("Community traits","ASVs","both community and ASV"))
+#                 , otu_type = ifelse(otu_type=="count", "ASV count", ifelse(otu_type=="prev","Bacterial prevalence","No Bacteria"))) %>%
+#          ggplot() +
+#          geom_jitter(aes(x=indivID, y=sqrt(ressq), col=Predictors_used), height=0, width=0.2) +
+#          facet_grid(otu_type~.)+
+#          theme(axis.text.x = element_text(angle=90))+
+#          ylab("Residuals")+ xlab("Amphibian ID")
+# )
+# 
+# 
+# ggsave("./7_figures/RF_error_by_individual.pdf", height=3, width=10
+#        ,summary_indiv_PABD_filt %>%
+#          separate(indivID, into=c("species","Individual")) %>%
+#          rename(Observed_outcome=Observed) %>%
+#          ggplot()  +
+#          geom_jitter(aes(x=species, y=propCorrect,col=Individual, pch=Observed_outcome), height=0.0, width=0.25, cex=2) +
+#          facet_grid(.~Predictors_used) +
+#          theme(axis.text.x=element_text(angle=90)) +
+#          xlab("Amphibian species") + ylab("Proportion correct")
+# 
+# )
+# 
+# ggsave("./7_figures/RF_infectfit_by_individual.pdf", height=3, width=6
+#        , summary_indiv_infect %>%
+#          filter(model_otu_type %in% c("ponly_NA","nop_count")) %>%
+#          mutate(model_otu_type= factor(ifelse(model_otu_type=="ponly_NA","Community traits","Bacterial counts"), levels=c("Community traits","Bacterial counts"))) %>%
+#          separate(indivID, into=c("species","indiv"), remove=FALSE) %>%
+#          arrange(species, indiv) %>%
+#          mutate(indivID = factor(indivID, levels=unique(indivID)), species=factor(species, levels=c("Anbo","Rhma","Osse","Raca","Rapi"))) %>%
+#          ggplot(aes(x=Test_obs, y=meanTestPred)) +geom_point(aes(col=species)) +
+#          # geom_jitter(data=all_test_train_comparisons_infect,aes(x=Test_obs, y=Test_pred), alpha=0.2, height=0, width=0.2) +
+#          # geom_smooth(aes(col=model_otu_type), method="lm") +
+#          geom_segment(aes(x=Test_obs, xend=Test_obs, y=meanTestPred-sqrt(varTestPred), yend=meanTestPred+sqrt(varTestPred), col=species)) +
+#          geom_abline(aes(intercept=0, slope=1)) +
+#          ylim(0,8) + xlim(0,8)  +
+#          facet_wrap(.~model_otu_type) +
+#          ylab("Mean predicted Bd load (by individual)") + xlab("Observed Bd load")+
+#          theme_bw()
+# 
+#        )
+# #
 
 
 
