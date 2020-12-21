@@ -2,9 +2,9 @@
 # Groups:   species [2]
   species Training_data    correct
   <lgl>   <chr>              <dbl>
-1 FALSE   ASV counts         0.667
-2 FALSE   ASV prevalence     0.667
-3 FALSE   Community traits   0.733
-4 TRUE    ASV counts         0.6  
-5 TRUE    ASV prevalence     0.667
-6 TRUE    Community traits   0.733
+1 FALSE   ASV counts         0.682
+2 FALSE   ASV prevalence     0.682
+3 FALSE   Community traits   0.682
+4 TRUE    ASV counts         0.636
+5 TRUE    ASV prevalence     0.682
+6 TRUE    Community traits   0.682

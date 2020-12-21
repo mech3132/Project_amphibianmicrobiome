@@ -116,7 +116,6 @@ if ( RERUN_RF ) {
 }
 remove(RF_infect_onlyp_wsp_LOO)
 
-
 #### Infect, ponly, no species, no zeros ####
 if ( RERUN_RF ) {
   ## Set params
