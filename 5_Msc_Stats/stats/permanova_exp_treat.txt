@@ -1,0 +1,17 @@
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = as.dist(wu_dist[mf_treat$SampleID, mf_treat$SampleID]) ~ species * time + prepost + PABD + Bd_load, data = mf_treat, by = "terms")
+              Df SumOfSqs      R2       F Pr(>F)    
+species        4   7.4652 0.24608 28.0118  0.001 ***
+time           1   1.7377 0.05728 26.0822  0.001 ***
+prepost        1   0.1648 0.00543  2.4741  0.023 *  
+PABD           1   0.2152 0.00709  3.2296  0.006 ** 
+Bd_load        1   0.2023 0.00667  3.0357  0.005 ** 
+species:time   4   1.4961 0.04932  5.6140  0.001 ***
+Residual     286  19.0548 0.62812                   
+Total        298  30.3361 1.00000                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

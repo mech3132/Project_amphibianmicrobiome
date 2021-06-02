@@ -1,0 +1,105 @@
+[1] "==============Effect of Bd exposure on number of ASVs over all time points============="
+[1] "Intercept; average ASVs overall"
+[1] "median: "
+[1] 7.849835
+[1] "median Per time point"
+[1] 94.5
+[1] "PD"
+[1] 0
+[1] "95% CI"
+[1]  4.90691 11.13726
+[1] "PD"
+[1] "Effect of Bd on ASVs across all timepoints"
+[1] "median"
+[1] -2.065726
+[1] "PD"
+[1] 0.0242
+[1] "95% CI"
+[1] -4.04011491  0.04632147
+[1] "================Effect of bd on number of ASVs ============="
+[1] "Effect of PABD"
+[1] "median:"
+[1] 8.278087
+[1] "PD:"
+[1] 0
+[1] "95%CI"
+[1]  4.857074 12.372132
+[1] "Effect of PABD"
+[1] "median:"
+[1] -3.245796
+[1] "PD:"
+[1] 0.0455
+[1] "95%CI"
+[1] -6.6991684  0.4765207
+[1] "Effect of Bd load"
+[1] "median:"
+[1] -0.1296832
+[1] "PD:"
+[1] 0.3285
+[1] "95%CI"
+[1] -0.6933389  0.4542672
+[1] "Number ASVs kept between time points"
+[1] 48
+[1] "================== Fraction of shared ASVs between individuals (of same species) through time ==============="
+[1] "Effect of time"
+[1] "median"
+[1] -0.007704374
+[1] "PD"
+[1] 0
+[1] "95% CI"
+[1] -0.00848451 -0.00690481
+[1] "Intercept: shared between individuals"
+[1] "median"
+[1] 0.456037
+[1] "PD"
+[1] 0
+[1] "95% CI"
+[1] 0.3948713 0.5160162
+[1] "================== Number of shared ASVs with first time point ==============="
+[1] "Effect of time"
+[1] "median"
+[1] -2.132294
+[1] "PD"
+[1] 0
+[1] "95% CI"
+[1] -2.348679 -1.913733
+[1] "Effect of treatment group (should be zero)"
+[1] "median"
+[1] 0.2203946
+[1] "PD"
+[1] 0.45625
+[1] "95% CI"
+[1] -4.081354  4.264332
+[1] "Intercept: shared from first time point"
+[1] "median"
+[1] 48.89966
+[1] "PD"
+[1] 0
+[1] "95% CI"
+[1] 35.42455 62.24530
+[1] "================== Fraction of shared ASVs with adjacent time point ==============="
+         
+                  time Bd_exposureBd-exposed Bd_exposureControl:prepostPost Bd_exposureBd-exposed:prepostPost
+  median   0.003596456           -0.01357833                    0.008371639                       0.006069107
+  lower95 -0.001746137           -0.06055536                   -0.046137689                      -0.042972512
+  upper95  0.008526001            0.03298246                    0.060830286                       0.060834528
+  pcomp    0.087800000            0.28860000                    0.379800000                       0.404200000
+         
+          Bd_exposureBd-exposed:prepostPost:PABD_single Bd_exposureBd-exposed:prepostPost:PABD_single:Bd_load
+  median                                     0.00143520                                          -0.006307113
+  lower95                                   -0.06654770                                          -0.025171296
+  upper95                                    0.07285761                                           0.010845020
+  pcomp                                      0.48440000                                           0.245300000
+[1] "================== Fraction of shared TOTAL FRACTION with adjacent time point ==============="
+         
+                   time Bd_exposureBd-exposed Bd_exposureControl:prepostPost Bd_exposureBd-exposed:prepostPost
+  median  -0.0045095504           -0.03009018                    0.061076125                        0.08383914
+  lower95 -0.0102461864           -0.09211309                    0.002983974                        0.02867988
+  upper95  0.0009290636            0.03158603                    0.117551126                        0.13882300
+  pcomp    0.0599000000            0.17130000                    0.018200000                        0.00170000
+         
+          Bd_exposureBd-exposed:prepostPost:PABD_single Bd_exposureBd-exposed:prepostPost:PABD_single:Bd_load
+  median                                   -0.004041079                                           0.009889627
+  lower95                                  -0.082074700                                          -0.010059146
+  upper95                                   0.071992191                                           0.030732003
+  pcomp                                     0.458100000                                           0.170100000

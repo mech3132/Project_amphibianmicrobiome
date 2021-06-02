@@ -1,0 +1,26 @@
+[1] "=================Effect of time on distance from starting community (species-level):================="
+[1] "Median:"
+[1] 0.009761856
+[1] "PD: "
+[1] 1
+[1] "95%HDI: "
+[1] 0.006521796 0.013390805
+[1] "=================Effect of time on distance from previous adjacent community (species-level):================="
+[1] "Median:"
+[1] -0.0007295885
+[1] "PD: "
+[1] 0.356
+[1] "95%HDI: "
+[1] -0.004548063  0.002946746
+[1] "=================Difference between species at each time point (species-level):================="
+[1] "Median:"
+             time1 species2Rhma:time1 species2Osse:time1 species2Raca:time1 species2Rapi:time1 
+      0.0017632272      -0.0059012297       0.0031476611       0.0056609260      -0.0001340585 
+[1] "PD: "
+             time1 species2Rhma:time1 species2Osse:time1 species2Raca:time1 species2Rapi:time1 
+           0.75975            0.04175            0.81300            0.95775            0.48200 
+[1] "95%HDI: "
+          
+iterations        time1 species2Rhma:time1 species2Osse:time1 species2Raca:time1 species2Rapi:time1
+      [1,] -0.002947736       -0.012204381       -0.004028009      -0.0006502106       -0.006748316
+      [2,]  0.006355906        0.001085958        0.009538552       0.0124151799        0.006496955
