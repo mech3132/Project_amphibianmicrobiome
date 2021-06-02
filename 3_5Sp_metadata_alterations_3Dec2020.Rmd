@@ -175,23 +175,27 @@ for ( beta in as.vector(allBeta$V1) ) {
     disper <- vector()
     current_dm <- get(beta)
     for ( sp in levels(factor(mf_alt$spec))) {
+      
         current.samps <- mf_alt %>%
                     filter(spec==sp) %>%
                     dplyr::select(SampleID) %>%
-                    pull()
+                    pull(SampleID)
+
         current.dm <- current_dm[current.samps, current.samps]
+
         current.mf <- mf_alt %>%
                     filter(SampleID %in% current.samps)
                 # Make same order, just inc ase
         current.mf <- current.mf[match(colnames(current.dm),current.mf$SampleID),]
+
                 # There might be a warning that we are missing certain samples-- this is fine.
-        disp.temp <- betadisper(dist(current.dm), group = (current.mf$time_point_ranked), type = "centroid")
+        disp.temp <- vegan::betadisper(as.dist(current.dm), group = (current.mf$time_point_ranked), type = "centroid")
         disper <- c(disper, disp.temp$distances)
     }
-    
+
     # add to mf.rare and mf.raw
     mf_alt[,paste0("disper_",beta)] <- data.frame(disper)[match(mf_alt$SampleID, rownames(data.frame(disper))),]
-    
+
 }
 
 ```
@@ -212,18 +216,37 @@ For the most part, we will see that these two methods yield similar results.
 
 ```{r}
 # Filter out all information except BD-positive scenarios
-BD <- mf_alt %>%
+BD_old <- mf_alt %>%
+    as_tibble() %>%
+    dplyr::select(bd_run_1,bd_run_2, bd_average_run_3) %>%
+    filter(!is.na(bd_average_run_3), !is.na(bd_run_1), !is.na(bd_run_2))
+old_sampIDs <- mf_alt %>%
     as_tibble() %>%
     dplyr::select(SampleID, bd_run_1,bd_run_2, bd_average_run_3) %>%
-    filter(!is.na(bd_average_run_3), !is.na(bd_run_1), !is.na(bd_run_2))
-samples_bd <- BD$SampleID
-BD <- BD %>%
-    dplyr::select(-SampleID)
+    filter(!is.na(bd_average_run_3), !is.na(bd_run_1), !is.na(bd_run_2)) %>%
+  dplyr::select(SampleID)
+
+BD <- mf_alt %>%
+  as_tibble() %>%
+  dplyr::select(SampleID, bd_run_1,bd_run_2, bd_average_run_3) %>% rowwise() %>%
+  mutate(Keep = ifelse(sum(c(bd_run_1,bd_run_2,bd_average_run_3), na.rm = TRUE) > 0, TRUE, FALSE)) %>%
+  ungroup() %>% filter(Keep) %>% dplyr::select(-Keep, -SampleID)
+new_sampIDs <- mf_alt %>%
+  as_tibble() %>%
+  dplyr::select(SampleID, bd_run_1,bd_run_2, bd_average_run_3) %>% rowwise() %>%
+  mutate(Keep = ifelse(sum(c(bd_run_1,bd_run_2,bd_average_run_3), na.rm = TRUE) > 0, TRUE, FALSE)) %>%
+  ungroup() %>% filter(Keep) %>% dplyr::select(SampleID)
+
+# samples_bd <- BD$SampleID
+# BD <- BD %>%
+    # dplyr::select(-SampleID)
 BD12 <- (c(BD$bd_run_1, BD$bd_run_2, BD$bd_average_run_3))
 BD_df <- data.frame(BD12)
 
 # Get rid of zeros due to overinflation in poisson model
 BD12 <- BD12[BD12!=0]
+BD12 <- BD12[!is.na(BD12)]
+
 # Fit a poisson model to log BD
 poisfit <- MASS::fitdistr(round(log(BD12)), densfun = "Poisson")
 # Set new range of X's to test
@@ -235,8 +258,8 @@ options(repr.plot.width=7, repr.plot.height=5)
 BD12 %>%
     as_tibble() %>%
     rename(BDload=value)%>%
-    ggplot(aes(x=log(BDload))) +
-    geom_histogram(aes(y=..density..), bins=8) +
+    ggplot(aes(x=log(BDload+1))) +
+    geom_histogram(aes(y=..density..), bins=15) +
     geom_line(data=pred.y,aes(x=xfit, y=y.pred), col="red")
 
 ```
@@ -249,37 +272,48 @@ What we see above is that BD load (when not zero) is, in fact, modelled well by 
 # Model true infection load for each toad
 
 BD_lambda_est <- t(apply(round(log(BD+1)), MARGIN=1, FUN=function(x) {
-    temp <- fitdistr(x, densfun="Poisson")
+    temp <- fitdistr(x[!is.na(x)], densfun="Poisson")
     return(c(lambda=temp$estimate,sd=temp$sd))
 })) %>%
     as_tibble() %>%
     rename(sd=sd.lambda, lambda=lambda.lambda) %>% 
     mutate(pval=dnorm(0,mean=lambda,sd=sd)) %>% # To estimate if lambda is significantly different from zero, we see if pval for parameter estimate different from zero
     mutate(sig=pval<=0.10)
-final_BD <- cbind(BD,BD_lambda_est)
+final_BD <- cbind(new_sampIDs, BD,BD_lambda_est)
+
+BD_lambda_est_old <- t(apply(round(log(BD_old+1)), MARGIN=1, FUN=function(x) {
+    temp <- fitdistr(x[!is.na(x)], densfun="Poisson")
+    return(c(lambda=temp$estimate,sd=temp$sd))
+})) %>%
+    as_tibble() %>%
+    rename(sd=sd.lambda, lambda=lambda.lambda) %>% 
+    mutate(pval=dnorm(0,mean=lambda,sd=sd)) %>% # To estimate if lambda is significantly different from zero, we see if pval for parameter estimate different from zero
+    mutate(sig=pval<=0.10)
+final_BD_old <- cbind(old_sampIDs,BD_old,BD_lambda_est_old)
 
 # To compare, let's see what a different filtering method yields:
 # If 2 BD samples are 0 and the third is less than 50, then set to zero.
 # Also, if anything is less than 5, make it zero anyway.
 
 # BD filtering notes and thresholds:
-indivTHRESH = 5 # BD individual threshold
+# indivTHRESH = 5 # BD individual threshold
 thirdTHRESH = 50 # BD 3rd sample threshold
 BD_alt <- BD
 for ( r in 1:nrow(BD_alt) ) {
     for ( c in 1:ncol(BD_alt) ) {
-        if ( (BD_alt[r,c] < indivTHRESH) | is.na(BD_alt[r,c]) ) {
-            BD_alt[r,c] <- 0
-        }
+        # if ( (BD_alt[r,c] < indivTHRESH) | is.na(BD_alt[r,c]) ) {
+        # if ( is.na(BD_alt[r,c]) ) {
+        #     BD_alt[r,c] <- 0
+        # }
     }
-    if ( (sum(BD_alt[r,] == 0) == 2) & (max(BD_alt[r,],na.rm=TRUE) < thirdTHRESH) ) {
+    if ( (sum(BD_alt[r,] == 0, na.rm=TRUE) == 2) & (max(BD_alt[r,],na.rm=TRUE) < thirdTHRESH) ) {
         BD_alt[r,] <- data.frame(bd_run_1 = 0,bd_run_2 = 0,bd_average_run_3 = 0)
     }
     
 }
-BD_alt$infected <- rowSums(BD_alt) >0
-
-cbind(final_BD[,c("bd_run_1","bd_run_2","bd_average_run_3","pval","sig")], alt_infect =BD_alt$infected)
+# BD_alt$infected <- apply(BD_alt,1, function(x) mean(x,na.rm = TRUE)) >5
+BD_alt <- BD_alt %>%  rowwise() %>% mutate(logestimate = mean(c(log(bd_run_1+1),log(bd_run_2+1), log(bd_average_run_3+1)), na.rm=TRUE), nest = sum(c(!is.na(bd_run_1), !is.na(bd_run_2), !is.na(bd_average_run_3))), sdestimate = sd(c(log(bd_run_1+1),log(bd_run_2+1),log(bd_average_run_3+1)), na.rm=TRUE), infected = logestimate>1 )
+cbind(final_BD[,c("bd_run_1","bd_run_2","bd_average_run_3","lambda","sig")], alt_est = BD_alt$logestimate, alt_infect =BD_alt$infected) %>% ggplot() + geom_point(aes(x=lambda, y=alt_est, col=sig))
 
 
 ```
@@ -288,9 +322,20 @@ cbind(final_BD[,c("bd_run_1","bd_run_2","bd_average_run_3","pval","sig")], alt_i
 
 ```{r}
 # Insert expected BD loads for each sample
-final_BD <- cbind(samples_bd, final_BD)
+# final_BD <- cbind(samples_bd, final_BD) 
+
+allBdStats <- cbind(new_sampIDs, logestimate = BD_alt$logestimate, sdestimate = BD_alt$sdestimate) 
+# allBdStats <- final_BD %>% filter(sig)
+
 mf_alt$eBD <- 0
-mf_alt[match(final_BD$samples_bd, mf_alt$SampleID),"eBD"] <- final_BD$lambda
+mf_alt$sdBD <- 0
+mf_alt$eBD2 <- 0
+mf_alt$sdBD2 <- 0
+mf_alt[match(final_BD$SampleID, mf_alt$SampleID),"eBD2"] <- final_BD$lambda
+mf_alt[match(final_BD$SampleID, mf_alt$SampleID),"sdBD2"] <- final_BD$sd
+mf_alt[match(allBdStats$SampleID, mf_alt$SampleID),"eBD"] <- allBdStats$logestimate
+mf_alt[match(allBdStats$SampleID, mf_alt$SampleID),"sdBD"] <- allBdStats$sdestimate
+
 # Lastly, make a PABD column
 mf_alt <- mf_alt %>%
 mutate(PABD=ifelse(eBD>0, 1, 0))
@@ -506,6 +551,9 @@ Finally, we will filter the metadata for each mapping file so it contains only w
 #### Edit metadata/mapping file #####
 toKeepMF <-  c("SampleID"
                ,"eBD" # infection levels
+               , "sdBD"              
+               ,"eBD2" # infection levels
+               , "sdBD2"
                , "PABD" # presence/absence bd load
                ,"spec" # Species code
                ,"indiv" # individual number
@@ -526,6 +574,9 @@ toKeepMF <-  c("SampleID"
 
 newNames <- c("SampleID"
               , "Bd_load"
+              , "Bd_load_sd"
+              , "Bd_load2"
+              , "Bd_load_sd2"
               , "PABD"
               , "species"
               , "indiv"
@@ -546,7 +597,7 @@ newNames <- c("SampleID"
 mf_alt_final <- mf_alt %>% # mapping file with controls still in it
     as_tibble() %>% # make into tibble
     dplyr::select(one_of(toKeepMF)) %>% # filter to only relevant variables
-    rename_at(vars(toKeepMF), ~ newNames) %>%
+    rename_at(vars(toKeepMF), ~ all_of(newNames)) %>%
     mutate(prepost=factor(prepost, levels=c("Pre","Post"))
           , indiv=factor(indiv, levels=c("1","2","3","4","5","6","7","8","9","10","11","12"))
           , Bd_exposure= ifelse(Bd_exposure=='y','Bd-exposed','Control')) %>%
@@ -554,7 +605,7 @@ mf_alt_final <- mf_alt %>% # mapping file with controls still in it
 mf_alt_filt_final <- mf_alt_filt %>% # mapping file without controls
     as_tibble() %>% # make into tibble
     dplyr::select(one_of(toKeepMF)) %>% # filter to only relevant variables
-    rename_at(vars(toKeepMF), ~ newNames) %>% #rename variable names
+    rename_at(vars(toKeepMF), ~ all_of(newNames)) %>% #rename variable names
     mutate(Bd_exposure= ifelse(Bd_exposure=='y','Bd-exposed','Control')) %>%
     mutate(species=factor(species, levels=c("Anbo","Rhma","Osse","Raca","Rapi"))
           , prepost=factor(prepost, levels=c("Pre","Post"))
